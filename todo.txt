@@ -1,0 +1,20 @@
+Quando insere um novo registro no planejamento verificar se nese horario e dia ja esta alocado para outro. Feito!!
+A disciplina OIT pode ter mais de um professor no mesmo dia e horario!!! Feito!!
+Fazer caixa de selecao para os professores por departamento. Feito!
+
+Salas: recursos, quer dizer ar condicionado, wifi, datashow, outros para alunos com deficiencias
+
+Verificar se o turno eh noturno que os horarios sejam o 5 ou o 6 e se for diurno que sejam 1, 2, 3 ou 4.
+
+Criar area para comentarios? Tabela comentarios linkada com a tabela planejamento.
+
+Professores por grupo de pesquisa
+
+Criar a autenticação para os diversos métodos
+
+
+
+Dica
+====
+$log = $this->Planejamento->getDataSource()->getLog(false, false);
+debug($log);

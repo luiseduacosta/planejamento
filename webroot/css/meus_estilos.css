@@ -1,0 +1,159 @@
+/* Igual ou maior que 768. Tela computador */
+@media only screen and (min-width: 768px) {
+
+    * {margin: 0; padding: 0};
+
+
+    #header{
+        padding: 5px 20px;
+        background-color: #ffffff;
+    }
+
+    #header h1 {
+        background-color: #ffffff;
+    }
+
+    #header h1 a {
+        background-color: #ffffff;
+        color: #003d4c;
+    }
+
+    div#menu {
+        background-color: #ffffff; 
+        border-top-width: 1px;
+        border-top-style: solid;
+        padding-left: 10px;
+    }
+
+    div#menusuperior {
+        display: inline-block;
+    }
+
+    div.submenusuperior {
+        display: inline-block;
+        padding-left: 0px;
+        margin-left: -10px;         
+    }
+
+    div.subsubmenusuperior {
+        display: inline-block;
+    }
+
+    div.content {
+        padding-top: 5px;
+    }
+
+    .celular {
+        position: absolute;
+        visibility: hidden;
+        display: none !important;
+    }
+
+    .aba { 
+        border: 2px solid black;
+        display: inline-block;
+        width: 100px;
+        height: 25px; 
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+        font-size: 85%;
+        text-align: center;
+        background-color: #ffffff; 
+        color: #003d4c;
+        padding: 1px 3px;
+
+    }
+
+    .aba:hover {
+        background-color: #003d4c;
+        color: #000000;
+    }
+
+    .aba:link {
+        background-color: #ffffff; 
+        color: #003d4c;
+        font-size: 80%;
+        text-align: center;
+        border: 2px solid black;
+        display: inline-block;
+        width: 100px;
+        height: 20px; 
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+        padding: 3px 3px;
+    }
+
+    .aba:visited {
+        background-color: #ffffff; 
+        color: #003d4c;
+    }
+
+    .aba:active {
+        background-color: #003d4c; 
+        color: #ffffff;
+    }
+}
+
+/* Menor o igual que 600 px = celular */
+@media only screen and (max-width: 600px) {
+
+    div.menusuperior {
+        display: none;
+    }
+
+    div.submenusuperior {
+        display: none;
+    }
+
+    div.subsubmenusuperior {
+        display: none;
+    }
+
+    .aba { 
+        border: 2px solid black;
+        display: inline-block;
+        width: 50px;
+        height: 20px; 
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        font-size: 75%;
+        text-align: center;
+        background-color: #ffffff; 
+        color: #003d4c;
+        padding: 1px 3px;
+
+    }
+
+    a.aba:hover {
+        background-color: #003d4c; 
+        color: #ffffff;
+    }
+
+    a.aba:link {
+        background-color: #ffffff; 
+        color: #003d4c;
+        border: 2px solid black;
+        display: inline-block;
+        width: 50px;
+        height: 20px; 
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        font-size: 75%;
+        text-align: center;
+        padding: 1px 3px;
+
+    }
+
+    a.aba:visited {
+        background-color: #ffffff; 
+        color: #003d4c;
+    }
+
+    a.aba:active {
+        background-color: #ffffff; 
+        color: #003d4c;
+    }
+
+    h1 {font-size: 100%}
+
+}
