@@ -20,6 +20,15 @@ class DisciplinasController extends AppController {
 
         $condicoes = NULL;
 
+        $semestre_id = $this->Session->read('semestre');
+        if ($semestre_id == 0 or $semestre_id == NULL) {
+            $this->Session->setFlash('Selecione semestre');
+            $this->redirect('/configuraplanejamentos/index');
+        } else {
+            // $condicoes['configuraplanejamento_id'] = $semestre_id;
+            $this->set('semestre_id', $semestre_id);
+        }
+
         if ($diurno === NULL):
             // echo 'Periodo vazio ou zero ' . $periodo . '<br>';
             $diurno = $this->Session->read("diurno");
@@ -52,17 +61,19 @@ class DisciplinasController extends AppController {
             }
         endif;
 
-        $disciplinas = $this->Disciplina->find('all');
-        // pr($disciplinas);
+        // pr($condicoes);
 
-        $disciplinas = $this->Paginate($condicoes);
+        $disciplinas = $this->Disciplina->find('all');
         // pr($disciplinas);
         // die();
         
+        $disciplinas = $this->Paginate($condicoes);
+        // pr($disciplinas);
+        // die();
+
         $this->set('disciplinas', $disciplinas);
         $this->set('diurno', $diurno);
         $this->set('noturno', $noturno);
-        
     }
 
     public function edit($id = NULL) {

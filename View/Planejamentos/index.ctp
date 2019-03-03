@@ -47,12 +47,12 @@ foreach ($diurno as $periodo_diurno):
                         foreach ($d_horarios_diurno as $c_d_horarios_diurno):
                             // pr($c_d_horarios_diurno);
                             if (is_array($c_d_horarios_diurno)):
-                            // pr($c_d_horarios_diurno['disciplina']);
+                            // pr($c_d_horarios_diurno);
                                 if ($c_d_horarios_diurno['disciplina']):
                                         // pr($horarios_diurno['Planejamento']);
                                         // die();
-                                    echo $this->Html->link($c_d_horarios_diurno['disciplina'], '/Planejamentos/listar/disciplina:' . $c_d_horarios_diurno['disciplina_id']) . '<br>';
-                                    echo $this->Html->link($c_d_horarios_diurno['docente'], '/Planejamentos/listar/professor:' . $c_d_horarios_diurno['docente_id']) . '<br>';
+                                    echo $this->Html->link($c_d_horarios_diurno['disciplina'], '/Planejamentos/listar/semestre_id:' . $c_d_horarios_diurno['configuraplanejamento_id'] . '/disciplina:' . $c_d_horarios_diurno['disciplina_id']) . '<br>';
+                                    echo $this->Html->link($c_d_horarios_diurno['docente'], '/Planejamentos/listar/semestre_id:' . $c_d_horarios_diurno['configuraplanejamento_id'] . '/professor:' . $c_d_horarios_diurno['docente_id']) . '<br>';
                                     echo $c_d_horarios_diurno['sala'] . '<br>';
                                 else:
                                     echo $c_d_horarios_diurno['disciplina'] . '<br>';
@@ -128,12 +128,12 @@ foreach ($noturno as $periodo_noturno):
                         foreach ($d_horarios_noturno as $c_d_horarios_noturno):
                             // pr($c_d_horarios_diurno);
                             if (is_array($c_d_horarios_noturno)):
-                            // pr($c_d_horarios_diurno['disciplina']);
+                            // pr($c_d_horarios_diurno);
                                 if ($c_d_horarios_noturno['disciplina']):
                                         // pr($horarios_diurno['Planejamento']);
                                         // die();
-                                    echo $this->Html->link($c_d_horarios_noturno['disciplina'], '/Planejamentos/listar/disciplina:' . $c_d_horarios_noturno['disciplina_id']) . '<br>';
-                                    echo $this->Html->link($c_d_horarios_noturno['docente'], '/Planejamentos/listar/professor:' . $c_d_horarios_noturno['docente_id']) . '<br>';
+                                    echo $this->Html->link($c_d_horarios_noturno['disciplina'], '/Planejamentos/listar/semestre_id:' . $c_d_horarios_noturno['configuraplanejamento_id'] . '/disciplina:' . $c_d_horarios_noturno['disciplina_id']) . '<br>';
+                                    echo $this->Html->link($c_d_horarios_noturno['docente'], '/Planejamentos/listar/semestre_id:' . $c_d_horarios_noturno['configuraplanejamento_id'] . '/professor:' . $c_d_horarios_noturno['docente_id']) . '<br>';
                                     echo $c_d_horarios_noturno['sala'] . '<br>';
                                 else:
                                     echo $c_d_horarios_noturno['disciplina'] . '<br>';

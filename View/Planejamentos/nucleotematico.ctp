@@ -34,7 +34,7 @@ echo $this->element('submenu_nucleotematicos');
             endif;
             ?>
         </td>
-        <td><?php echo $this->Html->link($c_nucleotematico['Docente']['nome'], '/planejamentos/listar/disciplina:' . $c_nucleotematico['Disciplina']['id']); ?></td>
+        <td><?php echo $this->Html->link($c_nucleotematico['Docente']['nome'], '/planejamentos/listar/semestre_id:' . $c_nucleotematico['Planejamento']['configuraplanejamento_id'] . '/disciplina:' . $c_nucleotematico['Disciplina']['id']); ?></td>
         <td><?php echo $c_nucleotematico['Docente']['departamento']; ?></td>
     </tr>
 <?php endforeach; ?>

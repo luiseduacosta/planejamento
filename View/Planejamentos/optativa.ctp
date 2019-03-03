@@ -36,7 +36,7 @@ echo $this->element('submenu_optativas');
         endif;
         ?>
         </td>
-        <td><?php echo $this->Html->link($c_optativas['Docente']['nome'], '/planejamentos/listar/disciplina:' . $c_optativas['Disciplina']['id']); ?></td>
+        <td><?php echo $this->Html->link($c_optativas['Docente']['nome'], '/planejamentos/listar/semestre_id:' . $c_optativas['Planejamento']['configuraplanejamento_id'] . '/disciplina:' . $c_optativas['Disciplina']['id']); ?></td>
         <td><?php echo $c_optativas['Docente']['departamento']; ?></td>
                 <td><?php echo $c_optativas['Sala']['sala']; ?></td>
     </tr>

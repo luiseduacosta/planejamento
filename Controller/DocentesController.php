@@ -66,8 +66,17 @@ class DocentesController extends AppController {
         endif;
 
         // pr($condicoes);
-        $docentes = $this->Paginate($condicoes);
+        $semestre_id = $this->Session->read('semestre');
+        if ($semestre_id == "" or $semestre_id == NULL) {
+            $this->Session->setFlash('Especifique o semestre');
+            $this->redirect('/configuraplanejamentos/index');
+        } else {
+            $this->set('semestre_id', $semestre_id);
+        }
 
+        $docentes = $this->Paginate($condicoes);
+        // pr($docentes);
+        // die();
         // $log = $this->Docente->getDataSource()->getLog(false, false);
         // debug($log);
 
@@ -93,6 +102,14 @@ class DocentesController extends AppController {
 
     public function view($id = NULL) {
 
+        $semestre_id = $this->Session->read('semestre');
+        if (($semestre_id == "") or ( $semestre_id == NULL)):
+            $this->Session->setFlash('Selecione o semestre');
+            $this->redirect('/configuraplanejamentos/index');
+        else:
+            $this->set('semestre_id', $semestre_id);
+        endif;
+        
         $this->Docente->recursive = 2;
         $docente = $this->Docente->find('first', array(
             'conditions' => array('Docente.id' => $id)

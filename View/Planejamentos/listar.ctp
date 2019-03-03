@@ -17,13 +17,13 @@ var url = location.hostname;
 
 var base_url = window.location.pathname.split("/");
 
-$("#PlanejamentoSemestre").change(function() {
-	var semestre = $(this).val();
-        // alert(semestre); 
+$("#PlanejamentoSemestreId").change(function() {
+	var semestre_id = $(this).val();
+        // alert(semestre_id); 
         if (url === "localhost") {
-            window.location="/" + base_url[1] + "/planejamentos/listar/semestre:"+semestre;
+            window.location="/" + base_url[1] + "/planejamentos/listar/semestre_id:"+semestre_id;
         } else {
-            window.location="/planejamentos/listar/semestre:"+semestre;
+            window.location="/planejamentos/listar/semestre_id:"+semestre_id;
         }
 })
 
@@ -85,7 +85,7 @@ $("#PlanejamentoDepartamento").change(function() {
 <div align="center">
 <?php
 echo $this->Form->Create('Planejamento', array('inputDefaults' => array('label'=>false, 'div'=>false)));
-echo $this->Form->Input('semestre', array('type'=>'select', 'options'=> array($listasemestres), 'selected'=> array($semestreatual), 'empty' => array('0' => 'Semestre')));
+echo $this->Form->Input('semestre_id', array('type'=>'select', 'options'=> array($listasemestres), 'selected'=> array($semestreatual), 'empty' => array('0' => 'Semestre')));
 // echo $this->Form->End('Confirma');
 ?>
     

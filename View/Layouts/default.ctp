@@ -46,7 +46,7 @@
         <div id="container">
             <div id="header">
                 <?php $semestreporextenso = $this->Session->read('semestreporextenso'); ?>
-                <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso, true), 'http://ess.ufrj.br'); ?>
+                <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso, true), '/configuraplanejamentos/index'); ?>
                 </h1>
             </div>
 

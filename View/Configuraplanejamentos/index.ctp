@@ -28,7 +28,7 @@ echo $this->element('submenu_configuraplanejamentos');
                 <td><?php echo $c_configuraplanejamento['Configuraplanejamento']['proprietario']; ?></td>
                 <td><?php
                     if ($c_configuraplanejamento['Planejamento']):
-                        echo $this->Html->link("Ver planejamento", '/planejamentos/listar/semestre:' . $c_configuraplanejamento['Configuraplanejamento']['id']);
+                        echo $this->Html->link("Ver planejamento", '/planejamentos/listar/semestre_id:' . $c_configuraplanejamento['Configuraplanejamento']['id']);
                     else:
                         echo $this->Html->link("Criar planejamento", '/planejamentos/novoplano/semestre_id:' . $c_configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $c_configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . $c_configuraplanejamento['Configuraplanejamento']['versao'] .'/opcao:planejar', NULL, 'Tem certeza?');
                     endif;

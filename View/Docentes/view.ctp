@@ -1,4 +1,5 @@
-<?php // pr($docente); ?>
+<?php // pr($docente);  ?>
+<?php // pr($semestre_id); ?>
 
 <?php
 echo $this->element('submenu_professores');
@@ -7,7 +8,7 @@ echo $this->element('submenu_professores');
 
 <table>
     <tr>
-        <td>Código</td>
+        <td>Siape</td>
         <td><?php echo $docente['Docente']['siape']; ?></td>
     </tr>
     <tr>
@@ -41,9 +42,12 @@ echo $this->element('submenu_professores');
             <?php
             $i = 1;
             foreach ($docente['Planejamento'] as $c_docente):
-                // pr($c_docente['Disciplina']);
-                echo $i . ") " . $c_docente['Disciplina']['disciplina'] . ", ";
-            $i++;
+                // pr($c_docente);
+                if ($c_docente['configuraplanejamento_id'] == $semestre_id):
+                    // pr($c_docente['Disciplina']);
+                    echo $i . ") " . $c_docente['Disciplina']['disciplina'] . ", ";
+                    $i++;
+                endif;
             endforeach;
             ?>
         </td>
