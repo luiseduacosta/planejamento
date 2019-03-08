@@ -46,11 +46,23 @@
         <div id="container">
             <div id="header">
                 <?php $semestreporextenso = $this->Session->read('semestreporextenso'); ?>
-                <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso, true), '/configuraplanejamentos/index'); ?>
-                </h1>
+                <?php $usuario = $this->Session->read('usuarioplanejamento'); ?>
+                <?php if ($usuario): ?>
+                    <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso . '. Usuário: ' . $usuario['username'], true), '/configuraplanejamentos/index'); ?></h1>
+                <?php else: ?>
+                    <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso . '. Usuário: visitante.' , true), '/configuraplanejamentos/index'); ?></h1>                
+                <?php endif; ?>
             </div>
 
             <div id='menu'>
+                <?php 
+                // pr($usuario);
+                if ($usuario) {
+                    echo $this->Html->link("Sair", '/usuarioplanejamentos/logout', array('class' => 'aba')); 
+                } else {
+                    echo $this->Html->link("Entrar", '/usuarioplanejamentos/login', array('class' => 'aba'));                     
+                }
+                ?>
                 <?php echo $this->Html->link("Configuração", "/configuraplanejamentos/index", array('class' => 'aba')); ?>
                 <?php echo $this->Html->link("Planejamento", "/planejamentos/", array('class' => 'aba')); ?>
                 <?php echo $this->Html->link("Horarios", "/horarios/index", array('class' => 'aba')); ?>

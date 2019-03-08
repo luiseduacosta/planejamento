@@ -29,7 +29,7 @@ class PlanejamentosController extends AppController {
         // Para fazer a caixa de seleção //
         $this->Planejamento->Configuraplanejamento->recursive = -1;
         $semestres = $this->Planejamento->Configuraplanejamento->find('all', array(
-            'fields' => array('id', 'Configuraplanejamento.semestre'),
+            'fields' => array('Configuraplanejamento.id', 'Configuraplanejamento.semestre'),
             'conditions' => array('Configuraplanejamento.versao' => 0)));
         // pr($semestres);
         foreach ($semestres as $c_semestre):
@@ -54,10 +54,13 @@ class PlanejamentosController extends AppController {
 
         $condicoes = NULL;
 
-        // pr($semestre);
+        // pr($semestre_id);
         // die();
         if ($semestre_id != 0):
+            // pr($semestre_id);
             $this->Session->write("semestre", $semestre_id);
+            // $valor_semestre = $this->Session->read('semestre');
+            // pr($valor_semestre);
             $condicoes['Planejamento.configuraplanejamento_id'] = $semestre_id;
             $this->set('semestreatual', $semestre_id);
         else:
@@ -70,6 +73,8 @@ class PlanejamentosController extends AppController {
                 $this->redirect('/configuraplanejamentos/index');
             endif;
         endif;
+
+        // die();
 
         $semestreporextenso = $this->semestreporextenso($semestre_id);
         $this->Session->write("semestreporextenso", $semestreporextenso);
@@ -204,8 +209,7 @@ class PlanejamentosController extends AppController {
                     $this->Session->setFlash('Dados inseridos');
 // $this->redirect('/Planejamentos/view/' . $this->Planejamento->getLastInsertId());
                     $this->redirect('/Planejamentos/listar/');
-                };
-            elseif ($this->Planejamento->save($this->data)):
+                }; elseif ($this->Planejamento->save($this->data)):
                 $this->Session->setFlash('Verifique se for OTP ou Núcleo temático! Dia e horário nesse periodo e turno ocupados');
                 $this->redirect('/Planejamentos/listar/');
             endif;
@@ -286,14 +290,21 @@ class PlanejamentosController extends AppController {
 
     public function index() {
 
-        // $parametros = $this->params['named'];
-        // $semestre = isset($parametros['semestre']) ? $parametros['semestre'] : NULL;
-        $semestre_id = $this->Session->read("semestre");
-        if (empty($semestre_id or $semestre_id == NULL)):
-            $this->Session->setFlash('Selecione um semestre');
-            $this->redirect('/configuraplanejamentos/index');
+        $parametros = $this->params['named'];
+        $semestre_id = isset($parametros['semestre']) ? $parametros['semestre'] : NULL;
+
+        // pr($semestre_id);
+
+        if (empty($semestre_id) or $semestre_id == NULL):
+            $semestre_id = $this->Session->read("semestre");
+            if (!($semestre_id)):
+                $this->Session->setFlash('Selecione um semestre para ver o planejamento');
+                $this->redirect('/configuraplanejamentos/index');
+            endif;
         endif;
 
+        // pr($semestre_id);
+        // die();
         // Capturo o semestre por extenso //
         $semestreporextenso = $this->semestreporextenso($semestre_id);
         $this->Session->write("semestreporextenso", $semestreporextenso);
@@ -324,7 +335,7 @@ class PlanejamentosController extends AppController {
 // die();
 
                         if (empty($c_diurno)) {
-                            $t_diurno['Planejamento']['configuraplanejamento_id'] = NULL;                            
+                            $t_diurno['Planejamento']['configuraplanejamento_id'] = NULL;
                             $t_diurno['Planejamento']['turno'] = 'Diurno';
                             $t_diurno['Planejamento']['periodo'] = $periodo;
                             $t_diurno['Planejamento']['dia_id'] = $i;
@@ -337,7 +348,7 @@ class PlanejamentosController extends AppController {
                             $t_diurno['Planejamento']['periodo'] = $periodo;
                             $t_diurno['Planejamento']['dia_id'] = $i;
                             $t_diurno['Planejamento']['horario_id'] = 1;
-                            $t_diurno['Planejamento'][$superposicao]['configuraplanejamento_id'] = $c_diurno['Planejamento']['configuraplanejamento_id'];                            
+                            $t_diurno['Planejamento'][$superposicao]['configuraplanejamento_id'] = $c_diurno['Planejamento']['configuraplanejamento_id'];
                             $t_diurno['Planejamento'][$superposicao]['sala'] = 'Sala: ' . $c_diurno['Sala']['sala'];
                             $t_diurno['Planejamento'][$superposicao]['sala_id'] = $c_diurno['Planejamento']['sala_id'];
                             $t_diurno['Planejamento'][$superposicao]['disciplina'] = $c_diurno['Disciplina']['disciplina'];
@@ -398,7 +409,7 @@ class PlanejamentosController extends AppController {
                             $t_noturno['Planejamento']['periodo'] = $periodo;
                             $t_noturno['Planejamento']['dia_id'] = $i;
                             $t_noturno['Planejamento']['horario_id'] = $x;
-                            $t_noturno['Planejamento'][$superposicao]['configuraplanejamento_id'] = $c_noturno['Planejamento']['configuraplanejamento_id'];                            
+                            $t_noturno['Planejamento'][$superposicao]['configuraplanejamento_id'] = $c_noturno['Planejamento']['configuraplanejamento_id'];
                             $t_noturno['Planejamento'][$superposicao]['sala'] = 'Sala: ' . $c_noturno['Sala']['sala'];
                             $t_noturno['Planejamento'][$superposicao]['sala_id'] = $c_noturno['Planejamento']['sala_id'];
                             $t_noturno['Planejamento'][$superposicao]['disciplina'] = $c_noturno['Disciplina']['disciplina'];
@@ -787,8 +798,11 @@ class PlanejamentosController extends AppController {
 
     private function semestreporextenso($id = NULL) {
 
+        // pr($id);
+        $this->Planejamento->Configuraplanejamento->recursive = 0;
         $semestreporextenso = $this->Planejamento->Configuraplanejamento->find('first', array(
-            'conditions' => array('id' => $id)));
+            'conditions' => array('Configuraplanejamento.id' => $id)));
+        // pr($semestreporextenso);
         return $semestreporextenso['Configuraplanejamento']['semestre'] . ' v. ' . $semestreporextenso['Configuraplanejamento']['versao'] . " " . $semestreporextenso['Configuraplanejamento']['proprietario'];
     }
 
@@ -876,40 +890,49 @@ class PlanejamentosController extends AppController {
         $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
         $semestre_data = isset($parametros['semestre_data']) ? $parametros['semestre_data'] : NULL;
         $versao = isset($parametros['versao']) ? $parametros['versao'] : NULL;
-        $opcao = isset($parametros['opcao']) ? $parametros['opcao'] : NULL;
+
+        $this->Session->read('usuarioplanejamento');
+        pr($usuarioplanejamento['role']);
+        if (isset($usuarioplanejamento['role']) || ($usuarioplanejamento['role']) != 'admin'):
+            $this->Session->setFlash('Usuário não autorizado a clonar. Pode criar uma versão');
+            $this->redirect('configuraplanejamentos/index');
+        endif;
 
         // pr('Semestre id: ' . $semestre_id);
         // pr('Semestre data: ' . $semestre_data);
         // pr('Versão: ' . $versao);
         // pr('Opcao: ' . $opcao);
         // die();
-
-        $proximo_semestre = $this->semestreproximo($semestre_data);
-        // die($proximo_semestre);
+       $proximo_semestre = $this->semestreproximo($semestre_data);
+       // pr("Semestre próximo:" . $proximo_semestre);
+       
+        // Localizo se já há uma configuração e um planejamento
         $planejamento = $this->Planejamento->Configuraplanejamento->find('first', array(''
             . 'conditions' => array(
-                'Configuraplanejamento.semestre' => $semestre_data,
+                'Configuraplanejamento.semestre' => $proximo_semestre,
                 'Configuraplanejamento.versao' => $versao)));
 
         // pr($planejamento);
+        // die();
         if ($planejamento['Configuraplanejamento']):
             echo 'Configuração já realizada para o semestre';
             $this->Session->setFlash('Configuração já realizada para o semestre');
+            $this->redirect('configuraplanejamentos/index');
             if ($planejamento['Planejamento']) {
                 echo "Já há um planejamento" . "<br>";
+                $this->Session->setFlash('Já há um planejamento para o semestre');
                 $this->redirect('/planejamentos/listar/semestre:' . $semestre_id . '/versao:' . $versao);
             } else {
-                echo "Sem planejamento" . "<br>";
-                $this->redirect('novoplano');
+                echo "Configurado, sem planejamento" . "<br>";
+                $this->Session->setFlash('Configurado porém ainda sem planejamento');
+                $this->redirect('configuraplanejamentos/index');
             };
         else:
-        // die("Configuração já feita");
+            // die('Criar nova configuração para o próximo semestre');
+            $this->Session->setFlash('Criar nova configuração para o semestre');
+            $this->redirect('/configuraplanejamentos/add/semestre_id:' . $semestre_id . '/semestre_data:' . $proximo_semestre . "/versao:0");
+
         endif;
-        // die();
-        // die('Criar nova configuração para o próximo semestre');
-        $this->Session->setFlash('Criar nova configuração para o semestre');
-        $this->redirect('/configuraplanejamentos/add/semestre_id:' . $semestre_id . '/semestre_data:' . $proximo_semestre . "/versao:0");
-        // die();
     }
 
     public function novaversao($id = NULL) {
@@ -918,7 +941,6 @@ class PlanejamentosController extends AppController {
         $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
         $semestre_data = isset($parametros['semestre_data']) ? $parametros['semestre_data'] : NULL;
         $versao = isset($parametros['versao']) ? $parametros['versao'] : NULL;
-        $opcao = isset($parametros['opcao']) ? $parametros['opcao'] : NULL;
 
         // pr('2 Versão: ' . $versao);
         // pr('2 Semestre id: ' . $semestre_id);

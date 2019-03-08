@@ -11,7 +11,7 @@ class OptativasController extends AppController {
     public $name = "Optativas";
     public $paginate = array('limit' => 20,
         'order' => array('disciplina'));
-
+    
     public function index() {
 
         $optativas = $this->Optativa->find('all');

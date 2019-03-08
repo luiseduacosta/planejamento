@@ -6,7 +6,7 @@
         echo $this->Html->link('Listar', '/configuraplanejamentos/index', array('class' => 'aba'));
     } else {
         echo $this->Html->link('Listar', '/configuraplanejamentos/index', array('class' => 'aba'));
-        echo $this->Html->link('Inserir', '/configuraplanejamentos/add', array('class' => 'aba'));
+        // echo $this->Html->link('Inserir', '/configuraplanejamentos/add', array('class' => 'aba'));
     }
     ?>
     <?php // pr($this->params);   ?>
