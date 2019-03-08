@@ -13,9 +13,14 @@ class Configuraplanejamento extends AppModel {
     public $name = 'Configuraplanejamento';
     public $useTable = 'configuraplanejamentos';
     public $primaryKey = 'id';
-    public $hasMany = array('Planejamento' => array(
+    public $hasMany = array(
+        'Planejamento' => array(
             'className' => 'Planejamento',
             'foreignKey' => 'configuraplanejamento_id'
+        )); 
+    public $belongsTo = array('Usuarioplanejamento' => array(
+            'className' => 'Usuarioplanejamento',
+            'foreignKey' => 'usuarioplanejamento_id'
     ));
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -18,7 +19,6 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('Controller', 'Controller');
 
 /**
@@ -31,5 +31,39 @@ App::uses('Controller', 'Controller');
  * @link		https://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-    
+
+    public $components = array(
+        'Session',
+        'Flash',
+        'Auth');
+
+    public function beforeFilter() {
+
+        $this->Auth->authenticate = array('Form' => array('userModel' => 'Usuarioplanejamento'));
+        $this->Auth->loginAction = array('controller' => 'usuarioplanejamentos', 'action' => 'login');
+        $this->Auth->loginRedirect = array('controller' => 'planejamentos', 'action' => 'index');
+        $this->Auth->logoutAction = array('controller' => 'usuarioplanejamentos', 'action' => 'logout');
+        $this->Auth->logoutRedirect = array('controller' => 'planejamentos', 'action' => 'index');
+        $this->Auth->authorize = 'Controller';
+        $this->Auth->authError = 'Acesso não autorizado.';
+        $this->Auth->allow('listar', 'index', 'view', 'otp', 'nucleotematico', 'optativa');
+    }
+
+    public function isAuthorized($user = NULL) {
+        // Admin pode tudo
+        // pr($user);
+        if ($user) {
+            $this->Session->write('usuarioplanejamento', $user);
+        } else {
+            $this->Session->setFlash(__('Usuário visitante'));
+            // $this->redirect('/usuarioplanejamentos/login');
+        }
+
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return TRUE;
+        }
+        // Os demais não
+        return FALSE;
+    }
+
 }
