@@ -7,7 +7,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => 'root',
-		'database' => 'ess_app',
+		'database' => 'ess_apps',
 		'prefix' => '',
 		'encoding' => 'utf8'
 	);
@@ -18,7 +18,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => 'root',
-		'database' => 'ess_app',
+		'database' => 'ess_apps',
 		'prefix' => '',
 		'encoding' => 'utf8'
 	);
