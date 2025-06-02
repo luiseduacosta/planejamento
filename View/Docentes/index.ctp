@@ -1,6 +1,7 @@
 <?php
 // pr($ativo);
 // pr($semestre_id);
+// pr($docentes);
 ?>
 
 <?php
@@ -85,7 +86,6 @@ $("#DocenteDepartamento").change(function() {
         <th><?php echo $this->Paginator->sort('departamento', 'Departamento'); ?></th>
         <th><?php echo $this->Paginator->sort('disciplinas', 'Disciplinas'); ?></th>        
         <th><?php echo $this->Paginator->sort('tipocargo', 'Cargo'); ?></th>        
-        <th><?php echo $this->Paginator->sort('situacao', 'Situação'); ?></th>        
         <th><?php echo $this->Paginator->sort('motivoegresso', 'Egresso'); ?></th>        
     </tr>
 
@@ -106,9 +106,9 @@ $("#DocenteDepartamento").change(function() {
                         endif;
                     endif;
                 endforeach;
-                ?></td>
+                ?>
+            </td>
             <td><?php echo $c_docente['Docente']['tipocargo']; ?></td>
-            <td><?php echo $c_docente['Docente']['situacao']; ?></td>
             <td><?php echo $c_docente['Docente']['motivoegresso']; ?></td>            
         </tr>
         <?php

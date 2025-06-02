@@ -17,8 +17,9 @@ class Configuraplanejamento extends AppModel {
         'Planejamento' => array(
             'className' => 'Planejamento',
             'foreignKey' => 'configuraplanejamento_id'
-        )); 
-    public $belongsTo = array('Usuarioplanejamento' => array(
+    ));
+    public $belongsTo = array(
+        'Usuarioplanejamento' => array(
             'className' => 'Usuarioplanejamento',
             'foreignKey' => 'usuarioplanejamento_id'
     ));

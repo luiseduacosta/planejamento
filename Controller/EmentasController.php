@@ -9,16 +9,19 @@
 class EmentasController extends AppController {
 
     public $name = "Ementas";
-    public $paginate = array(
-        'order' => array('Ementa.titulo' => 'desc'));
+    public $paginate = [
+        'order' => ['Ementa.titulo' => 'desc']];
 
     public function index() {
 
         $semestre = $this->Session->read('semestre');
         if (empty($semestre)):
-            $c_semestre = $this->Planejamento->find('first', array(
-                'fields' => 'configuraplanejamento_id',
-                'order' => array('configuraplanejamento_id' => 'DESC')));
+            $c_semestre = $this->Planejamento->find('first', [
+                'fields' => ['configuraplanejamento_id'],
+                'order' => ['configuraplanejamento_id' => 'DESC']
+                ]
+            );
+
             $semestre = $c_semestre['Planejamento']['configuraplanejamento_id'];
             $this->Session->write("semestre", $semestre);
         endif;
@@ -32,14 +35,17 @@ class EmentasController extends AppController {
         $this->Ementa->id = $id;
 
         if (empty($this->data)) {
-            $this->set('disciplinas', $disciplinas = $this->Ementa->Disciplina->find('list', array(
-                'fields' => 'disciplina'
-            )));
-            $this->set('docentes', $docentes = $this->Ementa->Docente->find('list', array(
-                'fields' => 'nome',
-                'conditions' => 'motivoegresso = "" or motivoegresso IS NULL')
-                    )
-            );
+            $this->set('disciplinas', $disciplinas = $this->Ementa->Disciplina->find('list', [
+                'fields' => ['disciplina']
+            ]));
+            $this->set('docentes', $docentes = $this->Ementa->Docente->find('list', [
+                'fields' => ['nome'],
+                'conditions' => ['or' => [
+                    'motivoegresso' => "",
+                    ' motivoegresso' => 'IS NULL']
+                ]
+            ])
+                );
 
             $this->data = $this->Ementa->read();
         } else {
@@ -47,16 +53,17 @@ class EmentasController extends AppController {
             if ($this->Ementa->save($this->data)) {
                 // print_r($this->data);
                 $this->Session->setFlash("Atualizado");
-                $this->redirect('/ementas/view/' . $id);
+                $this->redirect(['controller' => 'ementas', 'action' => 'view', $id]);
             }
         }
     }
 
     public function view($id = NULL) {
 
-        $ementa = $this->Ementa->find('first', array(
-            'conditions' => array('Ementa.id' => $id)
-        ));
+        $ementa = $this->Ementa->find('first', [
+            'conditions' => ['Ementa.id' => $id]
+            ]
+        );
 
         // pr($ementa);
         if ($ementa) {
@@ -69,30 +76,40 @@ class EmentasController extends AppController {
         if ($this->data) {
             if ($this->Ementa->save($this->data)) {
                 $this->Session->setFlash('Dados inseridos');
-                $this->redirect('/ementas/view/' . $this->Ementa->getLastInsertId());
+                $this->redirect(['controller' => 'ementas', 'action' => 'view', $this->Ementa->getLastInsertId()]);
             }
         } else {
 
-            $disciplinas = $this->Ementa->Disciplina->find('list', array(
-                'fields' => 'Disciplina.disciplina',
-                'conditions' => array('Disciplina.optativa' => 1),
-                'order' => 'Disciplina.disciplina'));
+            $disciplinas = $this->Ementa->Disciplina->find('list', [
+                'fields' => ['Disciplina.disciplina'],
+                'conditions' => ['Disciplina.optativa' => 1],
+                'order' => ['Disciplina.disciplina']
+                ]
+            );
+
             $this->set('disciplinas', $disciplinas);
 
-            $docentes = $this->Ementa->Docente->find('list', array(
-                'conditions' => 'motivoegresso = "" or motivoegresso IS NULL',
-                'fields' => 'nome',
-                'order' => 'nome'));
+            $docentes = $this->Ementa->Docente->find('list', [
+                'conditions' => ['OR' => [['motivoegresso' => ""], ['motivoegresso' => null]]],
+                'fields' => ['Docente.nome'],
+                'order' => ['nome']
+                ]
+            );
+
             $this->set('docentes', $docentes);
             // die();
             $semestre = $this->Session->read("semestre");
             if (empty($semestre)):
-                $c_semestre = $this->Planejamento->find('first', array(
-                    'fields' => 'configuraplanejamento_id',
-                    'order' => array('configuraplanejamento_id' => 'DESC')));
+                $c_semestre = $this->Planejamento->find('first', [
+                    'fields' => ['configuraplanejamento_id'],
+                    'order' => ['configuraplanejamento_id' => 'DESC']
+                    ]
+                );
                 $semestre = $c_semestre['Planejamento']['configuraplanejamento_id'];
+
                 $this->Session->write("semestre", $semestre);
             endif;
+
             $this->set('semestre', $semestre);
         }
     }
@@ -102,7 +119,7 @@ class EmentasController extends AppController {
         $this->Ementa->delete($id);
         $this->Session->setFlash("Registro excluído");
         // die("Disciplina excluída");
-        $this->redirect('/ementas/index/');
+        $this->redirect(['controller' => 'ementas', 'action' => 'index']);
     }
 
 }

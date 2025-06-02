@@ -6,18 +6,44 @@
  * and open the template in the editor.
  */
 
-class HorariosController extends AppController {
+class HorariosController extends AppController
+{
 
     public $name = "Horarios";
 
-    public function index() {
+    public function index()
+    {
 
         $horarios = $this->Horario->find('all');
         // pr($horarios);
         $this->set('horarios', $horarios);
     }
 
-        public function edit($id = NULL) {
+    public function view($id = NULL)
+    {
+
+        $disciplina = $this->Horario->find('first', [
+            'conditions' => ['Horario.id' => $id]
+        ]);
+        // pr($disciplina);
+        // die();
+        $this->set('horario', $disciplina);
+    }
+
+
+    public function add()
+    {
+
+        if ($this->data) {
+            if ($this->Horario->save($this->data)) {
+                $this->Session->setFlash('Dados inseridos');
+                $this->redirect(['controller' => 'Horarios', 'action' => 'view', $this->Horario->getLastInsertId()]);
+            }
+        }
+    }
+
+    public function edit($id = NULL)
+    {
 
         $this->Horario->id = $id;
 
@@ -27,38 +53,19 @@ class HorariosController extends AppController {
             if ($this->Horario->save($this->data)) {
                 // print_r($this->data);
                 $this->Session->setFlash("Atualizado");
-                $this->redirect('/Horarios/view/' . $id);
+                $this->redirect(['controller' => 'Horarios', 'action' => 'view', $id]);
             }
         }
     }
 
-    public function view($id = NULL) {
+    public function delete($id = NULL)
+    {
 
-        $disciplina = $this->Horario->find('first', array(
-            'conditions' => array('Horario.id' => $id)
-        ));
-        // pr($disciplina);
-        // die();
-        $this->set('horario', $horario);
-    }
-
-    public function add() {
-
-        if ($this->data) {
-            if ($this->Horario->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
-                $this->redirect('/Horarios/view/' . $this->Horario->getLastInsertId());
-            }
-        }
-    }
-
-    public function delete($id = NULL) {
-        
         $this->Horario->delete($id);
         $this->Session->setFlash("Horãrio excluída");
         // die("Disciplina excluída");
-        $this->redirect('/Horarios/index/');
-        
+        $this->redirect(['controller' => 'Horarios', 'action' => 'index']);
+
     }
 
 }

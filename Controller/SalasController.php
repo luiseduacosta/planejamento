@@ -27,19 +27,17 @@ class SalasController extends AppController {
             if ($this->Sala->save($this->data)) {
                 // print_r($this->data);
                 $this->Session->setFlash("Atualizado");
-                $this->redirect('/Salas/view/' . $id);
+                $this->redirect(['controller' => 'Salas', 'action' => 'view', $id]);
             }
         }
     }
 
     public function view($id = NULL) {
 
-        $sala = $this->Sala->find('first', array(
-            'conditions' => array('Sala.id' => $id)
-        ));
-        // pr($sala);
-        // die();
-        $this->set('sala', $sala);
+        $sala = $this->Sala->find('first', [
+            'conditions' => ['Sala.id' => $id]
+        ]);
+         $this->set('sala', $sala);
     }
 
     public function add() {
@@ -47,7 +45,8 @@ class SalasController extends AppController {
         if ($this->data) {
             if ($this->Sala->save($this->data)) {
                 $this->Session->setFlash('Dados inseridos');
-                $this->redirect('/Salas/view/' . $this->Sala->getLastInsertId());
+                $this->redirect(['controller' => 'Salas', 'action' => 'view', $this->Sala->getLastInsertId()]);
+                // $this->redirect(['/Salas/view/' . $this->Sala->getLastInsertId()]);
             }
         }
     }
@@ -57,7 +56,7 @@ class SalasController extends AppController {
         $this->Sala->delete($id);
         $this->Session->setFlash("Registro excluído");
         // die("Disciplina excluída");
-        $this->redirect('/Salas/index/');
+        $this->redirect(['controller' => 'Salas', 'action' => 'index']);
     }
 
     public function tabela() {

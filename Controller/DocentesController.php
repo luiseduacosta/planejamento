@@ -69,16 +69,12 @@ class DocentesController extends AppController {
         $semestre_id = $this->Session->read('semestre');
         if ($semestre_id == "" or $semestre_id == NULL) {
             $this->Session->setFlash('Especifique o semestre');
-            $this->redirect('/configuraplanejamentos/index');
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         } else {
             $this->set('semestre_id', $semestre_id);
         }
 
         $docentes = $this->Paginate($condicoes);
-        // pr($docentes);
-        // die();
-        // $log = $this->Docente->getDataSource()->getLog(false, false);
-        // debug($log);
 
         $this->set('ativo', $ativo);
         $this->set('departamento', $departamento);
@@ -95,7 +91,7 @@ class DocentesController extends AppController {
             if ($this->Docente->save($this->data)) {
                 // print_r($this->data);
                 $this->Session->setFlash("Atualizado");
-                $this->redirect('/Docentes/view/' . $id);
+                $this->redirect(['controller' => 'Docentes', 'action' => 'view', $id]);
             }
         }
     }
@@ -105,38 +101,33 @@ class DocentesController extends AppController {
         $semestre_id = $this->Session->read('semestre');
         if (($semestre_id == "") or ( $semestre_id == NULL)):
             $this->Session->setFlash('Selecione o semestre');
-            $this->redirect('/configuraplanejamentos/index');
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         else:
             $this->set('semestre_id', $semestre_id);
         endif;
         
         $this->Docente->recursive = 2;
-        $docente = $this->Docente->find('first', array(
-            'conditions' => array('Docente.id' => $id)
-        ));
-        // pr($docente);
-        // die();
+        $docente = $this->Docente->find('first', [
+            'conditions' => ['Docente.id' => $id]
+        ]);
         $this->set('docente', $docente);
     }
 
     public function add() {
 
-        // pr($this->data);
-        // die();
         if ($this->data) {
             if ($this->Docente->save($this->data)) {
                 $this->Session->setFlash('Dados inseridos');
-                $this->redirect('/Docentes/view/' . $this->Docente->getLastInsertId());
+                $this->redirect(['controller' => 'Docentes', 'action' => 'view', $this->Docente->getLastInsertId()]);
             }
         }
     }
 
     public function delete($id = NULL) {
 
-        // $this->Docente->delete($id);
-        $this->Session->setFlash("Docente não excluído");
-        // die("Disciplina excluída");
-        $this->redirect('/Docentes/index/');
+        $this->Docente->delete($id);
+        $this->Session->setFlash("Docente excluído");
+        $this->redirect(['controller' => 'Docentes', 'action' => 'index']);
     }
 
 }

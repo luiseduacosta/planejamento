@@ -10,7 +10,7 @@ class DisciplinasController extends AppController {
 
     public $name = "Disciplinas";
     public $paginate = array('limit' => 20,
-        'order' => array('disciplina'));
+        'order' => ['disciplina']);
 
     public function index() {
 
@@ -23,7 +23,7 @@ class DisciplinasController extends AppController {
         $semestre_id = $this->Session->read('semestre');
         if ($semestre_id == 0 or $semestre_id == NULL) {
             $this->Session->setFlash('Selecione semestre');
-            $this->redirect('/configuraplanejamentos/index');
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         } else {
             // $condicoes['configuraplanejamento_id'] = $semestre_id;
             $this->set('semestre_id', $semestre_id);
@@ -86,16 +86,16 @@ class DisciplinasController extends AppController {
             if ($this->Disciplina->save($this->data)) {
                 // print_r($this->data);
                 $this->Session->setFlash("Atualizado");
-                $this->redirect('/Disciplinas/view/' . $id);
+                $this->redirect(['controller' => 'Disciplinas', 'action' => 'view', $id]);
             }
         }
     }
 
     public function view($id = NULL) {
 
-        $disciplina = $this->Disciplina->find('first', array(
-            'conditions' => array('Disciplina.id' => $id)
-        ));
+        $disciplina = $this->Disciplina->find('first', [
+            'conditions' => ['Disciplina.id' => $id]
+        ]);
         $this->set('disciplina', $disciplina);
     }
 
@@ -104,7 +104,7 @@ class DisciplinasController extends AppController {
         if ($this->data) {
             if ($this->Disciplina->save($this->data)) {
                 $this->Session->setFlash('Dados inseridos');
-                $this->redirect('/Disciplinas/view/' . $this->Disciplina->getLastInsertId());
+                $this->redirect(['controller' => 'Disciplinas', 'action' => 'view', $this->Disciplina->getLastInsertId()]);
             }
         }
     }
@@ -114,7 +114,7 @@ class DisciplinasController extends AppController {
         $this->Disciplina->delete($id);
         $this->Session->setFlash("Registro excluído");
         // die("Disciplina excluída");
-        $this->redirect('/Disciplinas/index/');
+        $this->redirect(['controller' => 'Disciplinas', 'action' => 'index']);
     }
 
 }

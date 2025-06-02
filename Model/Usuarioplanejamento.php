@@ -9,11 +9,11 @@
 class Usuarioplanejamento extends AppModel {
 
     public $name = 'Usuarioplanejamento';
-    
+
     public $useTable = "usuarioplanejamentos";
-    
+
     public $hasMany = array('Configuraplanejamento');
-    
+
     public $validate = array(
         'username' => array(
             'required' => array(

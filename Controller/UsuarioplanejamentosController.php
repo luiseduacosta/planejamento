@@ -9,6 +9,7 @@
 class UsuarioplanejamentosController extends AppController {
 
     public function beforeFilter() {
+
         parent::beforeFilter();
         $this->Auth->allow('add', 'login', 'logout'); // Permitindo que os usuários se registrem
     }
@@ -26,6 +27,7 @@ class UsuarioplanejamentosController extends AppController {
     }
 
     public function logout() {
+
         // die('1 Sair');
         $usuario_sair_1 = $this->Session->read('usuarioplanejamento');
         // pr($usuario_sair_1);
@@ -38,11 +40,13 @@ class UsuarioplanejamentosController extends AppController {
     }
 
     public function index() {
+
         $this->Usuarioplanejamento->recursive = 0;
         $this->set('usuarios', $this->paginate());
     }
 
     public function view($id = null) {
+
         if (!$this->Usuarioplanejamento->exists($id)) {
             throw new NotFoundException(__('Usuário não autorizado'));
         }
@@ -50,6 +54,7 @@ class UsuarioplanejamentosController extends AppController {
     }
 
     public function add() {
+
         if ($this->request->is('post')) {
             $this->Usuarioplanejamento->create();
             if ($this->Usuarioplanejamento->save($this->request->data)) {
@@ -62,7 +67,9 @@ class UsuarioplanejamentosController extends AppController {
     }
 
     public function edit($id = null) {
+
         $this->Usuarioplanejamento->id = $id;
+
         if (!$this->Usuarioplanejamento->exists()) {
             throw new NotFoundException(__('Nome do usuário inválido'));
         }

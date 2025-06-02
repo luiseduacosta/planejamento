@@ -9,14 +9,14 @@
 class OptativasController extends AppController {
 
     public $name = "Optativas";
-    public $paginate = array('limit' => 20,
-        'order' => array('disciplina'));
+    public $paginate = ['limit' => 20,
+        'order' => ['disciplina']
+    ];
     
     public function index() {
 
         $optativas = $this->Optativa->find('all');
-        // pr($optativas);
-        // die();
+    
         $optativas = $this->Paginate('Optativa');
         $this->set('optativas', $optativas);
         
@@ -32,16 +32,16 @@ class OptativasController extends AppController {
             if ($this->Optativa->save($this->data)) {
                 // print_r($this->data);
                 $this->Session->setFlash("Atualizado");
-                $this->redirect('/optativas/view/' . $id);
+                $this->redirect(['controller' => 'optativas', 'action' => 'view', $id]);
             }
         }
     }
 
     public function view($id = NULL) {
 
-        $optativa = $this->Optativa->find('first', array(
-            'conditions' => array('Optativa.id' => $id)
-        ));
+        $optativa = $this->Optativa->find('first', [
+            'conditions' => ['Optativa.id' => $id]
+        ]);
         $this->set('optativa', $optativa);    }
 
     public function add() {
@@ -49,7 +49,7 @@ class OptativasController extends AppController {
         if ($this->data) {
             if ($this->Optativa->save($this->data)) {
                 $this->Session->setFlash('Dados inseridos');
-                $this->redirect('/optativas/view/' . $this->Optativa->getLastInsertId());
+                $this->redirect(['controller' => 'optativas', 'action' => 'view', $this->Optativa->getLastInsertId()]);
             }
         }
     }
@@ -59,7 +59,7 @@ class OptativasController extends AppController {
         $this->Optativa->delete($id);
         $this->Session->setFlash("Registro excluído");
         // die("Disciplina excluída");
-        $this->redirect('/optativas/index/');
+        $this->redirect(['controller' => 'optativas', 'action' => 'index']);
     }
 
 }

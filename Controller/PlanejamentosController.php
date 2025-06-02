@@ -6,16 +6,19 @@
  * and open the template in the editor.
  */
 
-class PlanejamentosController extends AppController {
+class PlanejamentosController extends AppController
+{
 
     public $name = "Planejamentos";
-    public $paginate = array('limit' => 30,
-        'order' => array('turno', 'periodo', 'dia_id', 'horario_id'));
+    public $paginate = [
+        'limit' => 30,
+        'order' => ['turno', 'periodo', 'dia_id', 'horario_id']
+    ];
 
-    public function listar() {
+    public function listar()
+    {
 
         $parametros = $this->params['named'];
-// pr($parametros);
         $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
         $versao = isset($parametros['versao']) ? $parametros['versao'] : NULL;
         $turno = isset($parametros['turno']) ? $parametros['turno'] : NULL;
@@ -24,26 +27,25 @@ class PlanejamentosController extends AppController {
         $disciplina = isset($parametros['disciplina']) ? $parametros['disciplina'] : NULL;
         $departamento = isset($parametros['departamento']) ? $parametros['departamento'] : NULL;
 
-        // pr($semestre_id);
-        // die();
-        // Para fazer a caixa de seleção //
         $this->Planejamento->Configuraplanejamento->recursive = -1;
-        $semestres = $this->Planejamento->Configuraplanejamento->find('all', array(
-            'fields' => array('Configuraplanejamento.id', 'Configuraplanejamento.semestre'),
-            'conditions' => array('Configuraplanejamento.versao' => 0)));
+        $semestres = $this->Planejamento->Configuraplanejamento->find(
+            'all',
+            [
+                'fields' => ['Configuraplanejamento.id', 'Configuraplanejamento.semestre'],
+                'conditions' => ['Configuraplanejamento.versao' => 0]
+            ]
+        );
         // pr($semestres);
         foreach ($semestres as $c_semestre):
             // pr($c_semestre);
             $l_semestre[$c_semestre['Configuraplanejamento']['id']] = $c_semestre['Configuraplanejamento']['id'];
             $l_semestre[$c_semestre['Configuraplanejamento']['id']] = $c_semestre['Configuraplanejamento']['semestre'];
         endforeach;
-        // pr($l_semestre);
-        // die();
+
         $this->set('listasemestres', $l_semestre);
 
         $origem = $this->referer('/', true);
-// pr($origem);
-// die();
+
         if ($origem === '/Planejamentos/index'):
             $this->Session->delete('turno');
             $this->Session->delete('periodo');
@@ -74,22 +76,18 @@ class PlanejamentosController extends AppController {
             endif;
         endif;
 
-        // die();
-
         $semestreporextenso = $this->semestreporextenso($semestre_id);
         $this->Session->write("semestreporextenso", $semestreporextenso);
-        // pr($semestre_id);
-        // pr($semestreporextenso);
-        // die();
 
         if ($turno === NULL):
-// echo 'Turno vazio ou zero ' . $turno . '<br>';
+            // echo 'Turno vazio ou zero ' . $turno . '<br>';
             $turno = $this->Session->read("turno");
             if ($turno) {
                 $condicoes['Planejamento.turno'] = $turno;
-            };
+            }
+            ;
         else:
-// echo 'Turno selecionado: ' . $turno . '<br>';
+            // echo 'Turno selecionado: ' . $turno . '<br>';
             if ($turno != '0') {
                 $this->Session->write("turno", $turno);
                 $condicoes['Planejamento.turno'] = $turno;
@@ -97,15 +95,15 @@ class PlanejamentosController extends AppController {
                 $this->Session->delete("turno");
             }
         endif;
-// die();
+        // die();
         if ($periodo === NULL):
-// echo 'Periodo vazio ou zero ' . $periodo . '<br>';
+            // echo 'Periodo vazio ou zero ' . $periodo . '<br>';
             $periodo = $this->Session->read("periodo");
             if ($periodo) {
                 $condicoes['Planejamento.periodo'] = $periodo;
             };
         else:
-// echo 'Periodo selecionado: ' . $periodo . '<br>';
+            // echo 'Periodo selecionado: ' . $periodo . '<br>';
             if ($periodo != '0') {
                 $this->Session->write("periodo", $periodo);
                 $condicoes['Planejamento.periodo'] = $periodo;
@@ -115,13 +113,14 @@ class PlanejamentosController extends AppController {
         endif;
 
         if ($professor === NULL):
-// echo "Professor vazio ou zero " . $professor . '<br>';
+            // echo "Professor vazio ou zero " . $professor . '<br>';
             $professor = $this->Session->read("professor");
             if ($professor) {
                 $condicoes['Planejamento.docente_id'] = $professor;
-            };
+            }
+            ;
         else:
-// echo 'Professor selecionado: ' . $professor . '<br>';
+            // echo 'Professor selecionado: ' . $professor . '<br>';
             if ($professor != '0') {
                 $this->Session->write("professor", $professor);
                 $condicoes['Planejamento.docente_id'] = $professor;
@@ -131,13 +130,14 @@ class PlanejamentosController extends AppController {
         endif;
 
         if ($disciplina === NULL):
-// echo "Disciplina vazia ou zero " . $disciplina . '<br>';
+            // echo "Disciplina vazia ou zero " . $disciplina . '<br>';
             $disciplina = $this->Session->read("disciplina");
             if ($disciplina) {
                 $condicoes['Planejamento.disciplina_id'] = $disciplina;
-            };
+            }
+            ;
         else:
-// echo 'Professor selecionado: ' . $professor . '<br>';
+            // echo 'Professor selecionado: ' . $professor . '<br>';
             if ($disciplina != '0') {
                 $this->Session->write("disciplina", $disciplina);
                 $condicoes['Planejamento.disciplina_id'] = $disciplina;
@@ -147,13 +147,14 @@ class PlanejamentosController extends AppController {
         endif;
 
         if ($departamento === NULL):
-// echo "Departamento vazia ou zero " . $departamento . '<br>';
+            // echo "Departamento vazia ou zero " . $departamento . '<br>';
             $departamento = $this->Session->read("departamento");
             if ($departamento) {
                 $condicoes['Docente.departamento'] = $departamento;
-            };
+            }
+            ;
         else:
-// echo 'Departamento selecionado: ' . $departamento . '<br>';
+            // echo 'Departamento selecionado: ' . $departamento . '<br>';
             if ($departamento != '0') {
                 $this->Session->write("departamento", $departamento);
                 $condicoes['Docente.departamento'] = $departamento;
@@ -165,9 +166,7 @@ class PlanejamentosController extends AppController {
         if ($condicoes) {
             // pr($condicoes);
         }
-// pr($condicoes);
-// die();
-// echo 'Periodo = ' . $periodo . " " . ' turno = ' . $turno . " " . ' professor = ' . $professor . "<br>";
+        // pr($condicoes);
 
         $professores = $this->Planejamento->Docente->find('list', array('fields' => 'nome', 'order' => 'nome', 'conditions' => array('OR' => array('motivoegresso IS NULL', 'motivoegresso = ""'))));
         $disciplinas = $this->Planejamento->Disciplina->find('list', array('fields' => 'disciplina', 'order' => 'disciplina'));
@@ -189,69 +188,74 @@ class PlanejamentosController extends AppController {
         $this->set('departamento', $departamento);
     }
 
-    public function add() {
+    public function add()
+    {
 
         if ($this->data) {
             /* Verificar antes de inserir */
-            $planejamento = $this->Planejamento->find('first', array('conditions' => array(
+            $planejamento = $this->Planejamento->find('first', array(
+                'conditions' => array(
                     'turno' => $this->data['Planejamento']['turno'],
                     'periodo' => $this->data['Planejamento']['periodo'],
                     'dia_id' => $this->data['Planejamento']['dia_id'],
                     'horario_id' => $this->data['Planejamento']['horario_id']
-            )));
-// $log = $this->Planejamento->getDataSource()->getLog(false, false);
-// debug($log);
-// pr($planejamento);
-// die();
+                )
+            ));
 
             if (empty($planejamento)):
                 if ($this->Planejamento->save($this->data)) {
                     $this->Session->setFlash('Dados inseridos');
-// $this->redirect('/Planejamentos/view/' . $this->Planejamento->getLastInsertId());
+                    // $this->redirect('/Planejamentos/view/' . $this->Planejamento->getLastInsertId());
                     $this->redirect('/Planejamentos/listar/');
-                }; elseif ($this->Planejamento->save($this->data)):
+                }
+                ;
+            elseif ($this->Planejamento->save($this->data)):
                 $this->Session->setFlash('Verifique se for OTP ou Núcleo temático! Dia e horário nesse periodo e turno ocupados');
                 $this->redirect('/Planejamentos/listar/');
             endif;
         }
 
-        $configuracao = $this->Planejamento->Configuraplanejamento->find('first', array(
-            'order' => array('id' => 'DESC'))
+        $configuracao = $this->Planejamento->Configuraplanejamento->find(
+            'first',
+            [
+                'order' => ['id' => 'DESC']
+            ]
         );
-// pr($configuracao);
+        // pr($configuracao);
         $this->set('configuracao', $configuracao);
-// die();
-// $this->loadModel('Dia');
-        $dias = $this->Planejamento->Dia->find('list', array('fields' => 'dia'));
+        // die();
+        $dias = $this->Planejamento->Dia->find('list', ['fields' => 'dia']);
         $this->set('dias', $dias);
 
-// $this->loadModel('Horario');
-        $horarios = $this->Planejamento->Horario->find('list', array('fields' => 'horario'));
+        // $this->loadModel('Horario');
+        $horarios = $this->Planejamento->Horario->find('list', ['fields' => 'horario']);
         $this->set('horarios', $horarios);
 
-// $this->loadModel('Disciplina');
-        $disciplinas = $this->Planejamento->Disciplina->find('list', array('fields' => 'disciplina', 'order' => 'disciplina'));
+        // $this->loadModel('Disciplina');
+        $disciplinas = $this->Planejamento->Disciplina->find('list', ['fields' => 'disciplina', 'order' => 'disciplina']);
         $this->set('disciplinas', $disciplinas);
 
-// $this->loadModel('Docente');
-        $professores = $this->Planejamento->Docente->find('list', array('fields' => 'nome', 'order' => 'nome', 'conditions' => array('OR' => array('motivoegresso' => "", 'motivoegresso IS NULL'))));
+        // $this->loadModel('Docente');
+        $professores = $this->Planejamento->Docente->find('list', ['fields' => 'nome', 'order' => 'nome', 'conditions' => ['OR' => ['motivoegresso' => "", 'motivoegresso IS NULL']]]);
         $this->set('professores', $professores);
 
-// $this->loadModel('Sala');
-        $salas = $this->Planejamento->Sala->find('list', array('fields' => 'sala'));
+        // $this->loadModel('Sala');
+        $salas = $this->Planejamento->Sala->find('list', ['fields' => 'sala']);
         $this->set('salas', $salas);
     }
 
-    public function view($id = NULL) {
+    public function view($id = NULL)
+    {
 
-        $planejamento = $this->Planejamento->find('first', array(
-            'conditions' => array('Planejamento.id' => $id)
-        ));
-// pr($planejamento);
+        $planejamento = $this->Planejamento->find('first', [
+            'conditions' => ['Planejamento.id' => $id]
+        ]);
+        // pr($planejamento);
         $this->set('planejamento', $planejamento);
     }
 
-    public function edit($id = NULL) {
+    public function edit($id = NULL)
+    {
 
         $this->Planejamento->id = $id;
 
@@ -268,71 +272,72 @@ class PlanejamentosController extends AppController {
         } else {
 
             /* Verifica se há um registro nesse dia e horário nesse turno e periodo */
-            $planejamento = $this->Planejamento->find('first', array('conditions' => array(
+            $planejamento = $this->Planejamento->find('first', [
+                'conditions' => [
                     'turno' => $this->data['Planejamento']['turno'],
                     'periodo' => $this->data['Planejamento']['periodo'],
                     'dia_id' => $this->data['Planejamento']['dia_id'],
                     'horario_id' => $this->data['Planejamento']['horario_id']
-            )));
+                ]
+            ]);
             if (empty($planejamento)):
                 if ($this->Planejamento->save($this->data)) {
                     $this->Session->setFlash("Registro atualizado");
-                    $this->redirect('/Planejamentos/view/' . $id);
-                };
+                    $this->redirect(['controller' => 'Planejamentos', 'action' => 'view', $id]);
+                }
+                ;
             else:
                 if ($this->Planejamento->save($this->data)) {
                     $this->Session->setFlash('Atualizado no mesmo dia, horário, periodo e turno');
-                    $this->redirect('/Planejamentos/view/' . $id);
-                };
+                    $this->redirect(['controller' => 'Planejamentos', 'action' => 'view', $id]);
+                }
+                ;
             endif;
         }
     }
 
-    public function index() {
+    public function index()
+    {
 
         $parametros = $this->params['named'];
         $semestre_id = isset($parametros['semestre']) ? $parametros['semestre'] : NULL;
-
-        // pr($semestre_id);
 
         if (empty($semestre_id) or $semestre_id == NULL):
             $semestre_id = $this->Session->read("semestre");
             if (!($semestre_id)):
                 $this->Session->setFlash('Selecione um semestre para ver o planejamento');
-                $this->redirect('/configuraplanejamentos/index');
+                $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
             endif;
         endif;
 
-        // pr($semestre_id);
-        // die();
         // Capturo o semestre por extenso //
         $semestreporextenso = $this->semestreporextenso($semestre_id);
         $this->Session->write("semestreporextenso", $semestreporextenso);
         // pr($semestreporextenso);
         // die();
-// Diurno
         for ($periodo = 1; $periodo <= 8; $periodo++):
             for ($x = 1; $x <= 4; $x++): // horarios
                 for ($i = 1; $i <= 5; $i++): // dias
 // echo 'Periodo: ' . $periodo . ' Horario: ' . $x . ' Dia: ' . $i . '<br>';
 
-                    $diurno = $this->Planejamento->find('all', array('conditions' =>
-                        array(
-                            'Planejamento.configuraplanejamento_id' => $semestre_id,
-                            'Planejamento.turno' => "Diurno",
-                            'Planejamento.periodo' => $periodo,
-                            'Planejamento.horario_id' => $x,
-                            'Planejamento.dia_id = ' . $i)));
+                    $diurno = $this->Planejamento->find('all', [
+                        'conditions' =>
+                            [
+                                'Planejamento.configuraplanejamento_id' => $semestre_id,
+                                'Planejamento.turno' => "Diurno",
+                                'Planejamento.periodo' => $periodo,
+                                'Planejamento.horario_id' => $x,
+                                'Planejamento.dia_id = ' . $i
+                            ]
+                    ]);
 
-// pr($diurno);
+                    // pr($diurno);
 
                     $t_diurno = NULL;
                     $otp_diurno = 0;
                     $nucleo_tematico = 0;
                     $superposicao = 0;
                     foreach ($diurno as $c_diurno) {
-// pr($c_diurno);
-// die();
 
                         if (empty($c_diurno)) {
                             $t_diurno['Planejamento']['configuraplanejamento_id'] = NULL;
@@ -356,40 +361,41 @@ class PlanejamentosController extends AppController {
                             $t_diurno['Planejamento'][$superposicao]['docente'] = $c_diurno['Docente']['nome'];
                             $t_diurno['Planejamento'][$superposicao]['docente_id'] = $c_diurno['Planejamento']['docente_id'];
                         }
-// $nucleo_tematico++;
-// $otp_diurno++;
+
                         $superposicao++;
-// echo $otp_diurno . '<br>';
                     }
-// die();
+                    // die();
                     $diurno_horarios[$i] = $t_diurno;
                 endfor;
-// pr($diurno_horarios);
+                // pr($diurno_horarios);
                 $diurno_dias[$x] = $diurno_horarios;
 
             endfor;
-// pr($diurno_dias);
+            // pr($diurno_dias);
             $diurno_periodos[$periodo] = $diurno_dias;
 
         endfor;
-// pr($diurno_periodos);
+        // pr($diurno_periodos);
         $this->loadModel('Horario');
         $this->set('horarios', $this->Horario->find('all'));
         $this->set('diurno', $diurno_periodos);
 
-// Noturno
+        // Noturno
         for ($periodo = 1; $periodo <= 10; $periodo++): // Sao 10 periodos no noturno
             for ($x = 5; $x <= 6; $x++): // horarios 5 e 6
                 for ($i = 1; $i <= 5; $i++): // dias
 // echo 'Periodo: ' . $periodo . ' Horario: ' . $x . ' Dia: ' . $i . '<br>';
 
-                    $noturno = $this->Planejamento->find('all', array('conditions' =>
-                        array(
-                            'Planejamento.configuraplanejamento_id' => $semestre_id,
-                            'Planejamento.turno' => "Noturno",
-                            'Planejamento.periodo' => $periodo,
-                            'Planejamento.horario_id' => $x,
-                            'Planejamento.dia_id' => $i)));
+                    $noturno = $this->Planejamento->find('all', array(
+                        'conditions' =>
+                            array(
+                                'Planejamento.configuraplanejamento_id' => $semestre_id,
+                                'Planejamento.turno' => "Noturno",
+                                'Planejamento.periodo' => $periodo,
+                                'Planejamento.horario_id' => $x,
+                                'Planejamento.dia_id' => $i
+                            )
+                    ));
 
                     $t_noturno = NULL;
                     $superposicao = 0;
@@ -418,15 +424,15 @@ class PlanejamentosController extends AppController {
                             $t_noturno['Planejamento'][$superposicao]['docente_id'] = $c_noturno['Planejamento']['docente_id'];
                         }
                         $superposicao++;
-// echo $otp_noturno . "<br>";
+                        // echo $otp_noturno . "<br>";
                     }
                     $noturno_horarios[$i] = $t_noturno;
                 endfor;
-// pr($noturno_horarios);
+                // pr($noturno_horarios);
                 $noturno_dias[$x] = $noturno_horarios;
 
             endfor;
-// pr($noturno_dias);
+            // pr($noturno_dias);
             $noturno_periodos[$periodo] = $noturno_dias;
 
         endfor;
@@ -437,25 +443,26 @@ class PlanejamentosController extends AppController {
         $this->set('noturno', $noturno_periodos);
     }
 
-    public function delete($id = NULL) {
+    public function delete($id = NULL)
+    {
 
         $this->Planejamento->delete($id);
         $this->Session->setFlash("Registro excluído");
-// die("Planejamento excluído");
-        $this->redirect('/Planejamentos/index/');
+        // die("Planejamento excluído");
+        $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
     }
 
-    public function otp() {
+    public function otp()
+    {
 
         $parametros = $this->params['named'];
-// pr($parametros);
+        // pr($parametros);
         $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
         $turno = isset($parametros['turno']) ? $parametros['turno'] : NULL;
         $professor = isset($parametros['professor']) ? $parametros['professor'] : NULL;
         $disciplina = isset($parametros['disciplina']) ? $parametros['disciplina'] : NULL;
         $departamento = isset($parametros['departamento']) ? $parametros['departamento'] : NULL;
 
-        // die();
         $condicoes = NULL;
 
         $semestre_id = $this->Session->read("semestre");
@@ -463,12 +470,9 @@ class PlanejamentosController extends AppController {
             $condicoes['Planejamento.configuraplanejamento_id'] = $semestre_id;
         else:
             $this->Session->setFlash('Selecione o semestre');
-            $this->redirect('/configuraplanejamentos/index');
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         endif;
 
-        // pr($semestre_id);
-        // pr($condicoes);
-        // die();
         // Capturo o semestre por extenso //
         $semestreporextenso = $this->semestreporextenso($semestre_id);
         $this->Session->write("semestreporextenso", $semestreporextenso);
@@ -476,13 +480,14 @@ class PlanejamentosController extends AppController {
         // die();
 
         if ($turno === NULL):
-// echo 'Turno vazio ou zero ' . $turno . '<br>';
+            // echo 'Turno vazio ou zero ' . $turno . '<br>';
             $turno = $this->Session->read("turno");
             if ($turno) {
                 $condicoes['turno'] = $turno;
-            };
+            }
+            ;
         else:
-// echo 'Turno selecionado: ' . $turno . '<br>';
+            // echo 'Turno selecionado: ' . $turno . '<br>';
             if ($turno != '0') {
                 $this->Session->write("turno", $turno);
                 $condicoes['turno'] = $turno;
@@ -492,13 +497,14 @@ class PlanejamentosController extends AppController {
         endif;
 
         if ($professor === NULL):
-// echo "Professor vazio ou zero " . $professor . '<br>';
+            // echo "Professor vazio ou zero " . $professor . '<br>';
             $professor = $this->Session->read("professor");
             if ($professor) {
                 $condicoes['Planejamento.docente_id'] = $professor;
-            };
+            }
+            ;
         else:
-// echo 'Professor selecionado: ' . $professor . '<br>';
+            // echo 'Professor selecionado: ' . $professor . '<br>';
             if ($professor != '0') {
                 $this->Session->write("professor", $professor);
                 $condicoes['Planejamento.docente_id'] = $professor;
@@ -508,32 +514,34 @@ class PlanejamentosController extends AppController {
         endif;
 
         if ($disciplina === NULL):
-// echo "Disciplina vazia ou zero " . $disciplina . '<br>';
+            // echo "Disciplina vazia ou zero " . $disciplina . '<br>';
             $disciplina = $this->Session->read("disciplina");
             if ($disciplina) {
                 $condicoes['Planejamento.disciplina_id'] = $disciplina;
             } else {
-                $condicoes['Disciplina.codigo'] = array('SSW401', 'SSW402', 'SSW403', 'SSW405');
-            };
+                $condicoes['Disciplina.codigo'] = ['SSW401', 'SSW402', 'SSW403', 'SSW405'];
+            }
+            ;
         else:
-// echo 'Disciplina selecionada: ' . $disciplina . '<br>';
+            // echo 'Disciplina selecionada: ' . $disciplina . '<br>';
             if ($disciplina != '0') {
                 $this->Session->write("disciplina", $disciplina);
                 $condicoes['Planejamento.disciplina_id'] = $disciplina;
             } else {
                 $this->Session->delete("disciplina");
-                $condicoes['Disciplina.codigo'] = array('SSW401', 'SSW402', 'SSW403', 'SSW405');
+                $condicoes['Disciplina.codigo'] = ['SSW401', 'SSW402', 'SSW403', 'SSW405'];
             }
         endif;
 
         if ($departamento === NULL):
-// echo "Departamento vazia ou zero " . $departamento . '<br>';
+            // echo "Departamento vazia ou zero " . $departamento . '<br>';
             $departamento = $this->Session->read("departamento");
             if ($departamento) {
                 $condicoes['Docente.departamento'] = $departamento;
-            };
+            }
+            ;
         else:
-// echo 'Departamento selecionado: ' . $departamento . '<br>';
+            // echo 'Departamento selecionado: ' . $departamento . '<br>';
             if ($departamento != '0') {
                 $this->Session->write("departamento", $departamento);
                 $condicoes['Docente.departamento'] = $departamento;
@@ -545,24 +553,30 @@ class PlanejamentosController extends AppController {
         // pr($condicoes);
 
         $this->set('otp', $this->Paginate($condicoes));
-// pr($otp);
+        // pr($otp);
 // die();
         if ($semestre_id):
-            $professores = $this->Planejamento->find('all', array(
-                'fields' => 'DISTINCT Docente.nome, Docente.id',
-                'order' => 'Docente.nome',
-                'conditions' => array(
-                    'Planejamento.configuraplanejamento_id' => $semestre_id,
-                    'Planejamento.disciplina_id' => array("16", "17", "18", "19"))
-                    )
+            $professores = $this->Planejamento->find(
+                'all',
+                [
+                    'fields' => 'DISTINCT Docente.nome, Docente.id',
+                    'order' => 'Docente.nome',
+                    'conditions' => [
+                        'Planejamento.configuraplanejamento_id' => $semestre_id,
+                        'Planejamento.disciplina_id' => ["16", "17", "18", "19"]
+                    ]
+                ]
             );
         else:
-            $professores = $this->Planejamento->find('all', array(
-                'fields' => 'DISTINCT Docente.nome, Docente.id',
-                'order' => 'Docente.nome',
-                'conditions' => array(
-                    'Planejamento.disciplina_id' => array("16", "17", "18", "19"))
-                    )
+            $professores = $this->Planejamento->find(
+                'all',
+                [
+                    'fields' => 'DISTINCT Docente.nome, Docente.id',
+                    'order' => 'Docente.nome',
+                    'conditions' => [
+                        'Planejamento.disciplina_id' => ["16", "17", "18", "19"]
+                    ]
+                ]
             );
         endif;
         /* 'conditions' => 'motivoegresso IS NULL')); */
@@ -573,11 +587,12 @@ class PlanejamentosController extends AppController {
             $l_professores[$c_professores['Docente']['id']] = $c_professores['Docente']['nome'];
             $i++;
         endforeach;
-// pr($l_professores);
-        $disciplinas = $this->Planejamento->Disciplina->find('list', array(
+        // pr($l_professores);
+        $disciplinas = $this->Planejamento->Disciplina->find('list', [
             'fields' => 'disciplina',
-            'conditions' => array('Disciplina.codigo' => array("SSW401", "SSW402", "SSW403", "SSW405")),
-            'order' => 'disciplina'));
+            'conditions' => array('Disciplina.codigo' => ["SSW401", "SSW402", "SSW403", "SSW405"]),
+            'order' => 'disciplina'
+        ]);
 
         $this->set('professores', $l_professores);
         $this->set('disciplinas', $disciplinas);
@@ -588,40 +603,41 @@ class PlanejamentosController extends AppController {
         $this->set('departamento', $departamento);
     }
 
-    public function nucleotematico() {
+    public function nucleotematico()
+    {
 
         $semestre_id = $this->Session->read("semestre");
         if ($semestre_id):
-            $conditions = array(
+            $conditions = [
                 'Planejamento.configuraplanejamento_id' => $semestre_id,
-                'Disciplina.codigo' => array("SSW409", "SSW410")
-            );
+                'Disciplina.codigo' => ["SSW409", "SSW410"]
+            ];
         else:
             $this->Session->setFlash('Selecione o semestre');
-            $this->redirect('/configuraplanejamentos/index');
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         endif;
 
         // Capturo o semestre por extenso //
         $semestreporextenso = $this->semestreporextenso($semestre_id);
         $this->Session->write("semestreporextenso", $semestreporextenso);
-        // pr($semestreporextenso);
-        // die();
 
         $this->set('nucleotematico', $this->Paginate($conditions));
     }
 
-    public function optativa() {
+    public function optativa()
+    {
 
         $semestre_id = $this->Session->read("semestre");
 
+        $conditions = NULL;
         if ($semestre_id):
-            $conditions = array(
+            $conditions = [
                 'Planejamento.configuraplanejamento_id' => $semestre_id,
-                'Disciplina.id' => array("54", "55")
-            );
+                'Disciplina.id' => ["54", "55"]
+            ];
         else:
             $this->Session->setFlash('Selecione o semestre');
-            $this->redirect('/configuraplanejamentos/index');
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         endif;
 
         // Capturo o semestre por extenso //
@@ -633,24 +649,26 @@ class PlanejamentosController extends AppController {
         $this->set('optativas', $this->Paginate($conditions));
     }
 
-    public function relaciona($id = NULL) {
+    public function relaciona($id = NULL)
+    {
 
         $this->Planejamento->id = $id;
 
         if (empty($this->data)) {
-            $optativas = $this->Planejamento->Ementa->find('list', array('fields' => 'titulo'));
+            $optativas = $this->Planejamento->Ementa->find('list', ['fields' => 'titulo']);
             $this->set('planejamento_id', $id);
             $this->set('optativas', $optativas);
             $this->data = $this->Planejamento->read();
         } else {
             if ($this->Planejamento->saveField("ementa_id", $this->data['Planejamento']['ementa_id'])) {
                 $this->Session->setFlash("Atualizado");
-                $this->redirect('/planejamentos/optativa/');
+                $this->redirect(['controller' => 'planejamentos', 'action' => 'optativa']);
             }
         }
     }
 
-    public function novoplano($id = NULL) {
+    public function novoplano($id = NULL)
+    {
 
         $parametros = $this->params['named'];
         $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
@@ -658,74 +676,69 @@ class PlanejamentosController extends AppController {
         $versao = isset($parametros['versao']) ? $parametros['versao'] : NULL;
         $opcao = isset($parametros['opcao']) ? $parametros['opcao'] : NULL;
 
-        // pr('2 Versão: ' . $versao);
-        // pr('2 Semestre id: ' . $semestre_id);
-        // pr('2 Semestre data: ' . $semestre_data);
-        // pr($opcao);
-        // die();
-
         if ($versao == NULL) {
             $this->Session->setFlash('Definir versão');
-            // die();
-            $this->redirect('/configuraplanejamentos/add/semestre_id:' . $semestre_id . '/semestre_data:' . $semestre_data . '/versao:' . $versao);
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'add', '?' => ['semestre_id' => $semestre_id, 'semestre_data' => $semestre_data, 'versao' => $versao]]);
         }
 
         if ($versao == 0):
             $anterior_semestre = $this->semestreanterior($semestre_data);
-            // pr($anterior_semestre);
-            // die('anterior semestre');
 
             $this->Planejamento->Configuraplanejamento->recursive = -1;
-            $anterior_planejamento = $this->Planejamento->Configuraplanejamento->find('first', array(
-                'field' => 'id',
-                'conditions' => array('Configuraplanejamento.semestre' => $anterior_semestre))
+            $anterior_planejamento = $this->Planejamento->Configuraplanejamento->find(
+                'first',
+                [
+                    'field' => 'id',
+                    'conditions' => ['Configuraplanejamento.semestre' => $anterior_semestre]
+                ]
             );
-            // pr($anterior_planejamento);
-            // die();
 
             $this->Planejamento->recursive = 0;
-            $planejamento = $this->Planejamento->find('all', array(
-                'conditions' => array(
-                    array('Planejamento.configuraplanejamento_id' => $anterior_planejamento['Configuraplanejamento']['id']),
-                    array('NOT' =>
-                        array('Planejamento.disciplina_id' => array(42, 46, 54, 55))
-                    )
-                )
-                    )
+            $planejamento = $this->Planejamento->find(
+                'all',
+                [
+                    'conditions' => [
+                        ['Planejamento.configuraplanejamento_id' => $anterior_planejamento['Configuraplanejamento']['id']],
+                        [
+                            'NOT' =>
+                                ['Planejamento.disciplina_id' => array(42, 46, 54, 55)]
+                        ]
+                    ]
+                ]
             );
         else:
 
             $this->Planejamento->Configuraplanejamento->recursive = -1;
-            $anterior_planejamento = $this->Planejamento->Configuraplanejamento->find('first', array(
-                'field' => 'id',
-                'conditions' => array('Configuraplanejamento.semestre' => $semestre_data,
-                    'Configuraplanejamento.versao' => 0))
+            $anterior_planejamento = $this->Planejamento->Configuraplanejamento->find(
+                'first',
+                [
+                    'field' => 'id',
+                    'conditions' => [
+                        'Configuraplanejamento.semestre' => $semestre_data,
+                        'Configuraplanejamento.versao' => 0
+                    ]
+                ]
             );
-            // pr($anterior_planejamento);
-            // die();
 
             $this->Planejamento->recursive = 0;
-            $planejamento = $this->Planejamento->find('all', array(
-                'conditions' => array(
-                    array('Planejamento.configuraplanejamento_id' => $anterior_planejamento['Configuraplanejamento']['id']),
-                    array('NOT' =>
-                        array('Planejamento.disciplina_id' => array(42, 46, 54, 55))
+            $planejamento = $this->Planejamento->find(
+                'all',
+                array(
+                    'conditions' => array(
+                        array('Planejamento.configuraplanejamento_id' => $anterior_planejamento['Configuraplanejamento']['id']),
+                        array(
+                            'NOT' =>
+                                array('Planejamento.disciplina_id' => array(42, 46, 54, 55))
+                        )
                     )
                 )
-                    )
             );
         endif;
-
-        // pr($planejamento);
-        // die();
 
         if (!$planejamento):
             $this->Session->setFlash('Não há planejamento do semestre');
-            $this->redirect('/Configuraplanejamentos/index');
+            $this->redirect(['controller' => 'Configuraplanejamentos', 'action' => 'index']);
         endif;
-        // $log = $this->Planejamento->getDataSource()->getLog(false, false);
-        // debug($log);
-        // pr($planejamento);
 
         $i = 1;
         foreach ($planejamento as $c_planejamento):
@@ -772,7 +785,8 @@ class PlanejamentosController extends AppController {
                 $docente_id = 0;
             }
 
-            $valores[$i] = array('Planejamento' => array(
+            $valores[$i] = [
+                'Planejamento' => [
                     'configuraplanejamento_id' => $semestre_id,
                     'versao' => $versao,
                     'turno' => $turno,
@@ -781,37 +795,42 @@ class PlanejamentosController extends AppController {
                     'horario_id' => $horario_id,
                     'sala_id' => $sala_id,
                     'disciplina_id' => $disciplina_id,
-                    'docente_id' => $docente_id,
-                    'turno' => $turno)
-            );
+                    'docente_id' => $docente_id
+                    ]
+                ];
 
             $i++;
 
         endforeach;
-        // pr($valores);
-        // die();
+
         $this->Planejamento->saveMany($valores);
 
         $this->Session->setFlash('Dados inseridos para novo planejamento');
         $this->redirect('/configuraplanejamentos/index');
     }
 
-    private function semestreporextenso($id = NULL) {
+    private function semestreporextenso($id = NULL)
+    {
 
         // pr($id);
         $this->Planejamento->Configuraplanejamento->recursive = 0;
         $semestreporextenso = $this->Planejamento->Configuraplanejamento->find('first', array(
-            'conditions' => array('Configuraplanejamento.id' => $id)));
+            'conditions' => array('Configuraplanejamento.id' => $id)
+        ));
         // pr($semestreporextenso);
         return $semestreporextenso['Configuraplanejamento']['semestre'] . ' v. ' . $semestreporextenso['Configuraplanejamento']['versao'] . " " . $semestreporextenso['Configuraplanejamento']['proprietario'];
     }
 
-    public function excluir($id = NULL) {
+    public function excluir($id = NULL)
+    {
 
         // pr($id);
-        $planejamento = $this->Planejamento->find('all', array(
-            'conditions' => array('Planejamento.configuraplanejamento_id' => $id),
-            'fields' => array('Planejamento.id'))
+        $planejamento = $this->Planejamento->find(
+            'all',
+            [
+                'conditions' => ['Planejamento.configuraplanejamento_id' => $id],
+                'fields' => ['Planejamento.id']
+            ]
         );
 
         foreach ($planejamento as $c_planejamento):
@@ -819,14 +838,14 @@ class PlanejamentosController extends AppController {
             $this->Planejamento->delete($c_planejamento['Planejamento']['id']);
             $this->Session->setFlash('Registro excluído: ' . $c_planejamento['Planejamento']['id']);
         endforeach;
-        // die('Excluir todo o planejamento do semestre!!');
-
+ 
         $this->Session->setFlash("Registros excluídos");
-// die("Planejamento excluído");
-        $this->redirect('/Planejamentos/index/');
+        // die("Planejamento excluído");
+        $this->redirect(['controller' => 'Planejamentos', 'action' => 'index']);
     }
 
-    public function semestreanterior($id = NULL) {
+    public function semestreanterior($id = NULL)
+    {
         // Obtenho o proximosemestre por extenso a partir do id//
         $semestre_data = $id;
         // pr('semestreanterior ' . $semestre_data);
@@ -855,7 +874,8 @@ class PlanejamentosController extends AppController {
         return $anterior_semestre;
     }
 
-    public function semestreproximo($id = NULL) {
+    public function semestreproximo($id = NULL)
+    {
         // Obtenho o proximosemestre por extenso a partir do id//
         $semestre_data = $id;
         // pr($semestre_data);
@@ -884,80 +904,75 @@ class PlanejamentosController extends AppController {
         return $proximo_semestre;
     }
 
-    public function clonar() {
+    public function clonar()
+    {
 
         $parametros = $this->params['named'];
         $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
         $semestre_data = isset($parametros['semestre_data']) ? $parametros['semestre_data'] : NULL;
         $versao = isset($parametros['versao']) ? $parametros['versao'] : NULL;
 
-        $this->Session->read('usuarioplanejamento');
-        pr($usuarioplanejamento['role']);
+        $usuarioplanejamento = $this->Session->read('usuarioplanejamento');
         if (isset($usuarioplanejamento['role']) || ($usuarioplanejamento['role']) != 'admin'):
             $this->Session->setFlash('Usuário não autorizado a clonar. Pode criar uma versão');
-            $this->redirect('configuraplanejamentos/index');
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         endif;
 
-        // pr('Semestre id: ' . $semestre_id);
-        // pr('Semestre data: ' . $semestre_data);
-        // pr('Versão: ' . $versao);
-        // pr('Opcao: ' . $opcao);
-        // die();
-       $proximo_semestre = $this->semestreproximo($semestre_data);
-       // pr("Semestre próximo:" . $proximo_semestre);
-       
-        // Localizo se já há uma configuração e um planejamento
-        $planejamento = $this->Planejamento->Configuraplanejamento->find('first', array(''
-            . 'conditions' => array(
-                'Configuraplanejamento.semestre' => $proximo_semestre,
-                'Configuraplanejamento.versao' => $versao)));
+        $proximo_semestre = $this->semestreproximo($semestre_data);
+        // pr("Semestre próximo:" . $proximo_semestre);
 
-        // pr($planejamento);
-        // die();
+        // Localizo se já há uma configuração e um planejamento
+        $planejamento = $this->Planejamento->Configuraplanejamento->find(
+            'first',
+            [
+                'conditions' => [
+                    'Configuraplanejamento.semestre' => $proximo_semestre,
+                    'Configuraplanejamento.versao' => $versao
+                ]
+            ]
+        );
+
         if ($planejamento['Configuraplanejamento']):
             echo 'Configuração já realizada para o semestre';
             $this->Session->setFlash('Configuração já realizada para o semestre');
-            $this->redirect('configuraplanejamentos/index');
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
             if ($planejamento['Planejamento']) {
                 echo "Já há um planejamento" . "<br>";
                 $this->Session->setFlash('Já há um planejamento para o semestre');
-                $this->redirect('/planejamentos/listar/semestre:' . $semestre_id . '/versao:' . $versao);
+                $this->redirect(['controller' => 'planejamentos', 'action' => 'listar', '?' => ['semestre_id' => $semestre_id, 'semestre_data' => $proximo_semestre, 'versao' => $versao]]);
             } else {
                 echo "Configurado, sem planejamento" . "<br>";
                 $this->Session->setFlash('Configurado porém ainda sem planejamento');
-                $this->redirect('configuraplanejamentos/index');
-            };
+                $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+            }
         else:
             // die('Criar nova configuração para o próximo semestre');
             $this->Session->setFlash('Criar nova configuração para o semestre');
-            $this->redirect('/configuraplanejamentos/add/semestre_id:' . $semestre_id . '/semestre_data:' . $proximo_semestre . "/versao:0");
-
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'add', '?' => ['semestre_id' => $semestre_id, 'semestre_data:' => $proximo_semestre, 'versao:' => 0]]);
         endif;
     }
 
-    public function novaversao($id = NULL) {
+    public function novaversao($id = NULL)
+    {
 
         $parametros = $this->params['named'];
         $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
         $semestre_data = isset($parametros['semestre_data']) ? $parametros['semestre_data'] : NULL;
         $versao = isset($parametros['versao']) ? $parametros['versao'] : NULL;
-
-        // pr('2 Versão: ' . $versao);
-        // pr('2 Semestre id: ' . $semestre_id);
-        // pr('2 Semestre data: ' . $semestre_data);
-        // pr($opcao);
-        // die();
 
         if ($versao == NULL) {
             $this->Session->setFlash('Definir versão');
             // die();
-            $this->redirect('/configuraplanejamentos/add/semestre_id:' . $semestre_id . '/semestre_data:' . $semestre_data . '/versao:' . $versao);
+            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'add', '?' => ['semestre_id' => $semestre_id, 'semestre_data' => $semestre_data, 'versao' => $versao]]);
         }
 
         $this->Planejamento->Configuraplanejamento->recursive = -1;
-        $planejamentoconfigura = $this->Planejamento->Configuraplanejamento->find('all', array(
-            'field' => 'id',
-            'conditions' => array('Configuraplanejamento.id' => $semestre_id))
+        $planejamentoconfigura = $this->Planejamento->Configuraplanejamento->find(
+            'all',
+            array(
+                'field' => 'id',
+                'conditions' => array('Configuraplanejamento.id' => $semestre_id)
+            )
         );
 
         // $log = $this->Planejamento->Configuraplanejamento->getDataSource()->getLog(false, false);
@@ -970,26 +985,22 @@ class PlanejamentosController extends AppController {
         // die();
 
         $this->Planejamento->recursive = 0;
-        $planejamento = $this->Planejamento->find('all', array(
-            'conditions' => array(
-                array('Planejamento.configuraplanejamento_id' => $planejamentoconfigura_id),
-                array('NOT' =>
-                    array('Planejamento.disciplina_id' => array(42, 46, 54, 55))
-                )
-            )
-                )
+        $planejamento = $this->Planejamento->find(
+            'all',
+            [
+                'conditions' => [
+                    ['Planejamento.configuraplanejamento_id' => $planejamentoconfigura_id],
+                    [
+                        'NOT' => ['Planejamento.disciplina_id' => [42, 46, 54, 55]]
+                    ]
+                ]
+            ]
         );
-
-        // pr($planejamento);
-        // die();
 
         if (!$planejamento):
             $this->Session->setFlash('Não há planejamento do semestre anterior');
-            $this->redirect('/Configuraplanejamentos/index');
+            $this->redirect(['controller' => 'Configuraplanejamentos', 'action' => 'index']);
         endif;
-        // $log = $this->Planejamento->getDataSource()->getLog(false, false);
-        // debug($log);
-        // pr($planejamento);
 
         $i = 1;
         foreach ($planejamento as $c_planejamento):
@@ -1036,7 +1047,8 @@ class PlanejamentosController extends AppController {
                 $docente_id = 0;
             }
 
-            $valores[$i] = array('Planejamento' => array(
+            $valores[$i] = [
+                'Planejamento' => [
                     'configuraplanejamento_id' => $semestre_id,
                     'versao' => $versao,
                     'turno' => $turno,
@@ -1045,19 +1057,17 @@ class PlanejamentosController extends AppController {
                     'horario_id' => $horario_id,
                     'sala_id' => $sala_id,
                     'disciplina_id' => $disciplina_id,
-                    'docente_id' => $docente_id,
-                    'turno' => $turno)
-            );
+                    'docente_id' => $docente_id
+                    ]
+                ];
 
             $i++;
 
         endforeach;
-        pr($valores);
-        die();
         $this->Planejamento->saveMany($valores);
 
         $this->Session->setFlash('Dados inseridos para novo planejamento');
-        $this->redirect('/planejamentos/listar/semestre:' . $semestre_id . '/semestre_data:' . $semestre_data . '/versao:' . $versao);
+        $this->redirect(['controller'=> 'planejamentos', 'action' => 'listar', '?' => ['sesemestre_id' => $semestre_id, 'semestre_data' => $semestre_data, 'versao' => $versao]]);
     }
 
 }
