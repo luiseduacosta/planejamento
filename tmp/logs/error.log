@@ -52,3 +52,124 @@ Request URL: /planejamento/js/jquery.js
 Stack Trace:
 #0 /home/luis/html/planejamento/webroot/index.php(131): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2025-02-26 20:39:43 Error: [Error] Unknown named parameter $subject
+Request URL: /planejamento/
+Stack Trace:
+#0 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Event/CakeEventManager.php(244): ObjectCollection->trigger()
+#1 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Controller/Controller.php(682): CakeEventManager->dispatch()
+#2 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(189): Controller->startupProcess()
+#3 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke()
+#4 /home/luis/Html/planejamento/webroot/index.php(129): Dispatcher->dispatch()
+#5 {main}
+2025-02-26 20:39:43 Error: Fatal Error (1): Uncaught Error: Unknown named parameter $subject in /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Utility/ObjectCollection.php:129
+Stack trace:
+#0 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Event/CakeEventManager.php(244): ObjectCollection->trigger()
+#1 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Controller/Controller.php(682): CakeEventManager->dispatch()
+#2 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Error/ExceptionRenderer.php(158): Controller->startupProcess()
+#3 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Error/ExceptionRenderer.php(95): ExceptionRenderer->_getController()
+#4 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Error/ErrorHandler.php(126): ExceptionRenderer->__construct()
+#5 [internal function]: ErrorHandler::handleException()
+#6 {main}
+  thrown in [/home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Utility/ObjectCollection.php, line 129]
+2025-02-26 20:39:43 Error: [FatalErrorException] Uncaught Error: Unknown named parameter $subject in /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Utility/ObjectCollection.php:129
+Stack trace:
+#0 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Event/CakeEventManager.php(244): ObjectCollection->trigger()
+#1 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Controller/Controller.php(682): CakeEventManager->dispatch()
+#2 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Error/ExceptionRenderer.php(158): Controller->startupProcess()
+#3 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Error/ExceptionRenderer.php(95): ExceptionRenderer->_getController()
+#4 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Error/ErrorHandler.php(126): ExceptionRenderer->__construct()
+#5 [internal function]: ErrorHandler::handleException()
+#6 {main}
+  thrown
+Request URL: /planejamento/
+Stack Trace:
+#0 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Error/ErrorHandler.php(212): ErrorHandler::handleFatalError()
+#1 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Core/App.php(970): ErrorHandler::handleError()
+#2 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Core/App.php(943): App::_checkFatalError()
+#3 [internal function]: App::shutdown()
+#4 {main}
+2025-02-26 20:42:03 Error: [MissingTableException] Table usuarioplanejamentos for model Usuarioplanejamento was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'usuarioplanejamentos',
+  'class' => 'Usuarioplanejamento',
+  'ds' => 'default',
+)
+Request URL: /planejamento/usuarioplanejamentos/login
+Stack Trace:
+#0 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(3686): Model->setSource()
+#1 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(1394): Model->getDataSource()
+#2 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/Helper/FormHelper.php(215): Model->schema()
+#3 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/Helper/FormHelper.php(480): FormHelper->_introspectModel()
+#4 /home/luis/Html/planejamento/View/Usuarioplanejamentos/login.ctp(3): FormHelper->create()
+#5 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(971): include('...')
+#6 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(933): View->_evaluate()
+#7 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(473): View->_render()
+#8 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Controller/Controller.php(968): View->render()
+#9 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(200): Controller->render()
+#10 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke()
+#11 /home/luis/Html/planejamento/webroot/index.php(129): Dispatcher->dispatch()
+#12 {main}
+2025-02-26 20:42:26 Error: [MissingTableException] Table usuarioplanejamentos for model Usuarioplanejamento was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'usuarioplanejamentos',
+  'class' => 'Usuarioplanejamento',
+  'ds' => 'default',
+)
+Request URL: /planejamento/usuarioplanejamentos/login
+Stack Trace:
+#0 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(3686): Model->setSource()
+#1 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(1394): Model->getDataSource()
+#2 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/Helper/FormHelper.php(215): Model->schema()
+#3 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/Helper/FormHelper.php(480): FormHelper->_introspectModel()
+#4 /home/luis/Html/planejamento/View/Usuarioplanejamentos/login.ctp(3): FormHelper->create()
+#5 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(971): include('...')
+#6 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(933): View->_evaluate()
+#7 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(473): View->_render()
+#8 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Controller/Controller.php(968): View->render()
+#9 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(200): Controller->render()
+#10 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke()
+#11 /home/luis/Html/planejamento/webroot/index.php(129): Dispatcher->dispatch()
+#12 {main}
+2025-02-26 21:00:46 Error: [MissingTableException] Table usuarioplanejamentos for model Usuarioplanejamento was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'usuarioplanejamentos',
+  'class' => 'Usuarioplanejamento',
+  'ds' => 'default',
+)
+Request URL: /planejamento/configuraplanejamentos/index
+Stack Trace:
+#0 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(3686): Model->setSource()
+#1 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(1394): Model->getDataSource()
+#2 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Datasource/DboSource.php(2663): Model->schema()
+#3 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Datasource/DboSource.php(1870): DboSource->fields()
+#4 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Datasource/DboSource.php(1213): DboSource->generateAssociationQuery()
+#5 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(3053): DboSource->read()
+#6 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(3025): Model->_readDataSource()
+#7 /home/luis/Html/planejamento/Controller/ConfiguraplanejamentosController.php(10): Model->find()
+#8 [internal function]: ConfiguraplanejamentosController->index()
+#9 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Controller/Controller.php(499): ReflectionMethod->invokeArgs()
+#10 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction()
+#11 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke()
+#12 /home/luis/Html/planejamento/webroot/index.php(129): Dispatcher->dispatch()
+#13 {main}
+2025-02-26 21:00:50 Error: [MissingTableException] Table usuarioplanejamentos for model Usuarioplanejamento was not found in datasource default.
+Exception Attributes: array (
+  'table' => 'usuarioplanejamentos',
+  'class' => 'Usuarioplanejamento',
+  'ds' => 'default',
+)
+Request URL: /planejamento/usuarioplanejamentos/login
+Stack Trace:
+#0 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(3686): Model->setSource()
+#1 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Model/Model.php(1394): Model->getDataSource()
+#2 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/Helper/FormHelper.php(215): Model->schema()
+#3 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/Helper/FormHelper.php(480): FormHelper->_introspectModel()
+#4 /home/luis/Html/planejamento/View/Usuarioplanejamentos/login.ctp(3): FormHelper->create()
+#5 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(971): include('...')
+#6 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(933): View->_evaluate()
+#7 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/View/View.php(473): View->_render()
+#8 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Controller/Controller.php(968): View->render()
+#9 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(200): Controller->render()
+#10 /home/luis/Html/planejamento/Vendor/cakephp/cakephp/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke()
+#11 /home/luis/Html/planejamento/webroot/index.php(129): Dispatcher->dispatch()
+#12 {main}
