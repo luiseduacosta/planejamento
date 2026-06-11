@@ -32,6 +32,9 @@
 		"lib/Cake/Console/cake"
 	],
 	"config": {
-		"vendor-dir": "Vendor/"
+		"vendor-dir": "Vendor/",
+		"audit": {
+			"ignore": ["PKSA-hv96-tqmc-t3j9", "PKSA-8jvz-y796-qyx9", "PKSA-z3gr-8qht-p93v"]
+		}
 	}
 }

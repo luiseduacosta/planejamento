@@ -109,11 +109,4 @@ class RequirementsTest extends PHPUnit_Framework_TestCase
     public function testAlwaysSkip2()
     {
     }
-
-    /**
-     * @requires	  extension	  spl	  
-     */
-    public function testSpace()
-    {
-    }
 }

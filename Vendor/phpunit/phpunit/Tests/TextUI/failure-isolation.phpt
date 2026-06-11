@@ -17,7 +17,7 @@ PHPUnit %s by Sebastian Bergmann.
 
 FFFFFFFFFFFFF
 
-Time: %s, Memory: %sMb
+Time: %i %s, Memory: %sMb
 
 There were 13 failures:
 

@@ -11,7 +11,7 @@ class ComposerStaticInit1d44934cac77486b55bbd83da8ec4b6a
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
@@ -19,11 +19,11 @@ class ComposerStaticInit1d44934cac77486b55bbd83da8ec4b6a
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Ctype\\' => 
+        'Symfony\\Polyfill\\Ctype\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Symfony\\Component\\Yaml\\' => 
+        'Symfony\\Component\\Yaml\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
@@ -31,9 +31,6 @@ class ComposerStaticInit1d44934cac77486b55bbd83da8ec4b6a
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
-        'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
-        'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
         'PHPUnit_Extensions_GroupTestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Extensions/GroupTestSuite.php',
         'PHPUnit_Extensions_PhptTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Extensions/PhptTestCase.php',
         'PHPUnit_Extensions_PhptTestCase_Logger' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Extensions/PhptTestCase/Logger.php',
@@ -77,7 +74,6 @@ class ComposerStaticInit1d44934cac77486b55bbd83da8ec4b6a
         'PHPUnit_Framework_Constraint_IsFalse' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsFalse.php',
         'PHPUnit_Framework_Constraint_IsIdentical' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsIdentical.php',
         'PHPUnit_Framework_Constraint_IsInstanceOf' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsInstanceOf.php',
-        'PHPUnit_Framework_Constraint_IsJson' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsJson.php',
         'PHPUnit_Framework_Constraint_IsNull' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsNull.php',
         'PHPUnit_Framework_Constraint_IsTrue' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsTrue.php',
         'PHPUnit_Framework_Constraint_IsType' => __DIR__ . '/..' . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsType.php',
@@ -376,7 +372,14 @@ class ComposerStaticInit1d44934cac77486b55bbd83da8ec4b6a
         'PHP_Token_WHITESPACE' => __DIR__ . '/..' . '/phpunit/php-token-stream/PHP/Token.php',
         'PHP_Token_XOR_EQUAL' => __DIR__ . '/..' . '/phpunit/php-token-stream/PHP/Token.php',
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/PHP/Token.php',
-        'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'SebastianBergmann\\FileIterator\\ExcludeIterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/ExcludeIterator.php',
+        'SebastianBergmann\\FileIterator\\Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
+        'SebastianBergmann\\FileIterator\\Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'SebastianBergmann\\FileIterator\\Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
+        'SebastianBergmann\\Template\\Exception' => __DIR__ . '/..' . '/phpunit/php-text-template/src/exceptions/Exception.php',
+        'SebastianBergmann\\Template\\InvalidArgumentException' => __DIR__ . '/..' . '/phpunit/php-text-template/src/exceptions/InvalidArgumentException.php',
+        'SebastianBergmann\\Template\\RuntimeException' => __DIR__ . '/..' . '/phpunit/php-text-template/src/exceptions/RuntimeException.php',
+        'SebastianBergmann\\Template\\Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

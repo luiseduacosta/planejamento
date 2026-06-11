@@ -7,9 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
-    'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
-    'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/PHPUnit/Extensions/GroupTestSuite.php',
     'PHPUnit_Extensions_PhptTestCase' => $vendorDir . '/phpunit/phpunit/PHPUnit/Extensions/PhptTestCase.php',
     'PHPUnit_Extensions_PhptTestCase_Logger' => $vendorDir . '/phpunit/phpunit/PHPUnit/Extensions/PhptTestCase/Logger.php',
@@ -53,7 +50,6 @@ return array(
     'PHPUnit_Framework_Constraint_IsFalse' => $vendorDir . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsFalse.php',
     'PHPUnit_Framework_Constraint_IsIdentical' => $vendorDir . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsIdentical.php',
     'PHPUnit_Framework_Constraint_IsInstanceOf' => $vendorDir . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsInstanceOf.php',
-    'PHPUnit_Framework_Constraint_IsJson' => $vendorDir . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsJson.php',
     'PHPUnit_Framework_Constraint_IsNull' => $vendorDir . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsNull.php',
     'PHPUnit_Framework_Constraint_IsTrue' => $vendorDir . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsTrue.php',
     'PHPUnit_Framework_Constraint_IsType' => $vendorDir . '/phpunit/phpunit/PHPUnit/Framework/Constraint/IsType.php',
@@ -352,5 +348,12 @@ return array(
     'PHP_Token_WHITESPACE' => $vendorDir . '/phpunit/php-token-stream/PHP/Token.php',
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/PHP/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/PHP/Token.php',
-    'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'SebastianBergmann\\FileIterator\\ExcludeIterator' => $vendorDir . '/phpunit/php-file-iterator/src/ExcludeIterator.php',
+    'SebastianBergmann\\FileIterator\\Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
+    'SebastianBergmann\\FileIterator\\Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
+    'SebastianBergmann\\FileIterator\\Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
+    'SebastianBergmann\\Template\\Exception' => $vendorDir . '/phpunit/php-text-template/src/exceptions/Exception.php',
+    'SebastianBergmann\\Template\\InvalidArgumentException' => $vendorDir . '/phpunit/php-text-template/src/exceptions/InvalidArgumentException.php',
+    'SebastianBergmann\\Template\\RuntimeException' => $vendorDir . '/phpunit/php-text-template/src/exceptions/RuntimeException.php',
+    'SebastianBergmann\\Template\\Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
 );

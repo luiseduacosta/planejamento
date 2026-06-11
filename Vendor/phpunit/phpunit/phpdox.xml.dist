@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<phpdox xmlns="http://phpdox.net/config">
+
+<phpdox xmlns="http://phpdox.de/config">
  <project name="PHPUnit" source="PHPUnit" workdir="build/phpdox">
   <collector publiconly="false">
    <include mask="*.php" />
@@ -7,18 +8,7 @@
   </collector>
 
   <generator output="build">
-   <enrich base="${basedir}/build/logs">
-    <source type="build" />
-    <source type="git" />
-    <source type="phploc" />
-    <source type="checkstyle" />
-    <source type="pmd" />
-   </enrich>
-
-   <build engine="html" enabled="true" output="api">
-    <file extension="html" />
-   </build>
+   <build engine="html" enabled="true" output="api"/>
   </generator>
  </project>
 </phpdox>
-

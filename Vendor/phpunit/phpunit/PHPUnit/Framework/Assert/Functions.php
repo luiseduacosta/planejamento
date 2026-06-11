@@ -2,7 +2,7 @@
 /**
  * PHPUnit
  *
- * Copyright (c) 2001-2014, Sebastian Bergmann <sebastian@phpunit.de>.
+ * Copyright (c) 2001-2013, Sebastian Bergmann <sebastian@phpunit.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@
  * @package    PHPUnit
  * @subpackage Framework
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2001-2014 Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  2001-2013 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.5.0
@@ -52,10 +52,7 @@
  */
 function any()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::any',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::any();
 }
 
 /**
@@ -66,10 +63,7 @@ function any()
  */
 function anything()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::anything',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::anything();
 }
 
 /**
@@ -81,42 +75,33 @@ function anything()
  */
 function arrayHasKey($key)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::arrayHasKey',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::arrayHasKey($key);
 }
 
 /**
  * Asserts that an array has a specified key.
  *
  * @param  mixed  $key
- * @param  array|ArrayAccess  $array
+ * @param  array  $array
  * @param  string $message
  * @since  Method available since Release 3.0.0
  */
-function assertArrayHasKey($key, $array, $message = '')
+function assertArrayHasKey($key, array $array, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertArrayHasKey',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertArrayHasKey($key, $array, $message);
 }
 
 /**
  * Asserts that an array does not have a specified key.
  *
  * @param  mixed  $key
- * @param  array|ArrayAccess  $array
+ * @param  array  $array
  * @param  string $message
  * @since  Method available since Release 3.0.0
  */
-function assertArrayNotHasKey($key, $array, $message = '')
+function assertArrayNotHasKey($key, array $array, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertArrayNotHasKey',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertArrayNotHasKey($key, $array, $message);
 }
 
 /**
@@ -133,10 +118,7 @@ function assertArrayNotHasKey($key, $array, $message = '')
  */
 function assertAttributeContains($needle, $haystackAttributeName, $haystackClassOrObject, $message = '', $ignoreCase = FALSE, $checkForObjectIdentity = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeContains',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeContains($needle, $haystackAttributeName, $haystackClassOrObject, $message, $ignoreCase, $checkForObjectIdentity);
 }
 
 /**
@@ -152,10 +134,7 @@ function assertAttributeContains($needle, $haystackAttributeName, $haystackClass
  */
 function assertAttributeContainsOnly($type, $haystackAttributeName, $haystackClassOrObject, $isNativeType = NULL, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeContainsOnly',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeContainsOnly($type, $haystackAttributeName, $haystackClassOrObject, $isNativeType, $message);
 }
 
 /**
@@ -170,10 +149,7 @@ function assertAttributeContainsOnly($type, $haystackAttributeName, $haystackCla
  */
 function assertAttributeCount($expectedCount, $haystackAttributeName, $haystackClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeCount',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeCount($expectedCount, $haystackAttributeName, $haystackClassOrObject, $message);
 }
 
 /**
@@ -187,10 +163,7 @@ function assertAttributeCount($expectedCount, $haystackAttributeName, $haystackC
  */
 function assertAttributeEmpty($haystackAttributeName, $haystackClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeEmpty',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeEmpty($haystackAttributeName, $haystackClassOrObject, $message);
 }
 
 /**
@@ -207,10 +180,7 @@ function assertAttributeEmpty($haystackAttributeName, $haystackClassOrObject, $m
  */
 function assertAttributeEquals($expected, $actualAttributeName, $actualClassOrObject, $message = '', $delta = 0, $maxDepth = 10, $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeEquals',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeEquals($expected, $actualAttributeName, $actualClassOrObject, $message, $delta, $maxDepth, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -224,10 +194,7 @@ function assertAttributeEquals($expected, $actualAttributeName, $actualClassOrOb
  */
 function assertAttributeGreaterThan($expected, $actualAttributeName, $actualClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeGreaterThan',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeGreaterThan($expected, $actualAttributeName, $actualClassOrObject, $message);
 }
 
 /**
@@ -241,10 +208,7 @@ function assertAttributeGreaterThan($expected, $actualAttributeName, $actualClas
  */
 function assertAttributeGreaterThanOrEqual($expected, $actualAttributeName, $actualClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeGreaterThanOrEqual',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeGreaterThanOrEqual($expected, $actualAttributeName, $actualClassOrObject, $message);
 }
 
 /**
@@ -258,10 +222,7 @@ function assertAttributeGreaterThanOrEqual($expected, $actualAttributeName, $act
  */
 function assertAttributeInstanceOf($expected, $attributeName, $classOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeInstanceOf',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeInstanceOf($expected, $attributeName, $classOrObject, $message);
 }
 
 /**
@@ -275,10 +236,7 @@ function assertAttributeInstanceOf($expected, $attributeName, $classOrObject, $m
  */
 function assertAttributeInternalType($expected, $attributeName, $classOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeInternalType',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeInternalType($expected, $attributeName, $classOrObject, $message);
 }
 
 /**
@@ -292,10 +250,7 @@ function assertAttributeInternalType($expected, $attributeName, $classOrObject, 
  */
 function assertAttributeLessThan($expected, $actualAttributeName, $actualClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeLessThan',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeLessThan($expected, $actualAttributeName, $actualClassOrObject, $message);
 }
 
 /**
@@ -309,10 +264,7 @@ function assertAttributeLessThan($expected, $actualAttributeName, $actualClassOr
  */
 function assertAttributeLessThanOrEqual($expected, $actualAttributeName, $actualClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeLessThanOrEqual',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeLessThanOrEqual($expected, $actualAttributeName, $actualClassOrObject, $message);
 }
 
 /**
@@ -329,10 +281,7 @@ function assertAttributeLessThanOrEqual($expected, $actualAttributeName, $actual
  */
 function assertAttributeNotContains($needle, $haystackAttributeName, $haystackClassOrObject, $message = '', $ignoreCase = FALSE, $checkForObjectIdentity = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeNotContains',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeNotContains($needle, $haystackAttributeName, $haystackClassOrObject, $message, $ignoreCase, $checkForObjectIdentity);
 }
 
 /**
@@ -349,10 +298,7 @@ function assertAttributeNotContains($needle, $haystackAttributeName, $haystackCl
  */
 function assertAttributeNotContainsOnly($type, $haystackAttributeName, $haystackClassOrObject, $isNativeType = NULL, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeNotContainsOnly',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeNotContainsOnly($type, $haystackAttributeName, $haystackClassOrObject, $isNativeType, $message);
 }
 
 /**
@@ -367,10 +313,7 @@ function assertAttributeNotContainsOnly($type, $haystackAttributeName, $haystack
  */
 function assertAttributeNotCount($expectedCount, $haystackAttributeName, $haystackClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeNotCount',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeNotCount($expectedCount, $haystackAttributeName, $haystackClassOrObject, $message);
 }
 
 /**
@@ -384,10 +327,7 @@ function assertAttributeNotCount($expectedCount, $haystackAttributeName, $haysta
  */
 function assertAttributeNotEmpty($haystackAttributeName, $haystackClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeNotEmpty',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeNotEmpty($haystackAttributeName, $haystackClassOrObject, $message);
 }
 
 /**
@@ -404,10 +344,7 @@ function assertAttributeNotEmpty($haystackAttributeName, $haystackClassOrObject,
  */
 function assertAttributeNotEquals($expected, $actualAttributeName, $actualClassOrObject, $message = '', $delta = 0, $maxDepth = 10, $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeNotEquals',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeNotEquals($expected, $actualAttributeName, $actualClassOrObject, $message, $delta, $maxDepth, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -421,10 +358,7 @@ function assertAttributeNotEquals($expected, $actualAttributeName, $actualClassO
  */
 function assertAttributeNotInstanceOf($expected, $attributeName, $classOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeNotInstanceOf',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeNotInstanceOf($expected, $attributeName, $classOrObject, $message);
 }
 
 /**
@@ -438,10 +372,7 @@ function assertAttributeNotInstanceOf($expected, $attributeName, $classOrObject,
  */
 function assertAttributeNotInternalType($expected, $attributeName, $classOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeNotInternalType',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeNotInternalType($expected, $attributeName, $classOrObject, $message);
 }
 
 /**
@@ -455,10 +386,7 @@ function assertAttributeNotInternalType($expected, $attributeName, $classOrObjec
  */
 function assertAttributeNotSame($expected, $actualAttributeName, $actualClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeNotSame',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeNotSame($expected, $actualAttributeName, $actualClassOrObject, $message);
 }
 
 /**
@@ -472,10 +400,7 @@ function assertAttributeNotSame($expected, $actualAttributeName, $actualClassOrO
  */
 function assertAttributeSame($expected, $actualAttributeName, $actualClassOrObject, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertAttributeSame',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertAttributeSame($expected, $actualAttributeName, $actualClassOrObject, $message);
 }
 
 /**
@@ -488,10 +413,7 @@ function assertAttributeSame($expected, $actualAttributeName, $actualClassOrObje
  */
 function assertClassHasAttribute($attributeName, $className, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertClassHasAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertClassHasAttribute($attributeName, $className, $message);
 }
 
 /**
@@ -504,10 +426,7 @@ function assertClassHasAttribute($attributeName, $className, $message = '')
  */
 function assertClassHasStaticAttribute($attributeName, $className, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertClassHasStaticAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertClassHasStaticAttribute($attributeName, $className, $message);
 }
 
 /**
@@ -520,10 +439,7 @@ function assertClassHasStaticAttribute($attributeName, $className, $message = ''
  */
 function assertClassNotHasAttribute($attributeName, $className, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertClassNotHasAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertClassNotHasAttribute($attributeName, $className, $message);
 }
 
 /**
@@ -536,10 +452,7 @@ function assertClassNotHasAttribute($attributeName, $className, $message = '')
  */
 function assertClassNotHasStaticAttribute($attributeName, $className, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertClassNotHasStaticAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertClassNotHasStaticAttribute($attributeName, $className, $message);
 }
 
 /**
@@ -554,10 +467,7 @@ function assertClassNotHasStaticAttribute($attributeName, $className, $message =
  */
 function assertContains($needle, $haystack, $message = '', $ignoreCase = FALSE, $checkForObjectIdentity = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertContains',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertContains($needle, $haystack, $message, $ignoreCase, $checkForObjectIdentity);
 }
 
 /**
@@ -571,25 +481,7 @@ function assertContains($needle, $haystack, $message = '', $ignoreCase = FALSE, 
  */
 function assertContainsOnly($type, $haystack, $isNativeType = NULL, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertContainsOnly',
-      func_get_args()
-    );
-}
-
-/**
- * Asserts that a haystack contains only instances of a given classname
- *
- * @param string $classname
- * @param array|Traversable $haystack
- * @param string $message
- */
-function assertContainsOnlyInstancesOf($classname, $haystack, $message = '')
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertContainsOnlyInstancesOf',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertContainsOnly($type, $haystack, $isNativeType, $message);
 }
 
 /**
@@ -601,10 +493,7 @@ function assertContainsOnlyInstancesOf($classname, $haystack, $message = '')
  */
 function assertCount($expectedCount, $haystack, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertCount',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertCount($expectedCount, $haystack, $message);
 }
 
 /**
@@ -616,10 +505,7 @@ function assertCount($expectedCount, $haystack, $message = '')
  */
 function assertEmpty($actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertEmpty',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertEmpty($actual, $message);
 }
 
 /**
@@ -634,10 +520,7 @@ function assertEmpty($actual, $message = '')
  */
 function assertEqualXMLStructure(DOMElement $expectedElement, DOMElement $actualElement, $checkAttributes = FALSE, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertEqualXMLStructure',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertEqualXMLStructure($expectedElement, $actualElement, $checkAttributes, $message);
 }
 
 /**
@@ -653,10 +536,7 @@ function assertEqualXMLStructure(DOMElement $expectedElement, DOMElement $actual
  */
 function assertEquals($expected, $actual, $message = '', $delta = 0, $maxDepth = 10, $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertEquals',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertEquals($expected, $actual, $message, $delta, $maxDepth, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -668,10 +548,7 @@ function assertEquals($expected, $actual, $message = '', $delta = 0, $maxDepth =
  */
 function assertFalse($condition, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertFalse',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertFalse($condition, $message);
 }
 
 /**
@@ -687,10 +564,7 @@ function assertFalse($condition, $message = '')
  */
 function assertFileEquals($expected, $actual, $message = '', $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertFileEquals',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertFileEquals($expected, $actual, $message, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -702,10 +576,7 @@ function assertFileEquals($expected, $actual, $message = '', $canonicalize = FAL
  */
 function assertFileExists($filename, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertFileExists',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertFileExists($filename, $message);
 }
 
 /**
@@ -721,10 +592,7 @@ function assertFileExists($filename, $message = '')
  */
 function assertFileNotEquals($expected, $actual, $message = '', $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertFileNotEquals',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertFileNotEquals($expected, $actual, $message, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -736,10 +604,7 @@ function assertFileNotEquals($expected, $actual, $message = '', $canonicalize = 
  */
 function assertFileNotExists($filename, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertFileNotExists',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertFileNotExists($filename, $message);
 }
 
 /**
@@ -752,10 +617,7 @@ function assertFileNotExists($filename, $message = '')
  */
 function assertGreaterThan($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertGreaterThan',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertGreaterThan($expected, $actual, $message);
 }
 
 /**
@@ -768,10 +630,7 @@ function assertGreaterThan($expected, $actual, $message = '')
  */
 function assertGreaterThanOrEqual($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertGreaterThanOrEqual',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertGreaterThanOrEqual($expected, $actual, $message);
 }
 
 /**
@@ -784,10 +643,7 @@ function assertGreaterThanOrEqual($expected, $actual, $message = '')
  */
 function assertInstanceOf($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertInstanceOf',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertInstanceOf($expected, $actual, $message);
 }
 
 /**
@@ -800,70 +656,7 @@ function assertInstanceOf($expected, $actual, $message = '')
  */
 function assertInternalType($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertInternalType',
-      func_get_args()
-    );
-}
-
-/**
- * Asserts that a string is a valid JSON string.
- *
- * @param  string $filename
- * @param  string $message
- * @since  Method available since Release 3.7.20
- */
-function assertJson($expectedJson, $message = '')
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertJson',
-      func_get_args()
-    );
-}
-
-/**
- * Asserts that two JSON files are equal.
- *
- * @param  string $expectedFile
- * @param  string $actualFile
- * @param  string $message
- */
-function assertJsonFileEqualsJsonFile($expectedFile, $actualFile, $message = '')
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertJsonFileEqualsJsonFile',
-      func_get_args()
-    );
-}
-
-/**
- * Asserts that two JSON files are not equal.
- *
- * @param  string $expectedFile
- * @param  string $actualFile
- * @param  string $message
- */
-function assertJsonFileNotEqualsJsonFile($expectedFile, $actualFile, $message = '')
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertJsonFileNotEqualsJsonFile',
-      func_get_args()
-    );
-}
-
-/**
- * Asserts that the generated JSON encoded object and the content of the given file are equal.
- *
- * @param string $expectedFile
- * @param string $actualJson
- * @param string $message
- */
-function assertJsonStringEqualsJsonFile($expectedFile, $actualJson, $message = '')
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertJsonStringEqualsJsonFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertInternalType($expected, $actual, $message);
 }
 
 /**
@@ -872,28 +665,11 @@ function assertJsonStringEqualsJsonFile($expectedFile, $actualJson, $message = '
  * @param string $expectedJson
  * @param string $actualJson
  * @param string $message
+ * @since Method available since Release 3.7.0
  */
 function assertJsonStringEqualsJsonString($expectedJson, $actualJson, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertJsonStringEqualsJsonString',
-      func_get_args()
-    );
-}
-
-/**
- * Asserts that the generated JSON encoded object and the content of the given file are not equal.
- *
- * @param string $expectedFile
- * @param string $actualJson
- * @param string $message
- */
-function assertJsonStringNotEqualsJsonFile($expectedFile, $actualJson, $message = '')
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertJsonStringNotEqualsJsonFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertJsonStringEqualsJsonString($expectedJson, $actualJson, $message = '');
 }
 
 /**
@@ -902,13 +678,63 @@ function assertJsonStringNotEqualsJsonFile($expectedFile, $actualJson, $message 
  * @param string $expectedJson
  * @param string $actualJson
  * @param string $message
+ * @since Method available since Release 3.7.0
  */
 function assertJsonStringNotEqualsJsonString($expectedJson, $actualJson, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertJsonStringNotEqualsJsonString',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertJsonStringNotEqualsJsonString($expectedJson, $actualJson, $message = '');
+}
+
+/**
+ * Asserts that the generated JSON encoded object and the content of the given file are equal.
+ *
+ * @param string $expectedFile
+ * @param string $actualJson
+ * @param string $message
+ * @since Method available since Release 3.7.0
+ */
+function assertJsonStringEqualsJsonFile($expectedFile, $actualJson, $message = '')
+{
+    return PHPUnit_Framework_Assert::assertJsonStringEqualsJsonFile($expectedFile, $actualJson, $message = '');
+}
+
+/**
+ * Asserts that the generated JSON encoded object and the content of the given file are not equal.
+ *
+ * @param string $expectedFile
+ * @param string $actualJson
+ * @param string $message
+ * @since Method available since Release 3.7.0
+ */
+function assertJsonStringNotEqualsJsonFile($expectedFile, $actualJson, $message = '')
+{
+    return PHPUnit_Framework_Assert::assertJsonStringNotEqualsJsonFile($expectedFile, $actualJson, $message = '');
+}
+
+/**
+ * Asserts that two JSON files are not equal.
+ *
+ * @param  string $expectedFile
+ * @param  string $actualFile
+ * @param  string $message
+ * @since Method available since Release 3.7.0
+ */
+function assertJsonFileNotEqualsJsonFile($expectedFile, $actualFile, $message = '')
+{
+    return PHPUnit_Framework_Assert::assertJsonFileNotEqualsJsonFile($expectedFile, $actualFile, $message = '');
+}
+
+/**
+ * Asserts that two JSON files are equal.
+ *
+ * @param  string $expectedFile
+ * @param  string $actualFile
+ * @param  string $message
+ * @since Method available since Release 3.7.0
+ */
+function assertJsonFileEqualsJsonFile($expectedFile, $actualFile, $message = '')
+{
+    return PHPUnit_Framework_Assert::assertJsonFileEqualsJsonFile($expectedFile, $actualFile, $message = '');
 }
 
 /**
@@ -921,10 +747,7 @@ function assertJsonStringNotEqualsJsonString($expectedJson, $actualJson, $messag
  */
 function assertLessThan($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertLessThan',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertLessThan($expected, $actual, $message);
 }
 
 /**
@@ -937,10 +760,7 @@ function assertLessThan($expected, $actual, $message = '')
  */
 function assertLessThanOrEqual($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertLessThanOrEqual',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertLessThanOrEqual($expected, $actual, $message);
 }
 
 /**
@@ -955,10 +775,7 @@ function assertLessThanOrEqual($expected, $actual, $message = '')
  */
 function assertNotContains($needle, $haystack, $message = '', $ignoreCase = FALSE, $checkForObjectIdentity = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotContains',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotContains($needle, $haystack, $message, $ignoreCase, $checkForObjectIdentity);
 }
 
 /**
@@ -972,10 +789,7 @@ function assertNotContains($needle, $haystack, $message = '', $ignoreCase = FALS
  */
 function assertNotContainsOnly($type, $haystack, $isNativeType = NULL, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotContainsOnly',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotContainsOnly($type, $haystack, $isNativeType, $message);
 }
 
 /**
@@ -987,10 +801,7 @@ function assertNotContainsOnly($type, $haystack, $isNativeType = NULL, $message 
  */
 function assertNotCount($expectedCount, $haystack, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotCount',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotCount($expectedCount, $haystack, $message);
 }
 
 /**
@@ -1002,10 +813,7 @@ function assertNotCount($expectedCount, $haystack, $message = '')
  */
 function assertNotEmpty($actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotEmpty',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotEmpty($actual, $message);
 }
 
 /**
@@ -1022,10 +830,7 @@ function assertNotEmpty($actual, $message = '')
  */
 function assertNotEquals($expected, $actual, $message = '', $delta = 0, $maxDepth = 10, $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotEquals',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotEquals($expected, $actual, $message, $delta, $maxDepth, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -1038,10 +843,7 @@ function assertNotEquals($expected, $actual, $message = '', $delta = 0, $maxDept
  */
 function assertNotInstanceOf($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotInstanceOf',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotInstanceOf($expected, $actual, $message);
 }
 
 /**
@@ -1054,10 +856,7 @@ function assertNotInstanceOf($expected, $actual, $message = '')
  */
 function assertNotInternalType($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotInternalType',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotInternalType($expected, $actual, $message);
 }
 
 /**
@@ -1068,10 +867,7 @@ function assertNotInternalType($expected, $actual, $message = '')
  */
 function assertNotNull($actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotNull',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotNull($actual, $message);
 }
 
 /**
@@ -1084,10 +880,7 @@ function assertNotNull($actual, $message = '')
  */
 function assertNotRegExp($pattern, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotRegExp',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotRegExp($pattern, $string, $message);
 }
 
 /**
@@ -1101,26 +894,20 @@ function assertNotRegExp($pattern, $string, $message = '')
  */
 function assertNotSame($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotSame',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotSame($expected, $actual, $message);
 }
 
 /**
  * Assert that the size of two arrays (or `Countable` or `Iterator` objects)
  * is not the same.
  *
- * @param array|Countable|Iterator $expected
- * @param array|Countable|Iterator $actual
- * @param string $message
+ * @param integer $expected
+ * @param mixed   $actual
+ * @param string  $message
  */
-function assertNotSameSize($expected, $actual, $message = '')
+function assertNotSameSize($expectedCount, $haystack, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotSameSize',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotSameSize($expectedCount, $haystack, $message);
 }
 
 /**
@@ -1139,10 +926,7 @@ function assertNotSameSize($expected, $actual, $message = '')
  */
 function assertNotTag($matcher, $actual, $message = '', $isHtml = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNotTag',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNotTag($matcher, $actual, $message, $isHtml);
 }
 
 /**
@@ -1153,10 +937,7 @@ function assertNotTag($matcher, $actual, $message = '', $isHtml = TRUE)
  */
 function assertNull($actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertNull',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertNull($actual, $message);
 }
 
 /**
@@ -1169,10 +950,7 @@ function assertNull($actual, $message = '')
  */
 function assertObjectHasAttribute($attributeName, $object, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertObjectHasAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertObjectHasAttribute($attributeName, $object, $message);
 }
 
 /**
@@ -1185,10 +963,7 @@ function assertObjectHasAttribute($attributeName, $object, $message = '')
  */
 function assertObjectNotHasAttribute($attributeName, $object, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertObjectNotHasAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertObjectNotHasAttribute($attributeName, $object, $message);
 }
 
 /**
@@ -1200,10 +975,7 @@ function assertObjectNotHasAttribute($attributeName, $object, $message = '')
  */
 function assertRegExp($pattern, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertRegExp',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertRegExp($pattern, $string, $message);
 }
 
 /**
@@ -1217,26 +989,20 @@ function assertRegExp($pattern, $string, $message = '')
  */
 function assertSame($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertSame',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertSame($expected, $actual, $message);
 }
 
 /**
  * Assert that the size of two arrays (or `Countable` or `Iterator` objects)
  * is the same.
  *
- * @param array|Countable|Iterator $expected
- * @param array|Countable|Iterator $actual
- * @param string $message
+ * @param integer $expected
+ * @param mixed   $actual
+ * @param string  $message
  */
 function assertSameSize($expected, $actual, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertSameSize',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertSameSize($expected, $actual, $message);
 }
 
 /**
@@ -1265,10 +1031,7 @@ function assertSameSize($expected, $actual, $message = '')
  */
 function assertSelectCount($selector, $count, $actual, $message = '', $isHtml = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertSelectCount',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertSelectCount($selector, $count, $actual, $message, $isHtml);
 }
 
 /**
@@ -1287,10 +1050,7 @@ function assertSelectCount($selector, $count, $actual, $message = '', $isHtml = 
  */
 function assertSelectEquals($selector, $content, $count, $actual, $message = '', $isHtml = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertSelectEquals',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertSelectEquals($selector, $content, $count, $actual, $message, $isHtml);
 }
 
 /**
@@ -1309,10 +1069,7 @@ function assertSelectEquals($selector, $content, $count, $actual, $message = '',
  */
 function assertSelectRegExp($selector, $pattern, $count, $actual, $message = '', $isHtml = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertSelectRegExp',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertSelectRegExp($selector, $pattern, $count, $actual, $message, $isHtml);
 }
 
 /**
@@ -1325,10 +1082,7 @@ function assertSelectRegExp($selector, $pattern, $count, $actual, $message = '',
  */
 function assertStringEndsNotWith($suffix, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringEndsNotWith',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringEndsNotWith($suffix, $string, $message);
 }
 
 /**
@@ -1341,10 +1095,7 @@ function assertStringEndsNotWith($suffix, $string, $message = '')
  */
 function assertStringEndsWith($suffix, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringEndsWith',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringEndsWith($suffix, $string, $message);
 }
 
 /**
@@ -1360,10 +1111,7 @@ function assertStringEndsWith($suffix, $string, $message = '')
  */
 function assertStringEqualsFile($expectedFile, $actualString, $message = '', $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringEqualsFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringEqualsFile($expectedFile, $actualString, $message, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -1376,10 +1124,7 @@ function assertStringEqualsFile($expectedFile, $actualString, $message = '', $ca
  */
 function assertStringMatchesFormat($format, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringMatchesFormat',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringMatchesFormat($format, $string, $message);
 }
 
 /**
@@ -1392,10 +1137,7 @@ function assertStringMatchesFormat($format, $string, $message = '')
  */
 function assertStringMatchesFormatFile($formatFile, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringMatchesFormatFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringMatchesFormatFile($formatFile, $string, $message);
 }
 
 /**
@@ -1411,10 +1153,7 @@ function assertStringMatchesFormatFile($formatFile, $string, $message = '')
  */
 function assertStringNotEqualsFile($expectedFile, $actualString, $message = '', $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringNotEqualsFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringNotEqualsFile($expectedFile, $actualString, $message, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -1427,10 +1166,7 @@ function assertStringNotEqualsFile($expectedFile, $actualString, $message = '', 
  */
 function assertStringNotMatchesFormat($format, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringNotMatchesFormat',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringNotMatchesFormat($format, $string, $message);
 }
 
 /**
@@ -1443,10 +1179,7 @@ function assertStringNotMatchesFormat($format, $string, $message = '')
  */
 function assertStringNotMatchesFormatFile($formatFile, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringNotMatchesFormatFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringNotMatchesFormatFile($formatFile, $string, $message);
 }
 
 /**
@@ -1459,10 +1192,7 @@ function assertStringNotMatchesFormatFile($formatFile, $string, $message = '')
  */
 function assertStringStartsNotWith($prefix, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringStartsNotWith',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringStartsNotWith($prefix, $string, $message);
 }
 
 /**
@@ -1475,10 +1205,7 @@ function assertStringStartsNotWith($prefix, $string, $message = '')
  */
 function assertStringStartsWith($prefix, $string, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertStringStartsWith',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertStringStartsWith($prefix, $string, $message);
 }
 
 /**
@@ -1488,13 +1215,13 @@ function assertStringStartsWith($prefix, $string, $message = '')
  * match criteria for the assertion:
  *
  *  - `id`   : the node with the given id attribute must match the
- * corresponding value.
+ * corresponsing value.
  *  - `tag`  : the node type must match the corresponding value.
- *  - `attributes`   : a hash. The node's attributes must match the
- * corresponding values in the hash.
+ *  - `attributes`   : a hash. The node's attributres must match the
+ * corresponsing values in the hash.
  *  - `content`  : The text content must match the given value.
  *  - `parent`   : a hash. The node's parent must match the
- * corresponding hash.
+ * corresponsing hash.
  *  - `child`: a hash. At least one of the node's immediate children
  * must meet the criteria described by the hash.
  *  - `ancestor` : a hash. At least one of the node's ancestors must
@@ -1620,10 +1347,7 @@ function assertStringStartsWith($prefix, $string, $message = '')
  */
 function assertTag($matcher, $actual, $message = '', $isHtml = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertTag',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertTag($matcher, $actual, $message, $isHtml);
 }
 
 /**
@@ -1636,10 +1360,7 @@ function assertTag($matcher, $actual, $message = '', $isHtml = TRUE)
  */
 function assertThat($value, PHPUnit_Framework_Constraint $constraint, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertThat',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertThat($value, $constraint, $message);
 }
 
 /**
@@ -1651,10 +1372,7 @@ function assertThat($value, PHPUnit_Framework_Constraint $constraint, $message =
  */
 function assertTrue($condition, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertTrue',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertTrue($condition, $message);
 }
 
 /**
@@ -1667,10 +1385,7 @@ function assertTrue($condition, $message = '')
  */
 function assertXmlFileEqualsXmlFile($expectedFile, $actualFile, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertXmlFileEqualsXmlFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertXmlFileEqualsXmlFile($expectedFile, $actualFile, $message);
 }
 
 /**
@@ -1683,10 +1398,7 @@ function assertXmlFileEqualsXmlFile($expectedFile, $actualFile, $message = '')
  */
 function assertXmlFileNotEqualsXmlFile($expectedFile, $actualFile, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertXmlFileNotEqualsXmlFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertXmlFileNotEqualsXmlFile($expectedFile, $actualFile, $message);
 }
 
 /**
@@ -1699,10 +1411,7 @@ function assertXmlFileNotEqualsXmlFile($expectedFile, $actualFile, $message = ''
  */
 function assertXmlStringEqualsXmlFile($expectedFile, $actualXml, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertXmlStringEqualsXmlFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertXmlStringEqualsXmlFile($expectedFile, $actualXml, $message);
 }
 
 /**
@@ -1715,10 +1424,7 @@ function assertXmlStringEqualsXmlFile($expectedFile, $actualXml, $message = '')
  */
 function assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertXmlStringEqualsXmlString',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message);
 }
 
 /**
@@ -1731,10 +1437,7 @@ function assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message = '')
  */
 function assertXmlStringNotEqualsXmlFile($expectedFile, $actualXml, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertXmlStringNotEqualsXmlFile',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertXmlStringNotEqualsXmlFile($expectedFile, $actualXml, $message);
 }
 
 /**
@@ -1747,10 +1450,7 @@ function assertXmlStringNotEqualsXmlFile($expectedFile, $actualXml, $message = '
  */
 function assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, $message = '')
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::assertXmlStringNotEqualsXmlString',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, $message);
 }
 
 /**
@@ -1763,10 +1463,7 @@ function assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, $message = 
  */
 function at($index)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::at',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::at($index);
 }
 
 /**
@@ -1778,10 +1475,7 @@ function at($index)
  */
 function atLeastOnce()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::atLeastOnce',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::atLeastOnce();
 }
 
 /**
@@ -1794,10 +1488,7 @@ function atLeastOnce()
  */
 function attribute(PHPUnit_Framework_Constraint $constraint, $attributeName)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::attribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::attribute($constraint, $attributeName);
 }
 
 /**
@@ -1816,24 +1507,7 @@ function attribute(PHPUnit_Framework_Constraint $constraint, $attributeName)
  */
 function attributeEqualTo($attributeName, $value, $delta = 0, $maxDepth = 10, $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::attributeEqualTo',
-      func_get_args()
-    );
-}
-
-/**
- * Returns a PHPUnit_Framework_Constraint_Callback matcher object.
- *
- * @param callable $callback
- * @return PHPUnit_Framework_Constraint_Callback
- */
-function callback($callback)
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::callback',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::attributeEqualTo($attributeName, $value, $delta, $maxDepth, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -1845,10 +1519,7 @@ function callback($callback)
  */
 function classHasAttribute($attributeName)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::classHasAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::classHasAttribute($attributeName);
 }
 
 /**
@@ -1861,10 +1532,7 @@ function classHasAttribute($attributeName)
  */
 function classHasStaticAttribute($attributeName)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::classHasStaticAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::classHasStaticAttribute($attributeName);
 }
 
 /**
@@ -1878,10 +1546,7 @@ function classHasStaticAttribute($attributeName)
  */
 function contains($value, $checkForObjectIdentity = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::contains',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::contains($value, $checkForObjectIdentity);
 }
 
 /**
@@ -1894,25 +1559,7 @@ function contains($value, $checkForObjectIdentity = TRUE)
  */
 function containsOnly($type)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::containsOnly',
-      func_get_args()
-    );
-}
-
-/**
- * Returns a PHPUnit_Framework_Constraint_TraversableContainsOnly matcher
- * object.
- *
- * @param string $classname
- * @return PHPUnit_Framework_Constraint_TraversableContainsOnly
- */
-function containsOnlyInstancesOf($classname)
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::containsOnlyInstancesOf',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::containsOnly($type);
 }
 
 /**
@@ -1928,10 +1575,7 @@ function containsOnlyInstancesOf($classname)
  */
 function equalTo($value, $delta = 0, $maxDepth = 10, $canonicalize = FALSE, $ignoreCase = FALSE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::equalTo',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::equalTo($value, $delta, $maxDepth, $canonicalize, $ignoreCase);
 }
 
 /**
@@ -1944,10 +1588,7 @@ function equalTo($value, $delta = 0, $maxDepth = 10, $canonicalize = FALSE, $ign
  */
 function exactly($count)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::exactly',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::exactly($count);
 }
 
 /**
@@ -1958,10 +1599,7 @@ function exactly($count)
  */
 function fileExists()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::fileExists',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::fileExists();
 }
 
 /**
@@ -1973,10 +1611,7 @@ function fileExists()
  */
 function greaterThan($value)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::greaterThan',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::greaterThan($value);
 }
 
 /**
@@ -1990,10 +1625,7 @@ function greaterThan($value)
  */
 function greaterThanOrEqual($value)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::greaterThanOrEqual',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::greaterThanOrEqual($value);
 }
 
 /**
@@ -2005,10 +1637,7 @@ function greaterThanOrEqual($value)
  */
 function identicalTo($value)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::identicalTo',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::identicalTo($value);
 }
 
 /**
@@ -2019,10 +1648,7 @@ function identicalTo($value)
  */
 function isEmpty()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::isEmpty',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::isEmpty();
 }
 
 /**
@@ -2033,10 +1659,7 @@ function isEmpty()
  */
 function isFalse()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::isFalse',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::isFalse();
 }
 
 /**
@@ -2048,24 +1671,7 @@ function isFalse()
  */
 function isInstanceOf($className)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::isInstanceOf',
-      func_get_args()
-    );
-}
-
-/**
- * Returns a PHPUnit_Framework_Constraint_IsJson matcher object.
- *
- * @return PHPUnit_Framework_Constraint_IsJson
- * @since  Method available since Release 3.7.20
- */
-function isJson()
-{
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::isJson',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::isInstanceOf($className);
 }
 
 /**
@@ -2076,10 +1682,7 @@ function isJson()
  */
 function isNull()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::isNull',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::isNull();
 }
 
 /**
@@ -2090,10 +1693,18 @@ function isNull()
  */
 function isTrue()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::isTrue',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::isTrue();
+}
+
+/**
+ * Returns a PHPUnit_Framework_Constraint_Callback matcher object.
+ *
+ * @param callable $callback
+ * @return PHPUnit_Framework_Constraint_Callback
+ */
+function callback($callback)
+{
+    return PHPUnit_Framework_Assert::callback($callback);
 }
 
 /**
@@ -2105,10 +1716,7 @@ function isTrue()
  */
 function isType($type)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::isType',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::isType($type);
 }
 
 /**
@@ -2120,10 +1728,7 @@ function isType($type)
  */
 function lessThan($value)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::lessThan',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::lessThan($value);
 }
 
 /**
@@ -2137,10 +1742,7 @@ function lessThan($value)
  */
 function lessThanOrEqual($value)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::lessThanOrEqual',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::lessThanOrEqual($value);
 }
 
 /**
@@ -2151,10 +1753,7 @@ function lessThanOrEqual($value)
  */
 function logicalAnd()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::logicalAnd',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::logicalAnd();
 }
 
 /**
@@ -2166,10 +1765,7 @@ function logicalAnd()
  */
 function logicalNot(PHPUnit_Framework_Constraint $constraint)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::logicalNot',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::logicalNot($constraint);
 }
 
 /**
@@ -2180,10 +1776,7 @@ function logicalNot(PHPUnit_Framework_Constraint $constraint)
  */
 function logicalOr()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::logicalOr',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::logicalOr();
 }
 
 /**
@@ -2194,10 +1787,7 @@ function logicalOr()
  */
 function logicalXor()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::logicalXor',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::logicalXor();
 }
 
 /**
@@ -2209,10 +1799,7 @@ function logicalXor()
  */
 function matches($string)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::matches',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::matches($string);
 }
 
 /**
@@ -2224,10 +1811,7 @@ function matches($string)
  */
 function matchesRegularExpression($pattern)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::matchesRegularExpression',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::matchesRegularExpression($pattern);
 }
 
 /**
@@ -2239,10 +1823,7 @@ function matchesRegularExpression($pattern)
  */
 function never()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::never',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::never();
 }
 
 /**
@@ -2254,10 +1835,7 @@ function never()
  */
 function objectHasAttribute($attributeName)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::objectHasAttribute',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::objectHasAttribute($attributeName);
 }
 
 /**
@@ -2269,10 +1847,7 @@ function objectHasAttribute($attributeName)
  */
 function onConsecutiveCalls()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::onConsecutiveCalls',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::onConsecutiveCalls();
 }
 
 /**
@@ -2284,10 +1859,7 @@ function onConsecutiveCalls()
  */
 function once()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::once',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::once();
 }
 
 /**
@@ -2299,10 +1871,7 @@ function once()
  */
 function returnArgument($argumentIndex)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::returnArgument',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::returnArgument($argumentIndex);
 }
 
 /**
@@ -2314,10 +1883,7 @@ function returnArgument($argumentIndex)
  */
 function returnCallback($callback)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::returnCallback',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::returnCallback($callback);
 }
 
 /**
@@ -2330,10 +1896,7 @@ function returnCallback($callback)
  */
 function returnSelf()
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::returnSelf',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::returnSelf();
 }
 
 /**
@@ -2345,10 +1908,7 @@ function returnSelf()
  */
 function returnValue($value)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::returnValue',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::returnValue($value);
 }
 
 /**
@@ -2360,10 +1920,7 @@ function returnValue($value)
  */
 function returnValueMap(array $valueMap)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::returnValueMap',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::returnValueMap($valueMap);
 }
 
 /**
@@ -2376,10 +1933,7 @@ function returnValueMap(array $valueMap)
  */
 function stringContains($string, $case = TRUE)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::stringContains',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::stringContains($string, $case);
 }
 
 /**
@@ -2391,10 +1945,7 @@ function stringContains($string, $case = TRUE)
  */
 function stringEndsWith($suffix)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::stringEndsWith',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::stringEndsWith($suffix);
 }
 
 /**
@@ -2406,10 +1957,7 @@ function stringEndsWith($suffix)
  */
 function stringStartsWith($prefix)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_Assert::stringStartsWith',
-      func_get_args()
-    );
+    return PHPUnit_Framework_Assert::stringStartsWith($prefix);
 }
 
 /**
@@ -2421,8 +1969,5 @@ function stringStartsWith($prefix)
  */
 function throwException(Exception $exception)
 {
-    return call_user_func_array(
-      'PHPUnit_Framework_TestCase::throwException',
-      func_get_args()
-    );
+    return PHPUnit_Framework_TestCase::throwException($exception);
 }

@@ -13,8 +13,8 @@ PHPUnit_TextUI_Command::main();
 --EXPECTF--
 PHPUnit %s by Sebastian Bergmann.
 
-Usage: phpunit [options] UnitTest [UnitTest.php]
-       phpunit [options] <directory>
+Usage: phpunit [switches] UnitTest [UnitTest.php]
+       phpunit [switches] <directory>
 
   --log-junit <file>        Log test execution in JUnit XML format to file.
   --log-tap <file>          Log test execution in TAP format to file.
