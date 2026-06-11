@@ -10,7 +10,7 @@ class Usuarioplanejamento extends AppModel {
 
     public $name = 'Usuarioplanejamento';
 
-    public $useTable = "usuarioplanejamentos";
+    public $useTable = "users";
 
     public $hasMany = array('Configuraplanejamento');
 
