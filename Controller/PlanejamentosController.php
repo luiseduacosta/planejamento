@@ -245,14 +245,14 @@ class PlanejamentosController extends AppController
 
     public function index()
     {
-
         $parametros = $this->params['named'];
         $semestre_id = isset($parametros['semestre']) ? $parametros['semestre'] : NULL;
 
         if (empty($semestre_id) or $semestre_id == NULL):
             $semestre_id = $this->Session->read("semestre");
             if (!($semestre_id)):
-                $this->Session->setFlash('Selecione um semestre para ver o planejamento');
+                $this->Session->delete("semestre");
+                $this->Flash->error('Selecione um semestre para ver o planejamento');
                 $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
             endif;
         endif;
@@ -260,8 +260,7 @@ class PlanejamentosController extends AppController
         // Capturo o semestre por extenso //
         $semestreporextenso = $this->semestreporextenso($semestre_id);
         $this->Session->write("semestreporextenso", $semestreporextenso);
-        // pr($semestreporextenso);
-        // die();
+     
         for ($periodo = 1; $periodo <= 8; $periodo++):
             for ($x = 1; $x <= 4; $x++): // horarios
                 for ($i = 1; $i <= 5; $i++): // dias
@@ -414,7 +413,7 @@ class PlanejamentosController extends AppController
         if ($semestre_id):
             $condicoes['Planejamento.configuraplanejamento_id'] = $semestre_id;
         else:
-            $this->Session->setFlash('Selecione o semestre');
+            $this->Flash->error('Selecione o semestre');
             $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         endif;
 
@@ -563,9 +562,9 @@ class PlanejamentosController extends AppController
 
         // Capturo o semestre por extenso //
         $semestreporextenso = $this->semestreporextenso($semestre_id);
-        $this->Flash->write("semestreporextenso", $semestreporextenso);
+        $this->Session->write("semestreporextenso", $semestreporextenso);
 
-        $this->set('nucleotematico', $this->Paginate($conditions));
+        $this->set('nucleotematico', $this->Paginate($conditions?:[]()));
     }
 
     public function optativa()
@@ -580,17 +579,15 @@ class PlanejamentosController extends AppController
                 'Disciplina.id' => ["54", "55"]
             ];
         else:
-            $this->Session->setFlash('Selecione o semestre');
+            $this->Flash->error('Selecione o semestre');
             $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         endif;
 
         // Capturo o semestre por extenso //
         $semestreporextenso = $this->semestreporextenso($semestre_id);
         $this->Session->write("semestreporextenso", $semestreporextenso);
-        // pr($semestreporextenso);
-        // die();
 
-        $this->set('optativas', $this->Paginate($conditions));
+        $this->set('optativas', $this->Paginate($conditions?:[]()));
     }
 
     public function relaciona($id = NULL)

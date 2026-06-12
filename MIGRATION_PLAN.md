@@ -43,7 +43,7 @@ Academic course planning and scheduling management system for ESS/UFRJ (Escola d
 
 ### 1. **Scheduling System (PlanejamentosController)**
 - **listar()** - Filter planning by semester, shift, period, professor, discipline, department
-- **index()** - Generate schedule grid (Diurno: 4 periods × 5 days, Noturno: 10 periods × 5 days)
+- **index()** - Generate schedule grid (Diurno: 8 periods × 5 days, Noturno: 10 periods × 5 days)
 - **otp()** - Special OTP courses (codes: SSW401, SSW402, SSW403, SSW405)
 - **nucleotematico()** - Thematic nucleus courses (codes: SSW409, SSW410)
 - **optativa()** - Elective courses (ids: 54, 55)

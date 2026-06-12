@@ -1,7 +1,7 @@
 <?php // pr($configuraplanejamentos);          ?>
 
 <?php
-echo $this->element('submenu_configuraplanejamentos');
+$this->element('submenu_configuraplanejamentos');
 ?>
 
 <div align="center">
