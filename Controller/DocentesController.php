@@ -3,6 +3,7 @@
 class DocentesController extends AppController {
 
     public $name = "Docentes";
+
     public $paginate = ['limit' => 15,
         'order' => ['nome']];
 

@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class HorariosController extends AppController
 {
 
@@ -15,7 +9,6 @@ class HorariosController extends AppController
     {
 
         $horarios = $this->Horario->find('all');
-        // pr($horarios);
         $this->set('horarios', $horarios);
     }
 
@@ -25,8 +18,6 @@ class HorariosController extends AppController
         $disciplina = $this->Horario->find('first', [
             'conditions' => ['Horario.id' => $id]
         ]);
-        // pr($disciplina);
-        // die();
         $this->set('horario', $disciplina);
     }
 
@@ -51,7 +42,6 @@ class HorariosController extends AppController
             $this->data = $this->Horario->read();
         } else {
             if ($this->Horario->save($this->data)) {
-                // print_r($this->data);
                 $this->Flash->success(__('Atualizado.'));
                 return $this->redirect(['controller' => 'Horarios', 'action' => 'view', $id]);
             }

@@ -18,7 +18,7 @@ class SalasController extends AppController {
             $this->data = $this->Sala->read();
         } else {
             if ($this->Sala->save($this->data)) {
-                $this->Flash->success("Atualizado");
+                $this->Flash->success(__('Atualizado'));
                 return $this->redirect(['controller' => 'Salas', 'action' => 'view', $id]);
             }
         }
@@ -36,7 +36,7 @@ class SalasController extends AppController {
 
         if ($this->data) {
             if ($this->Sala->save($this->data)) {
-                $this->Flash->success(__('Dados inseridos.'));
+                $this->Flash->success(__('Sala inserida.'));
                 return $this->redirect(['controller' => 'Salas', 'action' => 'view', $this->Sala->getLastInsertId()]);
             }
         }
@@ -70,11 +70,9 @@ class SalasController extends AppController {
         $this->loadModel('Horario');
         $this->set('horarios', $this->Horario->find('all', ['order' => 'id']));
 
-        //$q_salas = 0;
         for ($q_salas = 1; $q_salas < $quantidade_salas + 1; $q_salas++):
             for ($q_horarios = 1; $q_horarios < 7; $q_horarios++):
                 for ($q_dias = 1; $q_dias < 6; $q_dias++):
-                    // $this->Sala->recursive = -1;
                     $salas = $this->Sala->Planejamento->find('all', [
                         'conditions' => [
                             'Sala.sala' => $q_salas,
@@ -83,20 +81,18 @@ class SalasController extends AppController {
                             'Planejamento.horario_id' => $q_horarios,
                         ],
                         'fields' => ['Sala.id', 'Sala.sala', 'Dia.dia', 'Dia.id', 'Horario.horario', 'Horario.id', 'Disciplina.disciplina', 'Disciplina.id']
-                            ]
-                    );
+                    ]);
 
                     if ($salas):
-                        foreach ($salas as $c_sala):
-                            // pr($c_sala);
-                            $salaocupada[$q_dias]['sala'] = $c_sala['Sala']['sala'];
-                            $salaocupada[$q_dias]['sala_id'] = $c_sala['Sala']['id'];
-                            $salaocupada[$q_dias]['dia'] = $c_sala['Dia']['dia'];
-                            $salaocupada[$q_dias]['dia_id'] = $c_sala['Dia']['id'];
-                            $salaocupada[$q_dias]['horario'] = $c_sala['Horario']['horario'];
-                            $salaocupada[$q_dias]['horario_id'] = $c_sala['Horario']['id'];
-                            $salaocupada[$q_dias]['disciplina_id'] = $c_sala['Disciplina']['id'];
-                            $salaocupada[$q_dias]['disciplina'] = $c_sala['Disciplina']['disciplina'];
+                        foreach ($salas as $sala):
+                            $salaocupada[$q_dias]['sala'] = $sala['Sala']['sala'];
+                            $salaocupada[$q_dias]['sala_id'] = $sala['Sala']['id'];
+                            $salaocupada[$q_dias]['dia'] = $sala['Dia']['dia'];
+                            $salaocupada[$q_dias]['dia_id'] = $sala['Dia']['id'];
+                            $salaocupada[$q_dias]['horario'] = $sala['Horario']['horario'];
+                            $salaocupada[$q_dias]['horario_id'] = $sala['Horario']['id'];
+                            $salaocupada[$q_dias]['disciplina_id'] = $sala['Disciplina']['id'];
+                            $salaocupada[$q_dias]['disciplina'] = $sala['Disciplina']['disciplina'];
                         endforeach;
                     else:
                         $salaocupada[$q_dias]['sala'] = $q_salas;
@@ -113,7 +109,6 @@ class SalasController extends AppController {
             endfor;
             $salaocupada_sala[$q_salas] = $salaocupada_dia;
         endfor;
-        // pr($salaocupada_sala);
         $this->set('salaocupadas', $salaocupada_sala);
     }
 

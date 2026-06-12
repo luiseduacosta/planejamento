@@ -1,16 +1,14 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class EmentasController extends AppController {
 
     public $name = "Ementas";
+
     public $paginate = [
-        'order' => ['Ementa.titulo' => 'desc']];
+        'order' => ['Ementa.titulo' => 'desc']
+    ];
+
+    public $condicoes = [];
 
     public function index() {
 
@@ -49,9 +47,7 @@ class EmentasController extends AppController {
 
             $this->data = $this->Ementa->read();
         } else {
-            // pr($this->data);
             if ($this->Ementa->save($this->data)) {
-                // print_r($this->data);
                 $this->Flash->success(__('Atualizado.'));
                 return $this->redirect(['controller' => 'ementas', 'action' => 'view', $id]);
             }
@@ -65,7 +61,6 @@ class EmentasController extends AppController {
             ]
         );
 
-        // pr($ementa);
         if ($ementa) {
             $this->set('ementa', $ementa);
         }
@@ -97,7 +92,6 @@ class EmentasController extends AppController {
             );
 
             $this->set('docentes', $docentes);
-            // die();
             $semestre = $this->Session->read("semestre");
             if (empty($semestre)):
                 $c_semestre = $this->Planejamento->find('first', [
