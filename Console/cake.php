@@ -21,6 +21,31 @@ if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
 }
 
+if (function_exists('ini_set')) {
+	ini_set('pcre.jit', '0');
+}
+
+if (!defined('TMP')) {
+	$sep = DIRECTORY_SEPARATOR;
+	$tmpDir = rtrim(sys_get_temp_dir(), $sep) . $sep . 'planejamento' . $sep;
+	$tmpDirs = array(
+		$tmpDir,
+		$tmpDir . 'cache' . $sep,
+		$tmpDir . 'cache' . $sep . 'persistent' . $sep,
+		$tmpDir . 'cache' . $sep . 'models' . $sep,
+		$tmpDir . 'cache' . $sep . 'views' . $sep,
+		$tmpDir . 'logs' . $sep,
+		$tmpDir . 'sessions' . $sep
+	);
+	foreach ($tmpDirs as $dir) {
+		if (!is_dir($dir)) {
+			@mkdir($dir, 0777, true);
+		}
+		@chmod($dir, 0777);
+	}
+	define('TMP', $tmpDir);
+}
+
 $dispatcher = 'Cake' . DS . 'Console' . DS . 'ShellDispatcher.php';
 
 if (function_exists('ini_set')) {
