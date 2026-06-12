@@ -1,5 +1,7 @@
 <?php
 
+App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,33 +14,37 @@ class Usuarioplanejamento extends AppModel {
 
     public $useTable = "users";
 
-    public $hasMany = array('Configuraplanejamento');
+    public $hasMany = ['Configuraplanejamento'];
 
-    public $validate = array(
-        'username' => array(
-            'required' => array(
-                'rule' => array('notBlank'),
+    public $primaryKey = 'id';
+    public $validate = [
+        'username' => [
+            'required' => [
+                'rule' => 'notBlank',
                 'message' => 'Nome do usuario é obrigatório'
-            )
-        ),
-        'password' => array(
-            'required' => array(
-                'rule' => array('notBlank'),
+            ]
+        ],
+        'password' => [
+            'required' => [
+                'rule' => 'notBlank',
                 'message' => 'A senha é obrigatória'
-            )
-        ),
-        'role' => array(
-            'valid' => array(
-                'rule' => array('inList', array('admin', 'editor')),
+            ]
+        ],
+        'role' => [
+            'valid' => [
+                'rule' => ['inList', ['admin', 'editor']],
                 'message' => 'Ingresse um papel: admin ou editor',
                 'allowEmpty' => false
-            )
-        )
-    );
+            ]
+        ]
+    ];
 
-    public function beforeSave($options = array()) {
+    public function beforeSave($options = []) {
         if (isset($this->data['Usuarioplanejamento']['password'])) {
-            $this->data['Usuarioplanejamento']['password'] = AuthComponent::password($this->data['Usuarioplanejamento']['password']);
+            $passwordHasher = new SimplePasswordHasher();
+            $this->data['Usuarioplanejamento']['password'] = $passwordHasher->hash(
+                $this->data['Usuarioplanejamento']['password']
+            );
         }
         return true;
     }

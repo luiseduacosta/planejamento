@@ -6,6 +6,12 @@ class ConfiguraplanejamentosController extends AppController {
 
     public function index() {
 
+        $usuario = $this->Auth->user();
+        if (empty($usuario)) {
+            $this->redirect(['controller' => 'Usuarioplanejamentos', 'action' => 'login']);
+        }
+        $this->set('usuario', $usuario);
+
         $this->Configuraplanejamento->recursive = 1;
         $configuracoes = $this->Configuraplanejamento->find('all', ['order' => ['semestre', 'versao']]);
         $this->set('configuraplanejamentos', $configuracoes);
@@ -14,9 +20,9 @@ class ConfiguraplanejamentosController extends AppController {
     public function edit($id = NULL) {
 
         $this->Configuraplanejamento->id = $id;
-        $usuario = $this->Session->read('usuarioplanejamento');
+        $usuario = $this->Auth->user();
         if (empty($usuario)) {
-            $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
+            $this->redirect(['controller' => 'Usuarioplanejamentos', 'action' => 'login']);
         } else {
             // Verifica se o usuário é o proprietário do planejamento
             $proprietario = $this->Configuraplanejamento->find('first', ['conditions' => ['Configuraplanejamento.id' => $id]]);
@@ -29,23 +35,29 @@ class ConfiguraplanejamentosController extends AppController {
                     $this->data = $this->Configuraplanejamento->read();
                 } else {
                     if ($this->Configuraplanejamento->save($this->data)) {
-                        $this->Session->setFlash("Atualizado");
+                        $this->Flash->success(__('Atualizado'));
                         $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'view', $id]);
+                    } else {
+                        $this->Flash->error(__('Não foi possível atualizar a configuração.'));
                     }
                 }
             } else {
-                $this->Session->setFlash('Usuário não pode modificar esta configuração');
-                $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+                $this->Flash->error(__('Usuário não pode modificar esta configuração.'));
+                $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'view', $id]);
             }
         }
     }
 
     public function view($id = NULL) {
-
+        
+        if (!$this->Configuraplanejamento->exists($id)) {
+            throw new NotFoundException(__('Configuração não encontrada'));
+        }
+        
         $configuraplanejamento = $this->Configuraplanejamento->find('first', [
             'conditions' => ['Configuraplanejamento.id' => $id]
         ]);
-        $this->Session->write('semestre', $configuraplanejamento['Configuraplanejamento']['id']);
+        $this->Session->write('semestre', $configuraplanejamento['Configuraplanejamento']['semestre']);
         $this->set('configuraplanejamento', $configuraplanejamento);
     }
 
@@ -58,28 +70,24 @@ class ConfiguraplanejamentosController extends AppController {
 
         $usuario = $this->Session->read('usuarioplanejamento');
         if (empty($usuario)) {
-            $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
+            $this->Flash->error(__('Ingresse com seu Usuário e/ou senha.'));
+            $this->redirect(['controller' => 'planejamentos', 'action' => 'index']);    
         } else {
             $this->set('usuario', $usuario);
+            $this->Configuraplanejamento->usuarioplanejamento_id = $usuario['id'];
         }
         // Calculo o próximo semestre //
         if ($semestre_data):
             $divide_semestre = explode('-', $semestre_data);
-            // pr($divide_semestre);
-            // die();
             $ano_semestre = $divide_semestre[0];
             $digito_semestre = $divide_semestre[1];
-            // echo $ano_semestre . " <-> " . $digito_semestre;
-            // die();
             if ($digito_semestre == 1) {
                 $proximo_ano = $ano_semestre;
                 $proximo_digito = 2;
-                // echo $proximo_ano . " - " . $proximo_digito;
                 $proximo_semestre = $proximo_ano . "-" . $proximo_digito;
             } elseif ($digito_semestre == 2) {
                 $proximo_ano = $ano_semestre + 1;
                 $proximo_digito = 1;
-                // echo $proximo_ano . " - " . $proximo_digito;
                 $proximo_semestre = $proximo_ano . "-" . $proximo_digito;
             }
 
@@ -97,15 +105,15 @@ class ConfiguraplanejamentosController extends AppController {
 
         if (empty($configuraplanejamento)) {
             echo "1 Clonar configuracação de planejamento" . "<br>";
-            $this->Session->setFlash('Clonar planejamento principal');
+            $this->Flash->success('Clonar planejamento principal');
         } elseif (sizeof($configuraplanejamento['Planejamento']) > 0) {
             echo "Planejamento já existe" . "<br>";
-            $this->Session->setFlash('Planejamento já existe!');
+            $this->Flash->error('Planejamento já existe!');
             $this->redirect('/planejamentos/listar/semestre:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $proximo_semestre . '/versao:' . $versao);
         } else {
             echo "2 Criar configuração para planejamento" . "<br>";
-            $this->Session->setFlash('Criar configuração para planejamento');
-            $this->redirect('/planejamentos/novoplano/semestre_id:' . $semestre_id . '/semestre_data:' . $semestre_data . '/versao:' . ($versao + 1));
+            $this->Flash->success('Criar configuração para planejamento');
+            $this->redirect('/planejamentos/novoplano/semestre_id:' . $semestre_id . '/semestre_data:' . $proximo_semestre . '/versao:' . ($versao + 1));
         }
 
         $this->set('semestre_id', $semestre_id);
@@ -116,8 +124,8 @@ class ConfiguraplanejamentosController extends AppController {
 
         if ($this->data) {
             if ($this->Configuraplanejamento->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
-                $this->redirect('/configuraplanejamentos/index');
+                $this->Flash->success('Dados inseridos');
+                $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
             }
         }
     }
@@ -126,7 +134,7 @@ class ConfiguraplanejamentosController extends AppController {
 
         $usuario = $this->Session->read('usuarioplanejamento');
         if (empty($usuario)) {
-            $this->redirect('/usuarioplanejamentos/login');
+            $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
         } else {
             $this->set('usuario', $usuario);
         }
@@ -157,7 +165,7 @@ class ConfiguraplanejamentosController extends AppController {
 
         if ($this->data) {
             if ($this->Configuraplanejamento->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
+                $this->Flash->success('Dados inseridos');
                 $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
             }
         }
@@ -176,11 +184,11 @@ class ConfiguraplanejamentosController extends AppController {
 
                 $verifica = $this->Configuraplanejamento->Planejamento->find('first', ['conditions' => ['Planejamento.configuraplanejamento_id' => $id]]);
                 if ($verifica):
-                    $this->Session->setFlash('Registro não pode ser excluído porque está associado a uma planilha');
+                    $this->Flash->error('Registro não pode ser excluído porque está associado a uma planilha');
                     $this->redirect(['controller' => 'planejamentos', 'action' => 'listar', '?' => ['semestre', $id]]);
                 else:
                     $this->Configuraplanejamento->delete($id);
-                    $this->Session->setFlash("Registro excluído");
+                    $this->Flash->success("Registro excluído");
                     $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
                 endif;
             }

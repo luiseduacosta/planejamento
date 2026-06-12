@@ -10,7 +10,6 @@ echo $this->element('submenu_configuraplanejamentos');
             <th>Id</th>
             <th>Semestre</th>
             <th>Versão</th>
-            <th>Proprietário</th>            
             <th>Planejamento</th>
             <th>Clonar</th>
             <th>Versionar</th>            
@@ -18,35 +17,33 @@ echo $this->element('submenu_configuraplanejamentos');
         </tr>
 
         <?php
-        foreach ($configuraplanejamentos as $c_configuraplanejamento) {
-            // pr($c_configuraplanejamento);
+        foreach ($configuraplanejamentos as $configuraplanejamento) {
             ?>
             <tr>
-                <td><?php echo $c_configuraplanejamento['Configuraplanejamento']['id']; ?></td>
-                <td><?php echo $this->Html->link($c_configuraplanejamento['Configuraplanejamento']['semestre'], '/configuraplanejamentos/view/' . $c_configuraplanejamento['Configuraplanejamento']['id']); ?></td>
-                <td><?php echo $c_configuraplanejamento['Configuraplanejamento']['versao']; ?></td>
-                <td><?php echo $c_configuraplanejamento['Configuraplanejamento']['proprietario']; ?></td>
+                <td><?php echo $configuraplanejamento['Configuraplanejamento']['id']; ?></td>
+                <td><?php echo $this->Html->link($configuraplanejamento['Configuraplanejamento']['semestre'], ['/configuraplanejamentos/view', $configuraplanejamento['Configuraplanejamento']['id']]); ?></td>
+                <td><?php echo $configuraplanejamento['Configuraplanejamento']['versao']; ?></td>
                 <td><?php
-                    if ($c_configuraplanejamento['Planejamento']):
-                        echo $this->Html->link("Ver planejamento", '/planejamentos/listar/semestre_id:' . $c_configuraplanejamento['Configuraplanejamento']['id']. '/semestre_data:' . $c_configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . $c_configuraplanejamento['Configuraplanejamento']['versao'] .'/proprietario:'. $c_configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $c_configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id']);
+                    if ($configuraplanejamento['Planejamento']):
+                        echo $this->Html->link("Ver planejamento", '/planejamentos/listar/semestre_id:' . $configuraplanejamento['Configuraplanejamento']['id']. '/semestre_data:' . $configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . $configuraplanejamento['Configuraplanejamento']['versao'] . '/usuario:' . $configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id']);
                     else:
-                        echo $this->Html->link("Criar planejamento", '/planejamentos/novoplano/semestre_id:' . $c_configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $c_configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . $c_configuraplanejamento['Configuraplanejamento']['versao'] . '/proprietario:.' . $c_configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $c_configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
+                        echo $this->Html->link("Criar planejamento", '/planejamentos/novoplano/semestre_id:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . $configuraplanejamento['Configuraplanejamento']['versao'] . '/usuario:' . $configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
                     endif;
                     ?></td>
                 <td><?php
-                    if ((!empty($c_configuraplanejamento['Planejamento'])) and ($c_configuraplanejamento['Configuraplanejamento']['versao'] == 0)):
-                        echo $this->Html->link('Clonar', '/configuraplanejamentos/add/semestre_id:' . $c_configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $c_configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:0' . '/proprietario:.' . $c_configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $c_configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
+                    if ((!empty($configuraplanejamento['Planejamento'])) and ($configuraplanejamento['Configuraplanejamento']['versao'] == 0)):
+                        echo $this->Html->link('Clonar', '/configuraplanejamentos/add/semestre_id:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:0' . '/proprietario:.' . $configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
                     endif;
                     ?></td>
                 <td><?php
-                    if ($c_configuraplanejamento['Configuraplanejamento']['versao'] == 0):
-                        echo $this->Html->link('Versionar', '/configuraplanejamentos/addnovaversao/semestre_id:' . $c_configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $c_configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . ($c_configuraplanejamento['Configuraplanejamento']['versao'] + 1) . '/proprietario:.' . $c_configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $c_configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
+                    if ($configuraplanejamento['Configuraplanejamento']['versao'] == 0):
+                        echo $this->Html->link('Versionar', '/configuraplanejamentos/addnovaversao/semestre_id:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . ($configuraplanejamento['Configuraplanejamento']['versao'] + 1) . '/proprietario:' . $configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
                     endif;
                     ?></td>
                 <td><?php
-                    if (!empty($c_configuraplanejamento['Planejamento'])):
-                        if ($c_configuraplanejamento['Configuraplanejamento']['versao'] != 0):
-                            echo $this->Html->link('Exluir', '/planejamentos/excluir/' . $c_configuraplanejamento['Configuraplanejamento']['id'] . '/proprietario:.' . $c_configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $c_configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
+                    if (!empty($configuraplanejamento['Planejamento'])):
+                        if ($configuraplanejamento['Configuraplanejamento']['versao'] != 0):
+                            echo $this->Html->link('Exluir', '/planejamentos/excluir/' . $configuraplanejamento['Configuraplanejamento']['id'] . '/proprietario:.' . $configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
                         endif;
                     endif;
                     ?></td>
