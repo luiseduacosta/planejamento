@@ -55,16 +55,16 @@ If you haven't migrated the data from the old app yet, you need to create these 
 cd /home/luis/html/Planejamento5
 
 # Create Dias table
-bin/cake bake migration CreateDias dia:string ordem:integer created modified
+./bin/cake bake migration CreateDias dia:string ordem:integer created modified
 
 # Create Horarios table
-bin/cake bake migration CreateHorarios horario:string ordem:integer created modified
+./bin/cake bake migration CreateHorarios horario:string ordem:integer created modified
 
 # Create Salas table
-bin/cake bake migration CreateSalas sala:string created modified
+./bin/cake bake migration CreateSalas sala:string created modified
 
 # Run migrations
-bin/cake migrations migrate
+./bin/cake migrations migrate
 ```
 
 ---
