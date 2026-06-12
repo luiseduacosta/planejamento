@@ -31,8 +31,8 @@ class OptativasController extends AppController {
         } else {
             if ($this->Optativa->save($this->data)) {
                 // print_r($this->data);
-                $this->Session->setFlash("Atualizado");
-                $this->redirect(['controller' => 'optativas', 'action' => 'view', $id]);
+                $this->Flash->success(__('Atualizado.'));
+                return $this->redirect(['controller' => 'optativas', 'action' => 'view', $id]);
             }
         }
     }
@@ -48,8 +48,8 @@ class OptativasController extends AppController {
 
         if ($this->data) {
             if ($this->Optativa->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
-                $this->redirect(['controller' => 'optativas', 'action' => 'view', $this->Optativa->getLastInsertId()]);
+                $this->Flash->success(__('Dados inseridos.'));
+                return $this->redirect(['controller' => 'optativas', 'action' => 'view', $this->Optativa->getLastInsertId()]);
             }
         }
     }
@@ -57,9 +57,8 @@ class OptativasController extends AppController {
     public function delete($id = NULL) {
 
         $this->Optativa->delete($id);
-        $this->Session->setFlash("Registro excluído");
-        // die("Disciplina excluída");
-        $this->redirect(['controller' => 'optativas', 'action' => 'index']);
+        $this->Flash->success(__('Registro excluído.'));
+        return $this->redirect(['controller' => 'optativas', 'action' => 'index']);
     }
 
 }

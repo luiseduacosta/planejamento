@@ -21,7 +21,7 @@ $this->element('submenu_configuraplanejamentos');
             ?>
             <tr>
                 <td><?php echo $configuraplanejamento['Configuraplanejamento']['id']; ?></td>
-                <td><?php echo $this->Html->link($configuraplanejamento['Configuraplanejamento']['semestre'], ['/configuraplanejamentos/view', $configuraplanejamento['Configuraplanejamento']['id']]); ?></td>
+                <td><?php echo $this->Html->link($configuraplanejamento['Configuraplanejamento']['semestre'], ['controller' => 'configuraplanejamentos', 'action' => 'view', $configuraplanejamento['Configuraplanejamento']['id']]); ?></td>
                 <td><?php echo $configuraplanejamento['Configuraplanejamento']['versao']; ?></td>
                 <td><?php
                     if ($configuraplanejamento['Planejamento']):
@@ -32,18 +32,18 @@ $this->element('submenu_configuraplanejamentos');
                     ?></td>
                 <td><?php
                     if ((!empty($configuraplanejamento['Planejamento'])) and ($configuraplanejamento['Configuraplanejamento']['versao'] == 0)):
-                        echo $this->Html->link('Clonar', '/configuraplanejamentos/add/semestre_id:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:0' . '/proprietario:.' . $configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
+                        echo $this->Html->link('Clonar', '/configuraplanejamentos/add/semestre_id:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:0', NULL, 'Tem certeza?');
                     endif;
                     ?></td>
                 <td><?php
                     if ($configuraplanejamento['Configuraplanejamento']['versao'] == 0):
-                        echo $this->Html->link('Versionar', '/configuraplanejamentos/addnovaversao/semestre_id:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . ($configuraplanejamento['Configuraplanejamento']['versao'] + 1) . '/proprietario:' . $configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
+                        echo $this->Html->link('Versionar', '/configuraplanejamentos/addnovaversao/semestre_id:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $configuraplanejamento['Configuraplanejamento']['semestre'] . '/versao:' . ($configuraplanejamento['Configuraplanejamento']['versao'] + 1), NULL, 'Tem certeza?');
                     endif;
                     ?></td>
                 <td><?php
                     if (!empty($configuraplanejamento['Planejamento'])):
                         if ($configuraplanejamento['Configuraplanejamento']['versao'] != 0):
-                            echo $this->Html->link('Exluir', '/planejamentos/excluir/' . $configuraplanejamento['Configuraplanejamento']['id'] . '/proprietario:.' . $configuraplanejamento['Configuraplanejamento']['proprietario'] . '/usuario:' . $configuraplanejamento['Configuraplanejamento']['usuarioplanejamento_id'], NULL, 'Tem certeza?');
+                            echo $this->Html->link('Excluir', '/planejamentos/excluir/' . $configuraplanejamento['Configuraplanejamento']['id'], NULL, 'Tem certeza?');
                         endif;
                     endif;
                     ?></td>

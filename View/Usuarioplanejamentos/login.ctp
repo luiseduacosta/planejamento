@@ -6,7 +6,7 @@
             <?php echo __('Ingresse com seu nome de usuário e senha'); ?>
         </legend>
         <?php
-        echo $this->Form->input('username', array('label' => 'Usuário'));
+        echo $this->Form->input('email', array('label' => 'E-mail', 'type' => 'email'));
         echo $this->Form->input('password', array('label' => 'Senha'));
         ?>
     </fieldset>
@@ -14,8 +14,6 @@
 
     <fieldset>
         <legend><?php echo __('Fazer cadastramento'); ?></legend>
-<?php echo $this->Html->link('Cadastramento', '/usuarioplanejamentos/add'); ?>
+<?php echo $this->Html->link('Cadastramento', ['controller' => 'usuarioplanejamentos', 'action' => 'add']); ?>
     </fieldset>
-
-
 </div>

@@ -36,8 +36,8 @@ class HorariosController extends AppController
 
         if ($this->data) {
             if ($this->Horario->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
-                $this->redirect(['controller' => 'Horarios', 'action' => 'view', $this->Horario->getLastInsertId()]);
+                $this->Flash->success(__('Dados inseridos.'));
+                return $this->redirect(['controller' => 'Horarios', 'action' => 'view', $this->Horario->getLastInsertId()]);
             }
         }
     }
@@ -52,8 +52,8 @@ class HorariosController extends AppController
         } else {
             if ($this->Horario->save($this->data)) {
                 // print_r($this->data);
-                $this->Session->setFlash("Atualizado");
-                $this->redirect(['controller' => 'Horarios', 'action' => 'view', $id]);
+                $this->Flash->success(__('Atualizado.'));
+                return $this->redirect(['controller' => 'Horarios', 'action' => 'view', $id]);
             }
         }
     }
@@ -62,9 +62,8 @@ class HorariosController extends AppController
     {
 
         $this->Horario->delete($id);
-        $this->Session->setFlash("Horãrio excluída");
-        // die("Disciplina excluída");
-        $this->redirect(['controller' => 'Horarios', 'action' => 'index']);
+        $this->Flash->success(__('Horário excluído.'));
+        return $this->redirect(['controller' => 'Horarios', 'action' => 'index']);
 
     }
 

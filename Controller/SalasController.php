@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class SalasController extends AppController {
 
     public $name = "Salas";
@@ -13,7 +7,6 @@ class SalasController extends AppController {
     public function index() {
 
         $salas = $this->Sala->find('all');
-        // pr($horarios);
         $this->set('salas', $salas);
     }
 
@@ -25,9 +18,8 @@ class SalasController extends AppController {
             $this->data = $this->Sala->read();
         } else {
             if ($this->Sala->save($this->data)) {
-                // print_r($this->data);
-                $this->Session->setFlash("Atualizado");
-                $this->redirect(['controller' => 'Salas', 'action' => 'view', $id]);
+                $this->Flash->success("Atualizado");
+                return $this->redirect(['controller' => 'Salas', 'action' => 'view', $id]);
             }
         }
     }
@@ -44,9 +36,8 @@ class SalasController extends AppController {
 
         if ($this->data) {
             if ($this->Sala->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
-                $this->redirect(['controller' => 'Salas', 'action' => 'view', $this->Sala->getLastInsertId()]);
-                // $this->redirect(['/Salas/view/' . $this->Sala->getLastInsertId()]);
+                $this->Flash->success(__('Dados inseridos.'));
+                return $this->redirect(['controller' => 'Salas', 'action' => 'view', $this->Sala->getLastInsertId()]);
             }
         }
     }
@@ -54,9 +45,8 @@ class SalasController extends AppController {
     public function delete($id = NULL) {
 
         $this->Sala->delete($id);
-        $this->Session->setFlash("Registro excluído");
-        // die("Disciplina excluída");
-        $this->redirect(['controller' => 'Salas', 'action' => 'index']);
+        $this->Flash->success(__('Registro excluído.'));
+        return $this->redirect(['controller' => 'Salas', 'action' => 'index']);
     }
 
     public function tabela() {

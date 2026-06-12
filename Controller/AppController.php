@@ -39,7 +39,13 @@ class AppController extends Controller {
 
     public function beforeFilter() {
 
-        $this->Auth->authenticate = array('Form' => array('userModel' => 'Usuarioplanejamento'));
+        $this->Auth->authenticate = array(
+            'Form' => array(
+                'userModel'      => 'Usuarioplanejamento',
+                'fields'         => array('username' => 'email', 'password' => 'password'),
+                'passwordHasher' => 'Blowfish',
+            )
+        );
         $this->Auth->loginAction = array('controller' => 'usuarioplanejamentos', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'planejamentos', 'action' => 'index');
         $this->Auth->logoutAction = array('controller' => 'usuarioplanejamentos', 'action' => 'logout');
@@ -51,12 +57,10 @@ class AppController extends Controller {
 
     public function isAuthorized($user = NULL) {
         // Admin pode tudo
-        // pr($user);
         if ($user) {
             $this->Session->write('usuarioplanejamento', $user);
         } else {
-            $this->Session->setFlash(__('Usuário visitante'));
-            // $this->redirect('/usuarioplanejamentos/login');
+            $this->Flash->info(__('Usuário visitante.'));
         }
 
         if (isset($user['role']) && $user['role'] === 'admin') {

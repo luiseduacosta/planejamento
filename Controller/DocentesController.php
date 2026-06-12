@@ -68,8 +68,8 @@ class DocentesController extends AppController {
         // pr($condicoes);
         $semestre_id = $this->Session->read('semestre');
         if ($semestre_id == "" or $semestre_id == NULL) {
-            $this->Session->setFlash('Especifique o semestre');
-            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+            $this->Flash->error(__('Especifique o semestre.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         } else {
             $this->set('semestre_id', $semestre_id);
         }
@@ -90,8 +90,8 @@ class DocentesController extends AppController {
         } else {
             if ($this->Docente->save($this->data)) {
                 // print_r($this->data);
-                $this->Session->setFlash("Atualizado");
-                $this->redirect(['controller' => 'Docentes', 'action' => 'view', $id]);
+                $this->Flash->success(__('Atualizado.'));
+                return $this->redirect(['controller' => 'Docentes', 'action' => 'view', $id]);
             }
         }
     }
@@ -100,8 +100,8 @@ class DocentesController extends AppController {
 
         $semestre_id = $this->Session->read('semestre');
         if (($semestre_id == "") or ( $semestre_id == NULL)):
-            $this->Session->setFlash('Selecione o semestre');
-            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+            $this->Flash->error(__('Selecione o semestre.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         else:
             $this->set('semestre_id', $semestre_id);
         endif;
@@ -117,8 +117,8 @@ class DocentesController extends AppController {
 
         if ($this->data) {
             if ($this->Docente->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
-                $this->redirect(['controller' => 'Docentes', 'action' => 'view', $this->Docente->getLastInsertId()]);
+                $this->Flash->success(__('Dados inseridos.'));
+                return $this->redirect(['controller' => 'Docentes', 'action' => 'view', $this->Docente->getLastInsertId()]);
             }
         }
     }
@@ -126,8 +126,8 @@ class DocentesController extends AppController {
     public function delete($id = NULL) {
 
         $this->Docente->delete($id);
-        $this->Session->setFlash("Docente excluído");
-        $this->redirect(['controller' => 'Docentes', 'action' => 'index']);
+        $this->Flash->success(__('Docente excluído.'));
+        return $this->redirect(['controller' => 'Docentes', 'action' => 'index']);
     }
 
 }

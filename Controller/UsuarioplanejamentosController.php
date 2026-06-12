@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class UsuarioplanejamentosController extends AppController {
 
     public function beforeFilter() {
@@ -24,7 +18,7 @@ class UsuarioplanejamentosController extends AppController {
                 $this->Flash->success(__('Bem vindo!'));
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error(__('Ingresse com seu Usuário e/ou senha.'));
+            $this->Flash->error(__('Ingresse com seu usuário e/ou senha.'));
         }
     }
 
@@ -32,7 +26,7 @@ class UsuarioplanejamentosController extends AppController {
 
         $this->Auth->logout();
         $this->Flash->success(__('Até mais!'));
-        $this->redirect(['controller' => 'planejamentos', 'action' => 'login']);
+        return $this->redirect(['controller' => 'planejamentos', 'action' => 'login']);
     }
 
     public function index() {
@@ -55,7 +49,7 @@ class UsuarioplanejamentosController extends AppController {
             $this->Usuarioplanejamento->create();
             if ($this->Usuarioplanejamento->save($this->request->data)) {
                 $this->Flash->success(__('Usuário registrado!'));
-                $this->redirect(['controller' => 'planejamentos', 'action' => 'view', $this->Usuarioplanejamento->id]);
+                return $this->redirect(['controller' => 'planejamentos', 'action' => 'view', $this->Usuarioplanejamento->id]);
             } else {
                 $this->Flash->error(__('Não foi possível fazer o cadastramento. Tente novamente.'));
             }
@@ -72,7 +66,7 @@ class UsuarioplanejamentosController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Usuarioplanejamento->save($this->request->data)) {
                 $this->Flash->success(__('Dados atualizados'));
-                $this->redirect(['controller' => 'planejamentos', 'action' => 'view', $id]);
+                return $this->redirect(['controller' => 'planejamentos', 'action' => 'view', $id]);
             } else {
                 $this->Flash->error(__('Não foi possível atualizar os dados.'));
             }
@@ -83,6 +77,7 @@ class UsuarioplanejamentosController extends AppController {
     }
 
     public function delete($id = null) {
+        
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
@@ -94,6 +89,6 @@ class UsuarioplanejamentosController extends AppController {
             $this->Flash->success(__('Usuário excluído'));
         }
         $this->Flash->error(__('Usuário não foi excluído'));
-        $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'index']);
     }
 }

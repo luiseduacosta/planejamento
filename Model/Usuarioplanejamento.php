@@ -1,12 +1,6 @@
 <?php
 
-App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class Usuarioplanejamento extends AppModel {
 
@@ -17,12 +11,17 @@ class Usuarioplanejamento extends AppModel {
     public $hasMany = ['Configuraplanejamento'];
 
     public $primaryKey = 'id';
+
     public $validate = [
-        'username' => [
+        'email' => [
             'required' => [
-                'rule' => 'notBlank',
-                'message' => 'Nome do usuario é obrigatório'
-            ]
+                'rule'    => 'notBlank',
+                'message' => 'O e-mail é obrigatório',
+            ],
+            'format' => [
+                'rule'    => 'email',
+                'message' => 'Informe um e-mail válido',
+            ],
         ],
         'password' => [
             'required' => [
@@ -41,7 +40,7 @@ class Usuarioplanejamento extends AppModel {
 
     public function beforeSave($options = []) {
         if (isset($this->data['Usuarioplanejamento']['password'])) {
-            $passwordHasher = new SimplePasswordHasher();
+            $passwordHasher = new BlowfishPasswordHasher();
             $this->data['Usuarioplanejamento']['password'] = $passwordHasher->hash(
                 $this->data['Usuarioplanejamento']['password']
             );

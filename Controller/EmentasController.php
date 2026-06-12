@@ -52,8 +52,8 @@ class EmentasController extends AppController {
             // pr($this->data);
             if ($this->Ementa->save($this->data)) {
                 // print_r($this->data);
-                $this->Session->setFlash("Atualizado");
-                $this->redirect(['controller' => 'ementas', 'action' => 'view', $id]);
+                $this->Flash->success(__('Atualizado.'));
+                return $this->redirect(['controller' => 'ementas', 'action' => 'view', $id]);
             }
         }
     }
@@ -75,8 +75,8 @@ class EmentasController extends AppController {
 
         if ($this->data) {
             if ($this->Ementa->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
-                $this->redirect(['controller' => 'ementas', 'action' => 'view', $this->Ementa->getLastInsertId()]);
+                $this->Flash->success(__('Dados inseridos.'));
+                return $this->redirect(['controller' => 'ementas', 'action' => 'view', $this->Ementa->getLastInsertId()]);
             }
         } else {
 
@@ -117,9 +117,8 @@ class EmentasController extends AppController {
     public function delete($id = NULL) {
 
         $this->Ementa->delete($id);
-        $this->Session->setFlash("Registro excluído");
-        // die("Disciplina excluída");
-        $this->redirect(['controller' => 'ementas', 'action' => 'index']);
+        $this->Flash->success(__('Registro excluído.'));
+        return $this->redirect(['controller' => 'ementas', 'action' => 'index']);
     }
 
 }

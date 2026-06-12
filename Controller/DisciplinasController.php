@@ -22,8 +22,8 @@ class DisciplinasController extends AppController {
 
         $semestre_id = $this->Session->read('semestre');
         if ($semestre_id == 0 or $semestre_id == NULL) {
-            $this->Session->setFlash('Selecione semestre');
-            $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+            $this->Flash->error(__('Selecione o semestre.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         } else {
             // $condicoes['configuraplanejamento_id'] = $semestre_id;
             $this->set('semestre_id', $semestre_id);
@@ -85,8 +85,8 @@ class DisciplinasController extends AppController {
         } else {
             if ($this->Disciplina->save($this->data)) {
                 // print_r($this->data);
-                $this->Session->setFlash("Atualizado");
-                $this->redirect(['controller' => 'Disciplinas', 'action' => 'view', $id]);
+                $this->Flash->success(__('Atualizado.'));
+                return $this->redirect(['controller' => 'Disciplinas', 'action' => 'view', $id]);
             }
         }
     }
@@ -103,8 +103,8 @@ class DisciplinasController extends AppController {
 
         if ($this->data) {
             if ($this->Disciplina->save($this->data)) {
-                $this->Session->setFlash('Dados inseridos');
-                $this->redirect(['controller' => 'Disciplinas', 'action' => 'view', $this->Disciplina->getLastInsertId()]);
+                $this->Flash->success(__('Dados inseridos.'));
+                return $this->redirect(['controller' => 'Disciplinas', 'action' => 'view', $this->Disciplina->getLastInsertId()]);
             }
         }
     }
@@ -112,9 +112,8 @@ class DisciplinasController extends AppController {
     public function delete($id = NULL) {
 
         $this->Disciplina->delete($id);
-        $this->Session->setFlash("Registro excluído");
-        // die("Disciplina excluída");
-        $this->redirect(['controller' => 'Disciplinas', 'action' => 'index']);
+        $this->Flash->success(__('Registro excluído.'));
+        return $this->redirect(['controller' => 'Disciplinas', 'action' => 'index']);
     }
 
 }

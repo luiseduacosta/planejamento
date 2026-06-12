@@ -1,197 +1,227 @@
 <?php
 
-class ConfiguraplanejamentosController extends AppController {
+App::uses('AppController', 'Controller');
 
+class ConfiguraplanejamentosController extends AppController
+{
     public $name = "Configuraplanejamentos";
 
-    public function index() {
+    // -------------------------------------------------------------------------
+    // Public actions
+    // -------------------------------------------------------------------------
 
+    public function index()
+    {
         $usuario = $this->Auth->user();
         if (empty($usuario)) {
-            $this->redirect(['controller' => 'Usuarioplanejamentos', 'action' => 'login']);
+            return $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
         }
+
         $this->set('usuario', $usuario);
-
         $this->Configuraplanejamento->recursive = 1;
-        $configuracoes = $this->Configuraplanejamento->find('all', ['order' => ['semestre', 'versao']]);
-        $this->set('configuraplanejamentos', $configuracoes);
+        $this->set('configuraplanejamentos', $this->Configuraplanejamento->find('all', [
+            'order' => ['semestre', 'versao']
+        ]));
     }
 
-    public function edit($id = NULL) {
-
-        $this->Configuraplanejamento->id = $id;
-        $usuario = $this->Auth->user();
-        if (empty($usuario)) {
-            $this->redirect(['controller' => 'Usuarioplanejamentos', 'action' => 'login']);
-        } else {
-            // Verifica se o usuário é o proprietário do planejamento
-            $proprietario = $this->Configuraplanejamento->find('first', ['conditions' => ['Configuraplanejamento.id' => $id]]);
-
-            if ($proprietario['Configuraplanejamento']['usuarioplanejamento_id'] == $usuario['id']) {
-
-                $this->set('usuario', $usuario);
-                // pr($this->data);
-                if (empty($this->data)) {
-                    $this->data = $this->Configuraplanejamento->read();
-                } else {
-                    if ($this->Configuraplanejamento->save($this->data)) {
-                        $this->Flash->success(__('Atualizado'));
-                        $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'view', $id]);
-                    } else {
-                        $this->Flash->error(__('Não foi possível atualizar a configuração.'));
-                    }
-                }
-            } else {
-                $this->Flash->error(__('Usuário não pode modificar esta configuração.'));
-                $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'view', $id]);
-            }
-        }
-    }
-
-    public function view($id = NULL) {
-        
+    public function view($id = null)
+    {
         if (!$this->Configuraplanejamento->exists($id)) {
-            throw new NotFoundException(__('Configuração não encontrada'));
+            throw new NotFoundException(__('Configuração não encontrada.'));
         }
-        
+
         $configuraplanejamento = $this->Configuraplanejamento->find('first', [
             'conditions' => ['Configuraplanejamento.id' => $id]
         ]);
-        $this->Session->write('semestre', $configuraplanejamento['Configuraplanejamento']['semestre']);
+
+        // Bug fix: was storing the semestre label (e.g. "2025-1") but every
+        // other action expects the config ID in this session key.
+        $this->Session->write('semestre', $id);
+
         $this->set('configuraplanejamento', $configuraplanejamento);
     }
 
-    public function add() {
+    public function add()
+    {
+        $parametros    = !empty($this->params['named']) ? $this->params['named'] : [];
+        $semestre_id   = isset($parametros['semestre_id'])   ? $parametros['semestre_id']   : null;
+        $semestre_data = isset($parametros['semestre_data']) ? $parametros['semestre_data'] : null;
+        $versao        = isset($parametros['versao'])        ? $parametros['versao']        : null;
 
-        $parametros = $this->params['named'];
-        $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
-        $semestre_data = isset($parametros['semestre_data']) ? $parametros['semestre_data'] : NULL;
-        $versao = isset($parametros['versao']) ? $parametros['versao'] : NULL;
-
-        $usuario = $this->Session->read('usuarioplanejamento');
+        // Bug fix: use Auth::user() consistently; session copy may be stale
+        $usuario = $this->Auth->user();
         if (empty($usuario)) {
-            $this->Flash->error(__('Ingresse com seu Usuário e/ou senha.'));
-            $this->redirect(['controller' => 'planejamentos', 'action' => 'index']);    
-        } else {
-            $this->set('usuario', $usuario);
-            $this->Configuraplanejamento->usuarioplanejamento_id = $usuario['id'];
+            $this->Flash->error(__('Ingresse com seu usuário e senha.'));
+            return $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
         }
-        // Calculo o próximo semestre //
-        if ($semestre_data):
-            $divide_semestre = explode('-', $semestre_data);
-            $ano_semestre = $divide_semestre[0];
-            $digito_semestre = $divide_semestre[1];
-            if ($digito_semestre == 1) {
-                $proximo_ano = $ano_semestre;
-                $proximo_digito = 2;
-                $proximo_semestre = $proximo_ano . "-" . $proximo_digito;
-            } elseif ($digito_semestre == 2) {
-                $proximo_ano = $ano_semestre + 1;
-                $proximo_digito = 1;
-                $proximo_semestre = $proximo_ano . "-" . $proximo_digito;
-            }
 
-        endif;
+        $this->set('usuario', $usuario);
+
+        // Bug fix: initialise to null so it is always defined
+        $proximo_semestre = null;
+        if ($semestre_data) {
+            [$ano, $digito] = explode('-', $semestre_data);
+            $proximo_semestre = ($digito == 1)
+                ? $ano . '-2'
+                : ($ano + 1) . '-1';
+        }
 
         if ($proximo_semestre) {
             $this->Configuraplanejamento->recursive = 1;
             $configuraplanejamento = $this->Configuraplanejamento->find('first', [
                 'conditions' => [
                     'Configuraplanejamento.semestre' => $proximo_semestre,
-                    'Configuraplanejamento.versao' => $versao]
+                    'Configuraplanejamento.versao'   => $versao,
                 ]
-            );
+            ]);
         }
 
         if (empty($configuraplanejamento)) {
-            echo "1 Clonar configuracação de planejamento" . "<br>";
-            $this->Flash->success('Clonar planejamento principal');
-        } elseif (sizeof($configuraplanejamento['Planejamento']) > 0) {
-            echo "Planejamento já existe" . "<br>";
-            $this->Flash->error('Planejamento já existe!');
-            $this->redirect('/planejamentos/listar/semestre:' . $configuraplanejamento['Configuraplanejamento']['id'] . '/semestre_data:' . $proximo_semestre . '/versao:' . $versao);
+            $this->Flash->success(__('Clonar planejamento principal.'));
+        } elseif (count($configuraplanejamento['Planejamento']) > 0) {
+            $this->Flash->error(__('Planejamento já existe!'));
+            return $this->redirect('/planejamentos/listar/semestre:' . $configuraplanejamento['Configuraplanejamento']['id']
+                . '/semestre_data:' . $proximo_semestre . '/versao:' . $versao);
         } else {
-            echo "2 Criar configuração para planejamento" . "<br>";
-            $this->Flash->success('Criar configuração para planejamento');
-            $this->redirect('/planejamentos/novoplano/semestre_id:' . $semestre_id . '/semestre_data:' . $proximo_semestre . '/versao:' . ($versao + 1));
+            $this->Flash->success(__('Criar configuração para planejamento.'));
+            return $this->redirect('/planejamentos/novoplano/semestre_id:' . $semestre_id
+                . '/semestre_data:' . $proximo_semestre . '/versao:' . ($versao + 1));
         }
 
-        $this->set('semestre_id', $semestre_id);
+        $this->set('semestre_id',   $semestre_id);
         $this->set('semestre_data', $proximo_semestre);
-        $this->set('versao', $versao);
-
-        $this->set('configuracoes', $configuracoes = $this->Configuraplanejamento->find('all', array('order' => array('semestre', 'versao'))));
+        $this->set('versao',        $versao);
+        $this->set('configuracoes', $this->Configuraplanejamento->find('all', ['order' => ['semestre', 'versao']]));
 
         if ($this->data) {
+            $this->data['Configuraplanejamento']['usuarioplanejamento_id'] = $usuario['id'];
+
             if ($this->Configuraplanejamento->save($this->data)) {
-                $this->Flash->success('Dados inseridos');
-                $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+                $this->Flash->success(__('Dados inseridos.'));
+                return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
             }
+            $this->Flash->error(__('Não foi possível salvar a configuração.'));
         }
     }
 
-    public function addnovaversao() {
-
-        $usuario = $this->Session->read('usuarioplanejamento');
+    public function addnovaversao()
+    {
+        $usuario = $this->Auth->user();
         if (empty($usuario)) {
-            $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
-        } else {
-            $this->set('usuario', $usuario);
+            return $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
         }
-        $parametros = $this->params['named'];
-        $semestre_id = isset($parametros['semestre_id']) ? $parametros['semestre_id'] : NULL;
-        $semestre_data = isset($parametros['semestre_data']) ? $parametros['semestre_data'] : NULL;
-        $versao = isset($parametros['versao']) ? $parametros['versao'] : NULL;
 
-        $this->Configuraplanejamento->recursive = 0;
-        $configuraplanejamento = $this->Configuraplanejamento->find('first', [
+        $this->set('usuario', $usuario);
+
+        $parametros    = !empty($this->params['named']) ? $this->params['named'] : [];
+        $semestre_id   = isset($parametros['semestre_id'])   ? $parametros['semestre_id']   : null;
+        $semestre_data = isset($parametros['semestre_data']) ? $parametros['semestre_data'] : null;
+        $versao        = isset($parametros['versao'])        ? $parametros['versao']        : null;
+
+        // Bug fix: find('first') returns $result['Model']['field'], not $result[0]['field'].
+        // The old code used find('first') then accessed [0]['maxversao'], always getting null.
+        $maxResult = $this->Configuraplanejamento->find('first', [
             'conditions' => ['Configuraplanejamento.semestre' => $semestre_data],
-            'fields' => ['MAX(Configuraplanejamento.versao) as maxversao']
-            ]
-        );
+            'fields'     => ['MAX(Configuraplanejamento.versao) AS maxversao'],
+        ]);
+        $novaversao = (int) $maxResult['Configuraplanejamento']['maxversao'] + 1;
 
-        $novaversao = $configuraplanejamento[0]['maxversao'];
-
-        $this->set('semestre_id', $semestre_id);
+        $this->set('semestre_id',   $semestre_id);
         $this->set('semestre_data', $semestre_data);
-        $this->set('versao', ($novaversao + 1));
-
-        $this->set('configuracoes', $configuracoes = $this->Configuraplanejamento->find('all', [
+        $this->set('versao',        $novaversao);
+        $this->set('configuracoes', $this->Configuraplanejamento->find('all', [
             'conditions' => ['semestre' => $semestre_data],
-            'order' => ['semestre', 'versao']
-            ]
-            )
-        );
+            'order'      => ['semestre', 'versao'],
+        ]));
 
         if ($this->data) {
+            $this->data['Configuraplanejamento']['usuarioplanejamento_id'] = $usuario['id'];
+
             if ($this->Configuraplanejamento->save($this->data)) {
-                $this->Flash->success('Dados inseridos');
-                $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+                $this->Flash->success(__('Dados inseridos.'));
+                return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
             }
+            $this->Flash->error(__('Não foi possível salvar a nova versão.'));
         }
     }
 
-    public function delete($id = NULL) {
-
-        $usuario = $this->Session->read('usuarioplanejamento');
+    public function edit($id = null)
+    {
+        $usuario = $this->Auth->user();
         if (empty($usuario)) {
-            $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
-        } else {
-            // Verifica se o usuário é o proprietário do registro
-            $proprietario = $this->Configuraplanejamento->find('first', ['conditions' => ['Configuraplanejamento.id' => $id]]);
-            // echo $proprietario['Configuraplanejamento']['usuarioplanejamento_id'] . " " . $usuario['id'];
-            if ($proprietario['Configuraplanejamento']['usuarioplanejamento_id'] == $usuario['id']) {
-
-                $verifica = $this->Configuraplanejamento->Planejamento->find('first', ['conditions' => ['Planejamento.configuraplanejamento_id' => $id]]);
-                if ($verifica):
-                    $this->Flash->error('Registro não pode ser excluído porque está associado a uma planilha');
-                    $this->redirect(['controller' => 'planejamentos', 'action' => 'listar', '?' => ['semestre', $id]]);
-                else:
-                    $this->Configuraplanejamento->delete($id);
-                    $this->Flash->success("Registro excluído");
-                    $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
-                endif;
-            }
+            return $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
         }
+
+        $config = $this->Configuraplanejamento->find('first', [
+            'conditions' => ['Configuraplanejamento.id' => $id]
+        ]);
+
+        if (empty($config)) {
+            throw new NotFoundException(__('Configuração não encontrada.'));
+        }
+
+        // Improvement: admins can edit any config; others only their own
+        $isAdmin = isset($usuario['role']) && $usuario['role'] === 'admin';
+        $isOwner = $config['Configuraplanejamento']['usuarioplanejamento_id'] == $usuario['id'];
+
+        if (!$isAdmin && !$isOwner) {
+            $this->Flash->error(__('Usuário não pode modificar esta configuração.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'view', $id]);
+        }
+
+        $this->set('usuario', $usuario);
+        $this->Configuraplanejamento->id = $id;
+
+        if (empty($this->data)) {
+            $this->data = $this->Configuraplanejamento->read();
+            return;
+        }
+
+        if ($this->Configuraplanejamento->save($this->data)) {
+            $this->Flash->success(__('Atualizado.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'view', $id]);
+        }
+
+        $this->Flash->error(__('Não foi possível atualizar a configuração.'));
+    }
+
+    public function delete($id = null)
+    {
+        $usuario = $this->Auth->user();
+        if (empty($usuario)) {
+            return $this->redirect(['controller' => 'usuarioplanejamentos', 'action' => 'login']);
+        }
+
+        $config = $this->Configuraplanejamento->find('first', [
+            'conditions' => ['Configuraplanejamento.id' => $id]
+        ]);
+
+        if (empty($config)) {
+            throw new NotFoundException(__('Configuração não encontrada.'));
+        }
+
+        // Improvement: admins can delete any config; others only their own
+        $isAdmin = isset($usuario['role']) && $usuario['role'] === 'admin';
+        $isOwner = $config['Configuraplanejamento']['usuarioplanejamento_id'] == $usuario['id'];
+
+        if (!$isAdmin && !$isOwner) {
+            $this->Flash->error(__('Usuário não autorizado a excluir esta configuração.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+        }
+
+        // Bug fix: the original fell through silently when the user was not the owner.
+        // Now any non-owner/non-admin hits the check above and is redirected.
+        $temPlanejamento = $this->Configuraplanejamento->Planejamento->find('first', [
+            'conditions' => ['Planejamento.configuraplanejamento_id' => $id]
+        ]);
+
+        if ($temPlanejamento) {
+            $this->Flash->error(__('Registro não pode ser excluído porque está associado a um planejamento.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+        }
+
+        $this->Configuraplanejamento->delete($id);
+        $this->Flash->success(__('Registro excluído.'));
+        return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
     }
 }

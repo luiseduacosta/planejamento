@@ -14,11 +14,7 @@ echo $this->element('submenu_configuraplanejamentos');
         <td><?php echo $configuraplanejamento['Configuraplanejamento']['versao']; ?></td>
     </tr>
     <tr>
-        <td>Proprietário</td>
-        <td><?php echo $configuraplanejamento['Configuraplanejamento']['proprietario']; ?></td>
-    </tr>
-    <tr>
-        <td>Nome da versão</td>
-        <td><?php echo $configuraplanejamento['Configuraplanejamento']['versaonome']; ?></td>
+        <td>Criado por</td>
+        <td><?php echo $configuraplanejamento['Usuarioplanejamento']['email']; ?></td>
     </tr>
 </table>

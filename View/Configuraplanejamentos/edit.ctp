@@ -8,7 +8,6 @@ if ($this->data['Configuraplanejamento']['versao'] == 0):
 else:
     echo $this->Form->Input('versaonome', array('label' => 'Nome da versão'));
 endif;
-echo $this->Form->Input('proprietario' , array('type' => 'hidden', 'value' => $usuario['username']));
 echo $this->Form->Input('usuarioplanejamento_id', array('type' => 'hidden', 'value' => $usuario['id']));
 echo $this->Form->End('Confirma');
 

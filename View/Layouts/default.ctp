@@ -46,9 +46,9 @@
         <div id="container">
             <div id="header">
                 <?php $semestreporextenso = $this->Session->read('semestreporextenso'); ?>
-                <?php $usuario = $this->Session->read('usuarioplanejamento'); ?>
+               <?php $usuario = $this->Auth->user(); ?>
                 <?php if ($usuario): ?>
-                    <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso . '. Usuário: ' . $usuario['username'], true), '/configuraplanejamentos/index'); ?></h1>
+                    <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso . '. Usuário: ' . $usuario['email'], true), '/configuraplanejamentos/index'); ?></h1>
                 <?php else: ?>
                     <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso . '. Usuário: visitante.' , true), '/configuraplanejamentos/index'); ?></h1>                
                 <?php endif; ?>
@@ -56,7 +56,6 @@
 
             <div id='menu'>
                 <?php 
-                // pr($usuario);
                 if ($usuario) {
                     echo $this->Html->link("Sair", '/usuarioplanejamentos/logout', array('class' => 'aba')); 
                 } else {
