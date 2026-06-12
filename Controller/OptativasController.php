@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class OptativasController extends AppController {
 
     public $name = "Optativas";
+
     public $paginate = ['limit' => 20,
         'order' => ['disciplina']
     ];
@@ -30,7 +25,6 @@ class OptativasController extends AppController {
             $this->data = $this->Optativa->read();
         } else {
             if ($this->Optativa->save($this->data)) {
-                // print_r($this->data);
                 $this->Flash->success(__('Atualizado.'));
                 return $this->redirect(['controller' => 'optativas', 'action' => 'view', $id]);
             }

@@ -14,47 +14,47 @@ class Planejamento extends AppModel {
     public $name = 'Planejamento';
     public $useTable = 'planejamentos';
     public $primaryKey = 'id';
-    public $belongsTo = array(
-        'Dia' => array(
+    public $belongsTo = [
+        'Dia' => [
             'className' => 'Dia',
             'foreignKey' => 'dia_id',
             'joinTable' => 'dias'
-        ),
-        'Horario' => array(
+        ],
+        'Horario' => [
             'className' => 'Horario',
             'foreignKey' => 'horario_id',
             'joinTable' => 'horarios'
-        ),
-        'Disciplina' => array(
+        ],
+        'Disciplina' => [
             'className' => 'Disciplina',
             'foreignKey' => 'disciplina_id',
             'joinTable' => 'disciplinas'
-        ),
-        'Docente' => array(
+        ],
+        'Docente' => [
             'className' => 'Docente',
             'foreignKey' => 'docente_id',
             'joinTable' => 'docentes'
-        ),
-        'Sala' => array(
+        ],
+        'Sala' => [
             'className' => 'Sala',
             'foreignKey' => 'sala_id',
             'joinTable' => 'sala'
-        ),
-        'Configuraplanejamento' => array(
+        ],
+        'Configuraplanejamento' => [
             'className' => 'Configuraplanejamento',
             'foreignKey' => 'configuraplanejamento_id',
             'joinTable' => 'configuraplanejamentos'
-        ),
-        'Ementa' => array(
+        ],
+        'Ementa' => [
             'className' => 'Ementa',
             'foreignKey' => 'ementa_id',
             'joinTable' => 'ementas'
-        ),
-        'Optativa' => array(
+        ],
+        'Optativa' => [
             'className' => 'Optativa',
             'foreignKey' => 'optativa_id',
             'joinTable' => 'optativas'
-        )
-    );
+        ]
+    ];
 
 }

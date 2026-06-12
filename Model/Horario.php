@@ -13,6 +13,6 @@ class Horario extends AppModel {
     public $name = 'Horario';
     public $useTable = 'horarios';
     public $primaryKey = 'id';
-    // public $hasMany = array('Planejamento');
+    // public $hasMany = ['Planejamento'];
     
 }

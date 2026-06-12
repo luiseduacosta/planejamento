@@ -1,16 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class DisciplinasController extends AppController {
 
     public $name = "Disciplinas";
-    public $paginate = array('limit' => 20,
-        'order' => ['disciplina']);
+    public $paginate = ['limit' => 20,
+        'order' => ['disciplina']];
 
     public function index() {
 
@@ -25,18 +19,15 @@ class DisciplinasController extends AppController {
             $this->Flash->error(__('Selecione o semestre.'));
             return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
         } else {
-            // $condicoes['configuraplanejamento_id'] = $semestre_id;
             $this->set('semestre_id', $semestre_id);
         }
 
         if ($diurno === NULL):
-            // echo 'Periodo vazio ou zero ' . $periodo . '<br>';
             $diurno = $this->Session->read("diurno");
             if ($diurno) {
                 $condicoes['periodo_diurno'] = $diurno;
             };
         else:
-            // echo 'Periodo selecionado: ' . $periodo . '<br>';
             if ($diurno != '0') {
                 $this->Session->write('diurno', $diurno);
                 $condicoes['periodo_diurno'] = $diurno;
@@ -46,13 +37,11 @@ class DisciplinasController extends AppController {
         endif;
 
         if ($noturno === NULL):
-            // echo 'Periodo vazio ou zero ' . $periodo . '<br>';
             $noturno = $this->Session->read("noturno");
             if ($noturno) {
                 $condicoes['periodo_noturno'] = $noturno;
             };
         else:
-            // echo 'Periodo selecionado: ' . $periodo . '<br>';
             if ($noturno != '0') {
                 $this->Session->write("noturno", $noturno);
                 $condicoes['periodo_noturno'] = $noturno;
@@ -61,15 +50,9 @@ class DisciplinasController extends AppController {
             }
         endif;
 
-        // pr($condicoes);
-
         $disciplinas = $this->Disciplina->find('all');
-        // pr($disciplinas);
-        // die();
         
         $disciplinas = $this->Paginate($condicoes);
-        // pr($disciplinas);
-        // die();
 
         $this->set('disciplinas', $disciplinas);
         $this->set('diurno', $diurno);
@@ -84,7 +67,6 @@ class DisciplinasController extends AppController {
             $this->data = $this->Disciplina->read();
         } else {
             if ($this->Disciplina->save($this->data)) {
-                // print_r($this->data);
                 $this->Flash->success(__('Atualizado.'));
                 return $this->redirect(['controller' => 'Disciplinas', 'action' => 'view', $id]);
             }

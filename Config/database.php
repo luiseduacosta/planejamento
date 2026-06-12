@@ -1,7 +1,7 @@
 <?php
 class DATABASE_CONFIG {
 
-	public $default = array(
+	public $default = [
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
 		'host' => 'localhost',
@@ -10,9 +10,9 @@ class DATABASE_CONFIG {
 		'database' => 'ess_apps',
 		'prefix' => '',
 		'encoding' => 'utf8'
-	);
+	];
 
-	public $test = array(
+	public $test = [
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
 		'host' => 'localhost',
@@ -21,5 +21,5 @@ class DATABASE_CONFIG {
 		'database' => 'ess_apps',
 		'prefix' => '',
 		'encoding' => 'utf8'
-	);
+	];
 }

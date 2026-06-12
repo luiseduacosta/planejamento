@@ -5,7 +5,7 @@ echo $this->element('submenu_disciplinas');
 ?>
 
 <?php
-echo $this->Html->script("jquery", array('inline' => false));
+echo $this->Html->script("jquery", ['inline' => false]);
 echo $this->Html->scriptBlock('
 
 $(document).ready(function() {
@@ -36,17 +36,17 @@ $("#DisciplinaPeriodoNoturno").change(function() {
 
 });
 
-', array("inline" => false));
+', ["inline" => false]);
 ?>
 
 <div align="center">
     <?php
-    echo $this->Form->Create('Disciplina', array('inputDefaults' => array('label' => false, 'div' => false)));
-    echo $this->Form->Input('periodo_diurno', array('type' => 'select', 'options' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8'), 'selected' => array($diurno), 'empty' => array('0' => 'Diurno')));
+    echo $this->Form->Create('Disciplina', ['inputDefaults' => ['label' => false, 'div' => false]]);
+    echo $this->Form->Input('periodo_diurno', ['type' => 'select', 'options' => ['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8'], 'selected' => [$diurno], 'empty' => ['0' => 'Diurno']]);
 // echo $this->Form->End('Confirma');
 
-    echo $this->Form->Create('Disciplina', array('inputDefaults' => array('label' => false, 'div' => false)));
-    echo $this->Form->Input('periodo_noturno', array('type' => 'select', 'options' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10'), 'selected' => array($noturno), 'empty' => array('0' => 'Noturno')));
+    echo $this->Form->Create('Disciplina', ['inputDefaults' => ['label' => false, 'div' => false]]);
+    echo $this->Form->Input('periodo_noturno', ['type' => 'select', 'options' => ['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10'], 'selected' => [$noturno], 'empty' => ['0' => 'Noturno']]);
 // echo $this->Form->End('Confirma');
     ?>
 
@@ -62,10 +62,10 @@ $("#DisciplinaPeriodoNoturno").change(function() {
     <?php
 // Shows the next and previous links
     echo $this->Paginator->prev(
-            '« Anterior ', null, null, array('class' => 'disabled')
+            '« Anterior ', null, null, ['class' => 'disabled']
     );
     echo $this->Paginator->next(
-            ' Posterior »', null, null, array('class' => 'disabled')
+            ' Posterior »', null, null, ['class' => 'disabled']
     );
 
     echo "<br>";

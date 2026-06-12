@@ -6,7 +6,7 @@ echo $this->element('submenu_planejamentos');
 ?>
 
 <?php
-echo $this->Html->script("jquery", array('inline' => false));
+echo $this->Html->script("jquery", ['inline' => false]);
 echo $this->Html->scriptBlock('
 
 $(document).ready(function() {
@@ -57,32 +57,32 @@ $("#PlanejamentoDepartamento").change(function() {
 
 });
 
-', array("inline" => false));
+', ["inline" => false]);
 ?>
 
 
 <div align="center">
     <?php
-    echo $this->Form->Create('Planejamento', array('inputDefaults' => array('label' => false, 'div' => false)));
-    echo $this->Form->Input('turno', array('type' => 'select', 'options' => array('Diurno' => 'Diurno', 'Noturno' => 'Noturno'), 'selected' => array($turno), 'empty' => array('0' => 'Turno')));
+    echo $this->Form->Create('Planejamento', ['inputDefaults' => ['label' => false, 'div' => false]]);
+    echo $this->Form->Input('turno', ['type' => 'select', 'options' => ['Diurno' => 'Diurno', 'Noturno' => 'Noturno'], 'selected' => [$turno], 'empty' => ['0' => 'Turno']]);
 // echo $this->Form->End('Confirma');
     ?>
 
     <?php
-    echo $this->Form->Create('Planejamento', array('inputDefaults' => array('label' => false, 'div' => false)));
-    echo $this->Form->Input('professor', array('type' => 'select', 'options' => array($professores), 'selected' => array($professor), 'empty' => array('0' => 'Professor(a)')));
+    echo $this->Form->Create('Planejamento', ['inputDefaults' => ['label' => false, 'div' => false]]);
+    echo $this->Form->Input('professor', ['type' => 'select', 'options' => [$professores], 'selected' => [$professor], 'empty' => ['0' => 'Professor(a)']]);
 // echo $this->Form->End('Confirma');
     ?>
 
     <?php
-    echo $this->Form->Create('Planejamento', array('inputDefaults' => array('label' => false, 'div' => false)));
-    echo $this->Form->Input('disciplina', array('type' => 'select', 'options' => array($disciplinas), 'selected' => array($disciplina), 'empty' => array('0' => 'Disciplina')));
+    echo $this->Form->Create('Planejamento', ['inputDefaults' => ['label' => false, 'div' => false]]);
+    echo $this->Form->Input('disciplina', ['type' => 'select', 'options' => [$disciplinas], 'selected' => [$disciplina], 'empty' => ['0' => 'Disciplina']]);
 // echo $this->Form->End('Confirma');
     ?>
 
     <?php
-    echo $this->Form->Create('Planejamento', array('inputDefaults' => array('label' => false, 'div' => false)));
-    echo $this->Form->Input('departamento', array('type' => 'select', 'options' => array('Fundamentos' => 'Fundamentos', 'Políticas' => 'Políticas', 'Métodos' => 'Métodos'), 'selected' => array($departamento), 'empty' => array('0' => 'Departamento')));
+    echo $this->Form->Create('Planejamento', ['inputDefaults' => ['label' => false, 'div' => false]]);
+    echo $this->Form->Input('departamento', ['type' => 'select', 'options' => ['Fundamentos' => 'Fundamentos', 'Políticas' => 'Políticas', 'Métodos' => 'Métodos'], 'selected' => [$departamento], 'empty' => ['0' => 'Departamento']]);
 // echo $this->Form->End('Confirma');
     ?>
 </div>

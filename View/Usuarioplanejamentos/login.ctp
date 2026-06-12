@@ -6,8 +6,8 @@
             <?php echo __('Ingresse com seu nome de usuário e senha'); ?>
         </legend>
         <?php
-        echo $this->Form->input('email', array('label' => 'E-mail', 'type' => 'email'));
-        echo $this->Form->input('password', array('label' => 'Senha'));
+        echo $this->Form->input('email', ['label' => 'E-mail', 'type' => 'email']);
+        echo $this->Form->input('password', ['label' => 'Senha']);
         ?>
     </fieldset>
 <?php echo $this->Form->end(__('Confirma')); ?>

@@ -14,6 +14,6 @@ class Disciplina extends AppModel {
     public $useTable = 'disciplinas';
     public $primaryKey = 'id';
     
-    public $hasMany = array('Planejamento');
+    public $hasMany = ['Planejamento'];
 
 }

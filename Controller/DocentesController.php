@@ -1,39 +1,25 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class DocentesController extends AppController {
 
     public $name = "Docentes";
-    public $paginate = array('limit' => 15,
-        'order' => array('nome'));
+    public $paginate = ['limit' => 15,
+        'order' => ['nome']];
 
     public function index() {
 
         $parametros = $this->params['named'];
-        // pr($parametros);
         $ativo = isset($parametros['ativo']) ? $parametros['ativo'] : NULL;
         $departamento = isset($parametros['departamento']) ? $parametros['departamento'] : NULL;
-
-        // pr($ativo);
-        // die();
 
         $condicoes = NULL;
 
         if ($ativo == '0') {
-            // echo 'Zero' . '<br>';
             $this->Session->write("ativo", $ativo);
-            // $this->Session->write("ativo", $ativo);
         } elseif ($ativo == '1') {
             $this->Session->write("ativo", $ativo);
-            // $condicoes['OR'] = array('motivoegresso' => "", 'motivoegresso IS NULL');
         } elseif ($ativo == '2') {
             $this->Session->write("ativo", $ativo);
-            // $condicoes['NOT'] = array('motivoegresso' => 'NULL');
         } else {
             $ativo = $this->Session->read("ativo");
             if ($ativo) {
@@ -41,22 +27,18 @@ class DocentesController extends AppController {
             }
         }
 
-        // pr($ativo);
-
         if ($ativo === '1') {
-            $condicoes['OR'] = array('motivoegresso' => "", 'motivoegresso IS NULL');
+            $condicoes['OR'] = ['motivoegresso' => "", 'motivoegresso IS NULL'];
         } elseif ($ativo === '2') {
             $condicoes['motivoegresso != '] = "";
         }
 
         if ($departamento === NULL):
-            // echo "Departamento vazia ou zero " . $departamento . '<br>';
             $departamento = $this->Session->read("departamento");
             if ($departamento) {
                 $condicoes['departamento'] = $departamento;
             };
         else:
-            // echo 'Departamento selecionado: ' . $departamento . '<br>';
             if ($departamento != '0') {
                 $this->Session->write("departamento", $departamento);
                 $condicoes['departamento'] = $departamento;
@@ -65,7 +47,6 @@ class DocentesController extends AppController {
             }
         endif;
 
-        // pr($condicoes);
         $semestre_id = $this->Session->read('semestre');
         if ($semestre_id == "" or $semestre_id == NULL) {
             $this->Flash->error(__('Especifique o semestre.'));
@@ -89,7 +70,6 @@ class DocentesController extends AppController {
             $this->data = $this->Docente->read();
         } else {
             if ($this->Docente->save($this->data)) {
-                // print_r($this->data);
                 $this->Flash->success(__('Atualizado.'));
                 return $this->redirect(['controller' => 'Docentes', 'action' => 'view', $id]);
             }

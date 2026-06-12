@@ -29,7 +29,7 @@ class SalasController extends AppController {
         $sala = $this->Sala->find('first', [
             'conditions' => ['Sala.id' => $id]
         ]);
-         $this->set('sala', $sala);
+        $this->set('sala', $sala);
     }
 
     public function add() {
@@ -53,37 +53,37 @@ class SalasController extends AppController {
 
         $semestre = $this->Session->read('semestre');
         if (empty($semestre)):
-            $c_semestre = $this->Planejamento->find('first', array(
+            $c_semestre = $this->Planejamento->find('first', [
                 'fields' => 'configuraplanejamento_id',
-                'order' => array('configuraplanejamento_id' => 'DESC')));
+                'order' => ['configuraplanejamento_id' => 'DESC']
+            ]);
             $semestre = $c_semestre['Planejamento']['configuraplanejamento_id'];
             $this->Session->write("semestre", $semestre);
         endif;
 
         $quantidade_salas = $this->Sala->find('count');
-        // pr($quantidade_salas);
-        // die();
+
         // Envio a lista das salas para o view
-        $this->set('salatotal', $this->Sala->find('all', array(
-                    'order' => 'Sala.id', 'Planejamento.dia_id')));
+        $this->set('salatotal', $this->Sala->find('all', [
+                    'order' => 'Sala.id', 'Planejamento.dia_id']));
 
         $this->loadModel('Horario');
-        $this->set('horarios', $this->Horario->find('all', array('order' => 'id')));
+        $this->set('horarios', $this->Horario->find('all', ['order' => 'id']));
 
         //$q_salas = 0;
         for ($q_salas = 1; $q_salas < $quantidade_salas + 1; $q_salas++):
             for ($q_horarios = 1; $q_horarios < 7; $q_horarios++):
                 for ($q_dias = 1; $q_dias < 6; $q_dias++):
                     // $this->Sala->recursive = -1;
-                    $salas = $this->Sala->Planejamento->find('all', array(
-                        'conditions' => array(
+                    $salas = $this->Sala->Planejamento->find('all', [
+                        'conditions' => [
                             'Sala.sala' => $q_salas,
                             'Planejamento.configuraplanejamento_id' => $semestre,
                             'Planejamento.dia_id' => $q_dias,
                             'Planejamento.horario_id' => $q_horarios,
-                        ),
-                        'fields' => array('Sala.id', 'Sala.sala', 'Dia.dia', 'Dia.id', 'Horario.horario', 'Horario.id', 'Disciplina.disciplina', 'Disciplina.id')
-                            )
+                        ],
+                        'fields' => ['Sala.id', 'Sala.sala', 'Dia.dia', 'Dia.id', 'Horario.horario', 'Horario.id', 'Disciplina.disciplina', 'Disciplina.id']
+                            ]
                     );
 
                     if ($salas):

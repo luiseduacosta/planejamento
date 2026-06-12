@@ -26,10 +26,10 @@
 <?php
 
 echo $this->Form->Create('Configuraplanejamento');
-echo $this->Form->Input('semestre', array('value' => $semestre_data));
-echo $this->Form->Input('versao', array('value' => $versao, 'default' => 0));
-echo $this->Form->Input('versaonome', array('type' => 'hidden', 'value' => 'Principal'));
-echo $this->Form->Input('usuarioplanejamento_id', array('type' => 'hidden', 'value' => $usuario['id']));
+echo $this->Form->Input('semestre', ['value' => $semestre_data]);
+echo $this->Form->Input('versao', ['value' => $versao, 'default' => 0]);
+echo $this->Form->Input('versaonome', ['type' => 'hidden', 'value' => 'Principal']);
+echo $this->Form->Input('usuarioplanejamento_id', ['type' => 'hidden', 'value' => $usuario['id']]);
 echo $this->Form->End('Confirma');
 
 ?>

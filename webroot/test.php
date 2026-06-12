@@ -26,7 +26,7 @@ if (function_exists('ini_set')) {
 if (!defined('TMP')) {
 	$sep = DIRECTORY_SEPARATOR;
 	$tmpDir = rtrim(sys_get_temp_dir(), $sep) . $sep . 'planejamento' . $sep;
-	$tmpDirs = array(
+	$tmpDirs = [
 		$tmpDir,
 		$tmpDir . 'cache' . $sep,
 		$tmpDir . 'cache' . $sep . 'persistent' . $sep,
@@ -34,7 +34,7 @@ if (!defined('TMP')) {
 		$tmpDir . 'cache' . $sep . 'views' . $sep,
 		$tmpDir . 'logs' . $sep,
 		$tmpDir . 'sessions' . $sep
-	);
+	];
 	foreach ($tmpDirs as $dir) {
 		if (!is_dir($dir)) {
 			@mkdir($dir, 0777, true);

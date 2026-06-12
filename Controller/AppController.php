@@ -32,24 +32,24 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-    public $components = array(
+    public $components = [
         'Session',
         'Flash',
-        'Auth');
+        'Auth'];
 
     public function beforeFilter() {
 
-        $this->Auth->authenticate = array(
-            'Form' => array(
+        $this->Auth->authenticate = [
+            'Form' => [
                 'userModel'      => 'Usuarioplanejamento',
-                'fields'         => array('username' => 'email', 'password' => 'password'),
+                'fields'         => ['username' => 'email', 'password' => 'password'],
                 'passwordHasher' => 'Blowfish',
-            )
-        );
-        $this->Auth->loginAction = array('controller' => 'usuarioplanejamentos', 'action' => 'login');
-        $this->Auth->loginRedirect = array('controller' => 'planejamentos', 'action' => 'index');
-        $this->Auth->logoutAction = array('controller' => 'usuarioplanejamentos', 'action' => 'logout');
-        $this->Auth->logoutRedirect = array('controller' => 'planejamentos', 'action' => 'index');
+            ]
+        ];
+        $this->Auth->loginAction = ['controller' => 'usuarioplanejamentos', 'action' => 'login'];
+        $this->Auth->loginRedirect = ['controller' => 'planejamentos', 'action' => 'index'];
+        $this->Auth->logoutAction = ['controller' => 'usuarioplanejamentos', 'action' => 'logout'];
+        $this->Auth->logoutRedirect = ['controller' => 'planejamentos', 'action' => 'index'];
         $this->Auth->authorize = 'Controller';
         $this->Auth->authError = 'Acesso não autorizado.';
         $this->Auth->allow('listar', 'index', 'view', 'otp', 'nucleotematico', 'optativa');

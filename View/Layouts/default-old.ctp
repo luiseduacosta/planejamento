@@ -48,9 +48,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
 		<div id="footer">
 			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
+					$this->Html->image('cake.power.gif', ['alt' => $cakeDescription, 'border' => '0']),
 					'https://cakephp.org/',
-					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
+					['target' => '_blank', 'escape' => false, 'id' => 'cake-powered']
 				);
 			?>
 			<p>

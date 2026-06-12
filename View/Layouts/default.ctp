@@ -57,20 +57,20 @@
             <div id='menu'>
                 <?php 
                 if ($usuario) {
-                    echo $this->Html->link("Sair", '/usuarioplanejamentos/logout', array('class' => 'aba')); 
+                    echo $this->Html->link("Sair", '/usuarioplanejamentos/logout', ['class' => 'aba']); 
                 } else {
-                    echo $this->Html->link("Entrar", '/usuarioplanejamentos/login', array('class' => 'aba'));                     
+                    echo $this->Html->link("Entrar", '/usuarioplanejamentos/login', ['class' => 'aba']);                     
                 }
                 ?>
-                <?php echo $this->Html->link("Configuração", "/configuraplanejamentos/index", array('class' => 'aba')); ?>
-                <?php echo $this->Html->link("Planejamento", "/planejamentos/", array('class' => 'aba')); ?>
-                <?php echo $this->Html->link("Horarios", "/horarios/index", array('class' => 'aba')); ?>
-                <?php echo $this->Html->link("Disciplinas", "/disciplinas/index", array('class' => 'aba')); ?>
-                <?php echo $this->Html->link("Professores", "/docentes/index/ativo:1", array('class' => 'aba')); ?>
-                <?php echo $this->Html->link("Salas", "/salas/index", array('class' => 'aba')); ?>
-                <?php echo $this->Html->link("OTP", "/planejamentos/otp", array('class' => 'aba')); ?>
-                <?php echo $this->Html->link("N. temáticos", "/planejamentos/nucleotematico", array('class' => 'aba')); ?>
-                <?php echo $this->Html->link("Optativas", "/planejamentos/optativa", array('class' => 'aba')); ?>
+                <?php echo $this->Html->link("Configuração", "/configuraplanejamentos/index", ['class' => 'aba']); ?>
+                <?php echo $this->Html->link("Planejamento", "/planejamentos/", ['class' => 'aba']); ?>
+                <?php echo $this->Html->link("Horarios", "/horarios/index", ['class' => 'aba']); ?>
+                <?php echo $this->Html->link("Disciplinas", "/disciplinas/index", ['class' => 'aba']); ?>
+                <?php echo $this->Html->link("Professores", "/docentes/index/ativo:1", ['class' => 'aba']); ?>
+                <?php echo $this->Html->link("Salas", "/salas/index", ['class' => 'aba']); ?>
+                <?php echo $this->Html->link("OTP", "/planejamentos/otp", ['class' => 'aba']); ?>
+                <?php echo $this->Html->link("N. temáticos", "/planejamentos/nucleotematico", ['class' => 'aba']); ?>
+                <?php echo $this->Html->link("Optativas", "/planejamentos/optativa", ['class' => 'aba']); ?>
             </div>
 
             <div id="submenusuperior">
@@ -88,7 +88,7 @@
             <div id="footer">
                 <?php
                 echo $this->Html->link(
-                        $this->Html->image('cake.power.gif', array('alt' => __("CakePHP: the rapid development php framework", true), 'border' => "0")), 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false)
+                        $this->Html->image('cake.power.gif', ['alt' => __("CakePHP: the rapid development php framework", true), 'border' => "0"]), 'http://www.cakephp.org/', ['target' => '_blank', 'escape' => false]
                 );
                 ?>
             </div>

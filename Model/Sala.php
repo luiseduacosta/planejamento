@@ -14,6 +14,6 @@ class Sala extends AppModel {
     public $useTable = 'salas';
     public $primaryKey = 'id';
 
-    public $hasMany = array('Planejamento');
+    public $hasMany = ['Planejamento'];
     
 }

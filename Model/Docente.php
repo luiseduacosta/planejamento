@@ -13,6 +13,6 @@ class Docente extends AppModel {
     public $name = 'Docente';
     public $useTable = 'docentes';
     public $primaryKey = 'id';
-    public $hasMany = array('Planejamento');
+    public $hasMany = ['Planejamento'];
 
 }

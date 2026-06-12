@@ -13,6 +13,6 @@ class Dia extends AppModel {
     public $name = 'Dia';
     public $useTable = 'dias';
     public $primaryKey = 'id';
-    // public $hasMany = array('Planejamento');
+    // public $hasMany = ['Planejamento'];
 
 }

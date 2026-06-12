@@ -14,6 +14,6 @@ class Optativa extends AppModel {
     public $useTable = 'optativas';
     public $primaryKey = 'id';
     
-    public $hasMany = array('Planejamento');
+    public $hasMany = ['Planejamento'];
 
 }
