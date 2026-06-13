@@ -5,8 +5,7 @@
 echo $this->element('submenu_professores');
 ?>
 
-
-<table>
+<table style="width:80%; border:1px solid black;">
     <tr>
         <td>Siape</td>
         <td><?php echo $docente['Docente']['siape']; ?></td>
@@ -25,7 +24,7 @@ echo $this->element('submenu_professores');
     </tr>
     <tr>
         <td>Situação (afastamento, etc.)</td>
-        <td><?php echo $docente['Docente']['situacao']; ?></td>
+        <td><?php echo $docente['Docente']['situacao'] ? 'inativo' : 'ativo'; ?></td>
     </tr>
     <tr>
         <td>Egresso</td>

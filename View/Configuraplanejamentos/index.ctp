@@ -1,11 +1,9 @@
-<?php // pr($configuraplanejamentos);          ?>
-
 <?php
-$this->element('submenu_configuraplanejamentos');
+echo $this->element('submenu_configuraplanejamentos');
 ?>
 
-<div align="center">
-    <table style="width:80%; border:1px solid black;">
+<div style="margin-top: 10px;">
+    <table style="width:100%; border:1px solid black;">
         <tr>
             <th>Id</th>
             <th>Semestre</th>

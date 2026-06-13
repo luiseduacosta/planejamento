@@ -46,7 +46,7 @@
         <div id="container">
             <div id="header">
                 <?php $semestreporextenso = $this->Session->read('semestreporextenso'); ?>
-               <?php $usuario = $this->Auth->user(); ?>
+               <?php $usuario = $this->Session->read('Auth.User'); ?>
                 <?php if ($usuario): ?>
                     <h1><?php echo $this->Html->link(__('Planejamento da grade - ESS - UFRJ: ' . $semestreporextenso . '. Usuário: ' . $usuario['email'], true), '/configuraplanejamentos/index'); ?></h1>
                 <?php else: ?>

@@ -118,7 +118,6 @@ class PlanejamentosController extends AppController
         if ($this->data) {
             $p = $this->data['Planejamento'];
 
-            // Bug fix: include configuraplanejamento_id in conflict check
             $existe = $this->Planejamento->find('first', [
                 'conditions' => [
                     'Planejamento.configuraplanejamento_id' => $p['configuraplanejamento_id'],
@@ -128,20 +127,20 @@ class PlanejamentosController extends AppController
                     'Planejamento.horario_id' => $p['horario_id'],
                 ]
             ]);
-
+            
             if ($this->Planejamento->save($this->data)) {
                 if ($existe) {
-                    $this->Flash->warning(__('Verifique se for OTP ou Núcleo Temático! Dia e horário nesse período e turno já ocupados.'));
+                    $this->Flash->error(__('Dia e horário nesse período e turno já ocupados.'));
                 } else {
                     $this->Flash->success(__('Dados inseridos.'));
                 }
-                return $this->redirect(['controller' => 'Planejamentos', 'action' => 'listar']);
+                return $this->redirect(['controller' => 'Planejamentos', 'action' => 'listar', 'semestre_id' => $p['configuraplanejamento_id']]);
             }
 
             $this->Flash->error(__('Não foi possível inserir o registro.'));
         }
 
-        $this->set('configuracao', $this->Planejamento->Configuraplanejamento->find('first', ['order' => ['id' => 'DESC']]));
+        $this->set('configuracao', $this->Planejamento->Configuraplanejamento->find('first', ['order' => ['Configuraplanejamento.id' => 'DESC']]));
         $this->set('dias',         $this->Planejamento->Dia->find('list', ['fields' => 'dia']));
         $this->set('horarios',     $this->Planejamento->Horario->find('list', ['fields' => 'horario']));
         $this->set('disciplinas',  $this->Planejamento->Disciplina->find('list', ['fields' => 'disciplina', 'order' => 'disciplina']));

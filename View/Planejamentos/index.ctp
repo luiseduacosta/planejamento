@@ -1,21 +1,10 @@
 <?php
-
-// pr($diurno);             ?>
-<?php // pr($horarios);                      ?>
-
-<?php
 echo $this->element('submenu_planejamentos');
 ?>
-
-<div align="center">
-    <h1>Planejamento horário diurno</h1>
-</div>
 
 <?php
 $periodo_tabela = 1;
 foreach ($diurno as $periodo_diurno):
-    // pr($periodo_diurno); // Tr
-    // if ($periodo_diurno['Planejamento']['periodo'] == 1):
     ?>
 <div align="center">
     <H1>Tabela diurno. Período: <?php echo $periodo_tabela; ?></H1>

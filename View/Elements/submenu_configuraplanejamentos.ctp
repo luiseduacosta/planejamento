@@ -1,4 +1,4 @@
-<div class = "submenusuperior">
+<div class = "submenusuperior" style="margin-top: 10px;">
     <?php
     if (!empty($this->params['pass']['0'])) {
         echo $this->Html->link('Editar', '/configuraplanejamentos/edit/' . $this->params['pass']['0'], ['class' => 'aba']);
@@ -6,8 +6,7 @@
         echo $this->Html->link('Listar', '/configuraplanejamentos/index', ['class' => 'aba']);
     } else {
         echo $this->Html->link('Listar', '/configuraplanejamentos/index', ['class' => 'aba']);
-        // echo $this->Html->link('Inserir', '/configuraplanejamentos/add', ['class' => 'aba']);
+        echo $this->Html->link('Inserir', '/configuraplanejamentos/add', ['class' => 'aba']);
     }
     ?>
-    <?php // pr($this->params);   ?>
 </div>
