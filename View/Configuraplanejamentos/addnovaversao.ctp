@@ -28,7 +28,7 @@
 echo $this->Form->Create('Configuraplanejamento');
 echo $this->Form->Input('semestre', ['value' => $semestre_data]);
 echo $this->Form->Input('versao', ['value' => $versao]);
-echo $this->Form->Input('versaonome', ['label' => 'Identifique a versão com um nome']);
+echo $this->Form->Input('nome', ['label' => 'Identifique a versão com um nome']);
 echo $this->Form->Input('usuarioplanejamento_id', ['type' => 'hidden', 'value' => $usuario['id']]);
 echo $this->Form->End('Confirma');
 

@@ -21,7 +21,6 @@ foreach ($diurno as $periodo_diurno):
             <?php
             $tempo_de_aula = 0;
             foreach ($periodo_diurno as $dias_diurno):
-                // pr($dias_diurno);
                 ?>
         <tr>
             <td><?php echo $horarios[$tempo_de_aula]['Horario']['horario']; ?></td>
@@ -34,12 +33,8 @@ foreach ($diurno as $periodo_diurno):
                 if ($horarios_diurno):        
                     foreach ($horarios_diurno as $d_horarios_diurno):
                         foreach ($d_horarios_diurno as $c_d_horarios_diurno):
-                            // pr($c_d_horarios_diurno);
                             if (is_array($c_d_horarios_diurno)):
-                            // pr($c_d_horarios_diurno);
                                 if ($c_d_horarios_diurno['disciplina']):
-                                        // pr($horarios_diurno['Planejamento']);
-                                        // die();
                                     echo $this->Html->link($c_d_horarios_diurno['disciplina'], '/Planejamentos/listar/semestre_id:' . $c_d_horarios_diurno['configuraplanejamento_id'] . '/disciplina:' . $c_d_horarios_diurno['disciplina_id']) . '<br>';
                                     echo $this->Html->link($c_d_horarios_diurno['docente'], '/Planejamentos/listar/semestre_id:' . $c_d_horarios_diurno['configuraplanejamento_id'] . '/professor:' . $c_d_horarios_diurno['docente_id']) . '<br>';
                                     echo $c_d_horarios_diurno['sala'] . '<br>';
@@ -51,8 +46,7 @@ foreach ($diurno as $periodo_diurno):
                             endif;
                         endforeach;    
                     endforeach;
-                endif;        
-                        
+                endif;
             ?>
             </td>
             
@@ -83,8 +77,6 @@ endforeach;
 <?php
 $periodo_tabela = 1;
 foreach ($noturno as $periodo_noturno):
-    // pr($periodo_diurno); // Tr
-    // if ($periodo_diurno['Planejamento']['periodo'] == 1):
     ?>
 <div align="center">
     <H1>Tabela noturno. Período: <?php echo $periodo_tabela; ?></H1>
@@ -101,7 +93,6 @@ foreach ($noturno as $periodo_noturno):
             <?php
             $tempo_de_aula = 4;
             foreach ($periodo_noturno as $dias_noturno):
-                // pr($dias_diurno[0]);
                 ?>
         <tr>
             <td><?php echo $horarios[$tempo_de_aula]['Horario']['horario']; ?></td>
@@ -115,12 +106,8 @@ foreach ($noturno as $periodo_noturno):
                 if ($horarios_noturno):        
                     foreach ($horarios_noturno as $d_horarios_noturno):
                         foreach ($d_horarios_noturno as $c_d_horarios_noturno):
-                            // pr($c_d_horarios_diurno);
                             if (is_array($c_d_horarios_noturno)):
-                            // pr($c_d_horarios_diurno);
                                 if ($c_d_horarios_noturno['disciplina']):
-                                        // pr($horarios_diurno['Planejamento']);
-                                        // die();
                                     echo $this->Html->link($c_d_horarios_noturno['disciplina'], '/Planejamentos/listar/semestre_id:' . $c_d_horarios_noturno['configuraplanejamento_id'] . '/disciplina:' . $c_d_horarios_noturno['disciplina_id']) . '<br>';
                                     echo $this->Html->link($c_d_horarios_noturno['docente'], '/Planejamentos/listar/semestre_id:' . $c_d_horarios_noturno['configuraplanejamento_id'] . '/professor:' . $c_d_horarios_noturno['docente_id']) . '<br>';
                                     echo $c_d_horarios_noturno['sala'] . '<br>';

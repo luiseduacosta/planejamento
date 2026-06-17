@@ -150,14 +150,26 @@ class PlanejamentosController extends AppController
 
     public function view($id = null)
     {
+        if (!$id) {
+            $this->Flash->error(__('Registro não encontrado.'));
+            return $this->redirect(['controller' => 'Planejamentos', 'action' => 'listar']);
+        }
         $planejamento = $this->Planejamento->find('first', [
             'conditions' => ['Planejamento.id' => $id]
         ]);
+        if (!$planejamento) {
+            $this->Flash->error(__('Registro não encontrado.'));
+            return $this->redirect(['controller' => 'Planejamentos', 'action' => 'listar']);
+        }
         $this->set('planejamento', $planejamento);
     }
 
     public function edit($id = null)
     {
+        if (!$id || !$this->Planejamento->exists($id)) {
+            $this->Flash->error(__('Registro não encontrado.'));
+            return $this->redirect(['controller' => 'Planejamentos', 'action' => 'listar']);
+        }
         $this->Planejamento->id = $id;
 
         if (empty($this->data)) {
@@ -228,6 +240,14 @@ class PlanejamentosController extends AppController
 
     public function delete($id = null)
     {
+        if (!$id) {
+            $this->Flash->error(__('Registro não encontrado.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+        }
+        if (!$this->Planejamento->exists($id)) {
+            $this->Flash->error(__('Registro não encontrado.'));
+            return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
+        }
         $this->Planejamento->delete($id);
         $this->Flash->success(__('Registro excluído.'));
         return $this->redirect(['controller' => 'configuraplanejamentos', 'action' => 'index']);
@@ -311,7 +331,6 @@ class PlanejamentosController extends AppController
 
         $this->Session->write('semestreporextenso', $this->semestreporextenso($semestre_id));
 
-        // Bug fix: was $this->Paginate($conditions?:[]()) — invalid syntax
         $conditions = [
             'Planejamento.configuraplanejamento_id' => $semestre_id,
             'Disciplina.codigo'                     => self::DISCIPLINAS_NUCLEO_CODIGOS,
@@ -330,7 +349,6 @@ class PlanejamentosController extends AppController
 
         $this->Session->write('semestreporextenso', $this->semestreporextenso($semestre_id));
 
-        // Bug fix: was $this->Paginate($conditions?:[]()) — invalid syntax
         $conditions = [
             'Planejamento.configuraplanejamento_id' => $semestre_id,
             'Planejamento.disciplina_id'            => self::DISCIPLINAS_OPTATIVAS_IDS,
@@ -341,6 +359,10 @@ class PlanejamentosController extends AppController
 
     public function relaciona($id = null)
     {
+        if (!$id || !$this->Planejamento->exists($id)) {
+            $this->Flash->error(__('Registro não encontrado.'));
+            return $this->redirect(['controller' => 'Planejamentos', 'action' => 'listar']);
+        }
         $this->Planejamento->id = $id;
 
         if (empty($this->data)) {
@@ -434,7 +456,6 @@ class PlanejamentosController extends AppController
                 '?' => compact('semestre_id', 'semestre_data', 'versao')]);
         }
 
-        // Bug fix: was find('all') then accessed as scalar — must be find('first')
         $this->Planejamento->Configuraplanejamento->recursive = -1;
         $configOrigem = $this->Planejamento->Configuraplanejamento->find('first', [
             'conditions' => ['Configuraplanejamento.id' => $semestre_id]
@@ -472,10 +493,19 @@ class PlanejamentosController extends AppController
      */
     public function excluir($id = null)
     {
+        if (!$id) {
+            $this->Flash->error(__('Configuração não encontrada.'));
+            return $this->redirect(['controller' => 'Planejamentos', 'action' => 'index']);
+        }
         $planejamentos = $this->Planejamento->find('all', [
             'conditions' => ['Planejamento.configuraplanejamento_id' => $id],
             'fields'     => ['Planejamento.id'],
         ]);
+
+        if (empty($planejamentos)) {
+            $this->Flash->error(__('Nenhum registro encontrado para exclusão.'));
+            return $this->redirect(['controller' => 'Planejamentos', 'action' => 'index']);
+        }
 
         foreach ($planejamentos as $c) {
             $this->Planejamento->delete($c['Planejamento']['id']);
@@ -488,7 +518,6 @@ class PlanejamentosController extends AppController
     /**
      * Clone current semester's planning to the next semester (admin only).
      *
-     * Bug fix: the original auth check was inverted — it blocked everyone including admins.
      */
     public function clonar()
     {
