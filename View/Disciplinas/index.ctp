@@ -34,6 +34,15 @@ $("#DisciplinaPeriodoNoturno").change(function() {
         }
 })
 
+$("#DisciplinaCurriculo").change(function() {
+	var curriculo = $(this).val();
+        if (url === "localhost") {
+            window.location="/" + base_url[1] + "/Disciplinas/index/curriculo:"+curriculo;
+        } else {
+            window.location="/Disciplinas/index/curriculo:"+curriculo;
+        }
+})
+
 });
 
 ', ["inline" => false]);
@@ -48,7 +57,11 @@ $("#DisciplinaPeriodoNoturno").change(function() {
     echo $this->Form->Create('Disciplina', ['inputDefaults' => ['label' => false, 'div' => false]]);
     echo $this->Form->Input('periodo_noturno', ['type' => 'select', 'options' => ['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10'], 'selected' => [$noturno], 'empty' => ['0' => 'Noturno']]);
 // echo $this->Form->End('Confirma');
+
+    echo $this->Form->Create('Disciplina', ['inputDefaults' => ['label' => false, 'div' => false]]);
+    echo $this->Form->Input('curriculo', ['type' => 'select', 'options' => $curriculos_list, 'selected' => [$curriculo], 'empty' => ['0' => 'Currículo']]);
     ?>
+
 
 </div>
 
@@ -84,6 +97,7 @@ $("#DisciplinaPeriodoNoturno").change(function() {
             <th><?php echo $this->Paginator->sort('carga_horaria', 'Carga horária'); ?></th>
             <th><?php echo $this->Paginator->sort('periodo_diurno', 'Diurno'); ?></th>
             <th><?php echo $this->Paginator->sort('periodo_noturno', 'Noturno'); ?></th>
+            <th><?php echo $this->Paginator->sort('curriculo', 'Currículo'); ?></th>
             <th><?php echo $this->Paginator->sort('docente_id', 'Professores'); ?></th>
         </tr>
 
@@ -102,6 +116,7 @@ $("#DisciplinaPeriodoNoturno").change(function() {
                 <td><?php echo $c_disciplinas['Disciplina']['carga_horaria']; ?></td>
                 <td><?php echo $c_disciplinas['Disciplina']['periodo_diurno']; ?></td>
                 <td><?php echo $c_disciplinas['Disciplina']['periodo_noturno']; ?></td>
+                <td><?php echo $c_disciplinas['Disciplina']['curriculo']; ?></td>
                 <td>
                     <?php
                     foreach ($c_disciplinas['Planejamento'] as $docente_disciplinas):

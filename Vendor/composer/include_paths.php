@@ -7,8 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     $vendorDir . '/phpunit/php-code-coverage',
-    $vendorDir . '/phpunit/phpunit-mock-objects',
     $vendorDir . '/phpunit/php-token-stream',
     $vendorDir . '/phpunit/phpunit',
     $vendorDir . '/symfony/yaml',
+    $vendorDir . '/phpunit/phpunit-mock-objects',
 );

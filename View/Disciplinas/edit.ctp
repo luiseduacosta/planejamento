@@ -8,6 +8,7 @@ echo $this->Form->Input('optativa', ['label' => 'Marcar se a disciplina for opta
 echo $this->Form->Input('carga_horaria');
 echo $this->Form->Input('periodo_diurno');
 echo $this->Form->Input('periodo_noturno');
+echo $this->Form->Input('curriculo');
 echo $this->Form->Input('observacoes');
 echo $this->Form->End('Confirma');
 

@@ -42,6 +42,10 @@ echo $this->element('submenu_disciplinas');
         <td><?php echo $disciplina['Disciplina']['periodo_noturno']; ?></td>
     </tr>
     <tr>
+        <td>Currículo</td>
+        <td><?php echo $disciplina['Disciplina']['curriculo']; ?></td>
+    </tr>
+    <tr>
         <td>Observações</td>
         <td><?php echo $disciplina['Disciplina']['observacoes']; ?></td>
     </tr>

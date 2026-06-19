@@ -10,8 +10,9 @@ class DisciplinasController extends AppController {
     public function index() {
 
         $parametros = $this->params['named'];
-        $diurno = isset($parametros['diurno']) ? $parametros['diurno'] : NULL;
-        $noturno = isset($parametros['noturno']) ? $parametros['noturno'] : NULL;
+        $diurno    = isset($parametros['diurno'])    ? $parametros['diurno']    : NULL;
+        $noturno   = isset($parametros['noturno'])   ? $parametros['noturno']   : NULL;
+        $curriculo = isset($parametros['curriculo']) ? $parametros['curriculo'] : NULL;
 
         $condicoes = NULL;
 
@@ -51,13 +52,44 @@ class DisciplinasController extends AppController {
             }
         endif;
 
+        // Currículo filter (same pattern as diurno/noturno)
+        if ($curriculo === NULL):
+            $curriculo = $this->Session->read("curriculo");
+            if ($curriculo) {
+                $condicoes['curriculo'] = $curriculo;
+            };
+        else:
+            if ($curriculo != '0') {
+                $this->Session->write('curriculo', $curriculo);
+                $condicoes['curriculo'] = $curriculo;
+            } else {
+                $this->Session->delete('curriculo');
+            }
+        endif;
+
         $disciplinas = $this->Disciplina->find('all');
         
+        // Build list of distinct curriculo values for the filter dropdown
+        $curriculos_raw = $this->Disciplina->find('all', [
+            'fields'     => 'DISTINCT Disciplina.curriculo',
+            'conditions' => ['Disciplina.curriculo !=' => ''],
+            'order'      => 'Disciplina.curriculo ASC',
+        ]);
+        $curriculos_list = [];
+        foreach ($curriculos_raw as $row) {
+            $v = $row['Disciplina']['curriculo'];
+            if ($v !== null && $v !== '') {
+                $curriculos_list[$v] = $v;
+            }
+        }
+
         $disciplinas = $this->Paginate($condicoes);
 
         $this->set('disciplinas', $disciplinas);
         $this->set('diurno', $diurno);
         $this->set('noturno', $noturno);
+        $this->set('curriculo', $curriculo);
+        $this->set('curriculos_list', $curriculos_list);
     }
 
     public function edit($id = NULL) {
